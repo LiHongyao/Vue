@@ -4,7 +4,7 @@ MVVM（ Model-View-ViewModel ） 为一种设计模式，下图不仅概括了 M
 
 ![](IMGS/mvvm.png)
 
-**ViewModel 是 Vue.js 的核心，它是一个 Vue 实例。**
+**\> ViewModel 是 Vue.js 的核心，它是一个 Vue 实例。**
 
 当创建了ViewModel 后，双向绑定是如何达成的呢？
 
