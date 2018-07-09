@@ -119,7 +119,7 @@ vm.$watch('a', function (newValue, oldValue) {
 });
 ```
 
-# # 实例生命周期
+# # 生命周期
 
 每个 Vue 实例在被创建之前都要经过一系列的初始化过程。例如需要设置数据监听、编译模板、挂载实例到 DOM、在数据变化时更新 DOM 等。同时在这个过程中也会运行一些叫做**生命周期钩子**的函数，给予用户机会在一些特定的场景下添加他们自己的代码。
 
@@ -141,17 +141,81 @@ new Vue({
 
 也有一些其它的钩子，在实例生命周期的不同场景下调用，如 [`mounted`](https://cn.vuejs.org/v2/api/#mounted)、[`updated`](https://cn.vuejs.org/v2/api/#updated)、[`destroyed`](https://cn.vuejs.org/v2/api/#destroyed)。钩子的 `this` 指向调用它的 Vue 实例。
 
-# # 生命周期图示
+## 1、生命周期图示
 
 下图说明了实例的生命周期。你不需要立马弄明白所有的东西，不过随着你的不断学习和使用，它的参考价值会越来越高。
 
 ![](IMGS/lifecycle.png)
 
+## 2、生命周期详解
 
+[参考官网](https://cn.vuejs.org/v2/api/#%E9%80%89%E9%A1%B9-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90)
 
+### \> beforeCreate
 
+在实例初始化之后，数据观测(data observer) 和 event/watcher 事件配置之前被调用。
 
+### \> created
 
+实例已经创建完成之后被调用。在这一步，实例已完成以下的配置：数据观测(data observer)，属性和方法的运算， watch/event 事件回调。然而，挂载阶段还没开始，`$el` 属性目前不可见。 可以在组件的这个期间 **请求数据**，如果是keep-alive组件会被缓存起来，生命周期不会再次触发，如果需要更新数据可以watch当前router变化，如果router是当前组件所在的router则请求数据。
+
+```js
+ ...
+  methods : {
+    getData : function(id){
+        ...
+        this.content = 'test';
+    }
+ },
+  created : function(){
+      this.getData(this.id);
+  }
+  ...
+  watch : {
+      $route : function(){
+           if(this.$route.name == 'xxx'){
+                 this.getData(this.id);
+           }
+      }
+   }
+ ...
+```
+
+### \> beforeMount
+
+在挂载开始之前被调用：相关的 `render` 函数首次被调用。
+
+### \> mounted
+
+vm.$el已挂载在文档内，对已有dom节点的操作可以在这期间进行。
+
+### \> beforeUpdate
+
+数据更新时调用，发生在虚拟 DOM 重新渲染和打补丁之前。
+
+可以在这个钩子中进一步地更改状态，这不会触发附加的重渲染过程。
+
+### \> updated
+
+由于数据更改导致的虚拟 DOM 重新渲染和打补丁，在这之后会调用该钩子。
+
+当这个钩子被调用时，组件 DOM 已经更新，所以你现在可以执行依赖于 DOM 的操作。然而在大多数情况下，你应该避免在此期间更改状态，因为这可能会导致更新无限循环。
+
+### \> activated
+
+keep-alive 组件激活时调用。
+
+### \> deactivated
+
+keep-alive 组件停用时调用。
+
+### \> beforeDestroy
+
+实例销毁之前调用。在这一步，实例仍然完全可用。
+
+### \> destroyed
+
+Vue 实例销毁后调用。调用后，Vue 实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。
 
 
 
