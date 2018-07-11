@@ -171,7 +171,48 @@ Axios.interceptors.request.use(function (config) {
 
 # # 跨域解决方案
 
+我们以豆瓣跨域请求为例：
 
+【[豆瓣API](https://developers.douban.com/wiki/?title=guide)】
+
+1. 修改 ./config/index.js 文件：
+
+```js
+proxyTable: {
+  '/api': {
+    target: 'http://api.douban.com/v2',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api': ''
+    }
+  }
+}
+```
+
+2. 在main.js 文件中添加host
+
+```js
+Vue.prototype.HOST = '/api'
+```
+
+3. 请求数据
+
+```js
+let url = this.HOST + '/movie/top250';
+this.$axios.get(url, {
+  params: {
+    count: 10,
+    start: 0
+  }
+})
+.then(res => {
+  console.log(res);
+}).catch(error => {
+  console.log(error);
+})
+```
+
+> 注意：此种跨域解决方案，只适用于测试阶段，打包的时候，不具备服务器，就不能跨域了，交给后端处理。产品上线之后，就不存在跨域问题啦。
 
 
 
