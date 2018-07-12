@@ -266,14 +266,6 @@ getters: {
 this.$store.getters.getCount
 ```
 
-# # 项目结构
-
-
-
-
-
-
-
 
 
 
