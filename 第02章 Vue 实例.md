@@ -1,3 +1,15 @@
+# # MVC
+
+M（Mode）数据层
+
+V（View）视图层
+
+C（Controller）控制层
+
+M -> 发送通知 -> 控制层 -> 刷新视图
+
+V  -> 发送通知 -> 控制层 -> 刷新数据
+
 # # MVVM
 
 MVVM（ Model-View-ViewModel ） 为一种设计模式，下图不仅概括了 MVVM 模式，还描述了在Vue.js 中ViewModel 是如何和 View 以及 Model 进行交互的。
@@ -48,8 +60,6 @@ MVVM（ Model-View-ViewModel ） 为一种设计模式，下图不仅概括了 M
 
 ![](IMGS/mvvm.gif)
 
-[查看demo](https://lihongyao.github.io/tutorials/vue/01.GettingStarted/index.html)
-
 使用Vue的过程就是定义MVVM各个组成部分的过程的过程。
 
 1. **定义View**
@@ -70,9 +80,9 @@ MVVM（ Model-View-ViewModel ） 为一种设计模式，下图不仅概括了 M
 
 ```javascript
 // 我们的数据对象
-var data = { a: 1 }
+let data = { a: 1 }
 // 该对象被加入到一个 Vue 实例中
-var vm = new Vue({
+let vm = new Vue({
   data: data
 })
 // 他们引用相同的对象！
@@ -131,7 +141,7 @@ new Vue({
     data: {
         name: "Henrry Lee"
     },
-    created: function () {
+    created() {
         // this 指向 vue 实例
         console.log(`Hello, ${this.name}!`);
     }
@@ -140,6 +150,26 @@ new Vue({
 ```
 
 也有一些其它的钩子，在实例生命周期的不同场景下调用，如 [`mounted`](https://cn.vuejs.org/v2/api/#mounted)、[`updated`](https://cn.vuejs.org/v2/api/#updated)、[`destroyed`](https://cn.vuejs.org/v2/api/#destroyed)。钩子的 `this` 指向调用它的 Vue 实例。
+
+> 注意：
+>
+> 不要在选项属性或回调上使用[箭头函数](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions)，比如：
+>
+> ```js
+> created: () => console.log(this.a)
+> OR
+> vm.$watch('a', newValue => this.myMethod())
+> ```
+>
+> 因为箭头函数是和父级上下文绑定在一起的，`this` 不会是如你所预期的 Vue 实例，经常导致 
+>
+> ```
+> Uncaught TypeError: Cannot read property of undefined
+> OR
+> Uncaught TypeError: this.myMethod is not a function
+> ```
+>
+> 之类的错误。
 
 ## 1、生命周期图示
 
@@ -187,7 +217,7 @@ new Vue({
 
 ### \> mounted
 
-vm.$el已挂载在文档内，对已有dom节点的操作可以在这期间进行。
+vm.$el 已挂载在文档内，对已有dom节点的操作可以在这期间进行。
 
 ### \> beforeUpdate
 
