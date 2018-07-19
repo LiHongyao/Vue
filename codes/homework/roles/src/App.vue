@@ -52,8 +52,11 @@ export default {
     return {
       keywords: '',
       isEdit: false,
+      editIndex: 0,
       role: {},
-      titles: ['英雄昵称', '英雄定位', '英雄技能', '英雄位置', '操作'],
+      titles: [
+        '英雄昵称', '英雄定位', '英雄技能', '英雄位置', '操作'
+      ],
       roles: [
         {name: '露娜', position: '打野', skill: '新月突击', location: '野区'},
         {name: '哪吒', position: '战士', skill: '炙炼火种', location: '上路'},
@@ -68,6 +71,13 @@ export default {
     }
   },
   methods: {
+    // 深复制/避免响应式
+    copy(obj1, obj2) {
+      for(let key in obj2) {
+        obj1[key] = obj2[key];
+      }
+      return obj1;
+    },
     // 数据过滤
     filterArr() {
       let _this = this;
@@ -85,8 +95,9 @@ export default {
       }
       switch(this.isEdit) {
         case true: {   // 编辑角色
-          this.isEdit = false;
           alert('编辑成功！');
+          this.isEdit = false;
+          this.roles.splice(this.editIndex, 1, this.role);
           this.role = {};
         }break;
         case false: {  // 创建角色
@@ -102,15 +113,16 @@ export default {
             return;
           }
           alert('创建成功！');
-          this.roles.push(this.role);
+          this.roles.push(this.copy({}, this.role));
         }break;
       }
     },
     // 点击编辑按钮
     handleEdit(e) {
       let index = e.target.parentElement.parentElement.dataset.index;
+      this.editIndex = index;
       this.isEdit = true;
-      this.role = this.roles[index];
+      this.role = this.copy({}, this.roles[index]);
     },
     // 点击删除删除
     handleDelete(e) {
