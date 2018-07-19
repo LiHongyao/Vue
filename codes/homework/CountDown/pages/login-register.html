@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PROJ - 登陆</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/login-register.css">
+    <link rel="stylesheet" href="../plugins/LHYAlertView.css">
+</head>
+<body>
+    <div class="container" id="container">
+        <!--头部-->
+        <header>
+            <h1 class="title">{{isShowLoginPage ? "LOGIN" : "REGISTER"}}</h1>
+        </header>
+        <!--内容-->
+        <div class="content">
+            <div class="page">
+                <form name="myForm">
+                    <div class="ipt-box">
+                        <span>账号：</span>
+                        <input type="text" placeholder="请输入账号" maxlength="10" v-model="username" :value="username">
+                    </div>
+                    <div class="ipt-box">
+                        <span>密码：</span>
+                        <input type="password" placeholder="请输入密码" maxlength="8" v-model="password" :value="password">
+                    </div>
+                    <div class="tips-box">
+                        <template v-if="isShowLoginPage">
+                            <span>记住密码？</span>
+                            <input type="checkbox" v-model="checked">
+                        </template>
+                        <a href="javascript:;" v-else @click="tabPages">返回登陆</a>
+                        <a href="javascript:;" class="button" id="go-register-btn" @click="tabPages" v-show="isShowLoginPage">没有账号？点击注册</a>
+                    </div>
+                    <div class="btn" @click="handleLoginBtnClick">{{isShowLoginPage ? "登陆" : "注册"}}</div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="alert-box"></div>
+
+    <script src="../js/vue.min.js"></script>
+    <script src="../plugins/LHYAlertView.js"></script>
+    <script src="../js/functions.js"></script>
+    <script src="../js/login-register.js"></script>
+</body>
+</html>

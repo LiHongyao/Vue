@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>c01-basic</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- v-model：双向绑定 -->
+      <input type="text" v-model="message">
+      <p>{{message}}</p>
+      <p>{{name}}</p>
+
+      <div class="test">
+        <h3>{{info.title}}</h3>
+        <!-- v-bind:属性绑定 -->
+        <img v-bind:src="info.img" width="400" />
+        <p>{{info.content}}</p>
+      </div>
+
+    </div>
+    <p>{{message}}</p>
+    <!-- built files will be auto injected -->
+  </body>
+</html>

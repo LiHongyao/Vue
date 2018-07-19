@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PROJ - 2018 国庆倒计时</title>
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+    <div class="container" id="container">
+        <h1>2018 国庆倒计时</h1>
+        <div class="countdown-box">
+            <section class="countdown-item">
+                <div class="day time-item">{{day}}</div>
+                <p>DAYS</p>
+            </section>
+            <section class="countdown-item">
+                <div class="hours time-item">{{hours}}</div>
+                <p>HOURS</p>
+            </section>
+            <section class="countdown-item">
+                <div class="minutes time-item">{{minutes}}</div>
+                <p>MINUTES</p>
+            </section>
+            <section class="countdown-item">
+                <div class="seconds time-item">{{seconds}}</div>
+                <p>SECONDS</p>
+            </section>
+        </div>
+    </div>
+
+    <script src="./js/vue.min.js"></script>
+    <script src="./js/index.js"></script>
+</body>
+</html>
