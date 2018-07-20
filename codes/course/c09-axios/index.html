@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>c09-axios</title>
+  </head>
+  <body>
+    <div id="app">
+      <button type="button" @click="get">GET</button>
+      <button type="button" @click="post">POST</button>
+      <ul>
+        <li v-for="(content, index) in contentlist" :key="index">
+          <p>{{content.ct}}</p>
+          <h3>{{content.title}}</h3>
+          <img :src="content.img" width="350"  alt="">
+        </li>
+      </ul>
+    </div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>

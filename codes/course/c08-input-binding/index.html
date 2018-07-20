@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>c08-input-binding</title>
+  </head>
+  <body>
+    <div id="app">
+      <form action="#">
+        <!-- 示例1 -->
+        <p>
+          <input type="text" value="Hello, world!" v-model.trim="value">
+        </p>
+        <!-- 示例2 -->
+        <!-- v-model：绑定的是value属性值 -->
+        <p>
+            性别：
+            <label>男</label>
+            <input value="男" type="radio" v-model="checkMsg">
+            <label>女</label>
+            <input value="女" type="radio" v-model="checkMsg">
+            <label>保密</label>
+            <input value="保密" type="radio" v-model="checkMsg">
+        </p>
+        <p>您的选择是：{{checkMsg}}</p>
+        <!-- 示例3 -->
+        <p>下列英雄角色中定位为法师的是（多选）：</p>
+
+        <label>诸葛亮</label>
+        <input type="checkbox" value="诸葛亮" v-model="heros">
+
+        <label>露娜</label>
+        <input type="checkbox" value="露娜" v-model="heros">
+
+        <label>虞姬</label>
+        <input type="checkbox" value="虞姬" v-model="heros">
+
+        <label>貂蝉</label>
+        <input type="checkbox" value="貂蝉" v-model="heros">
+
+        <label>吕布</label>
+        <input type="checkbox" value="吕布" v-model="heros">
+
+        <p>您的选择是：{{ heros }}</p>
+        <!-- 示例4 -->
+        <select name="mySel" v-model="selected">
+          <option value="">-请选择您所在的城市-</option>
+          <option value="成都">成都</option>
+          <option value="上海">上海</option>
+          <option value="北京">北京</option>
+          <option value="深圳">深圳</option>
+          <option value="杭州">杭州</option>
+          <option value="昆明">昆明</option>
+        </select>
+        <p>您选择的城市是：{{selected}}</p>
+      </form>
+    </div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>

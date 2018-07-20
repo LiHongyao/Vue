@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>c07-class-style-binding</title>
+  </head>
+  <body>
+    <div id="app">
+      <div :class="classname"></div>
+      <!-- 是否设置classname = ‘box’ -->
+      <!-- 取决于‘isBox’的值 -->
+      <!-- 如果‘isBox’的值为 ‘true’，则添加 -->
+      <!-- 否则则不添加 -->
+      <div :class="{'box': isBox}"></div>
+      <div :class="classObj"></div>
+      <div :class="[class1, class2]"></div>
+
+      <div :class="classname" 
+           :style="{borderRadius: '8px', background: 'orange'}"></div>
+      <div :class="classname" 
+           :style="{borderRadius: radius, background: bgColor}"></div>
+      <div :class="classname" :style="styleObj"></div>
+    </div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>c06-computed</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 计算属性 -->
+      <form action="#">
+        <input type="number" v-model.number="a">
+        <label>+</label>
+        <input type="number" v-model.number="b">
+        <label>=</label>
+        <label>
+          {{(a + b).toFixed(2)}} - {{sum}} - {{total()}}
+        </label>
+      </form>
+      <!-- 计算属性 VS 侦听器 -->
+      <form action="#">
+        <p>
+            <label>First Name: </label>
+            <input type="text" v-model="firstName">
+        </p>
+        <p>
+            <label>Last Name: </label>
+            <input type="text" v-model="lastName">
+        </p>
+        <p>Full   Name：{{fullName}} - {{FullName}}</p>
+        <p>
+          <button type="button" @click="FullName = 'Jocy Guo'">更名改性</button>
+        </p>
+      </form>
+    </div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>

@@ -1,0 +1,12 @@
+@charset 'utf-8';
+
+.box {
+    width: 300px;
+    height: 200px;
+    background: pink;
+    margin: 30px 0;
+}
+
+.radius {
+    border-radius: 8px;
+}
