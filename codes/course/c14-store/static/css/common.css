@@ -1,0 +1,19 @@
+@charset 'utf-8';
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body { height: 100%; }
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    vertical-align: middle;
+}
