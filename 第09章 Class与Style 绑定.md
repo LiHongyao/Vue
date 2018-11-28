@@ -114,7 +114,7 @@ HTML 将被渲染为
 
 ```html
 <div id="app">
-    <h1 v-bind:style="{color: color, fontSize: fontSize + 'px'}">Hello, World!</h1>
+    <h1 v:style="{color: color, fontSize: fontSize + 'px'}">Hello, World!</h1>
 </div>
 ```
 
@@ -132,7 +132,7 @@ var app = new Vue({
 
 ```html
 <div id="app">
-    <h1 v-bind:style="styleObj">Hello, World!</h1>
+    <h1 :style="styleObj">Hello, World!</h1>
 </div>
 ```
 
@@ -175,7 +175,7 @@ var app = new Vue({
 
 ## 3、自动添加前缀
 
-当 `v-bind:style` 使用需要添加[浏览器引擎前缀](https://developer.mozilla.org/zh-CN/docs/Glossary/Vendor_Prefix)的 CSS 属性时，如 `transform`，Vue.js 会自动侦测并添加相应的前缀。
+当 `:style` 使用需要添加[浏览器引擎前缀](https://developer.mozilla.org/zh-CN/docs/Glossary/Vendor_Prefix)的 CSS 属性时，如 `transform`，Vue.js 会自动侦测并添加相应的前缀。
 
 ## 4、多重值
 

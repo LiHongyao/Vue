@@ -60,7 +60,7 @@ MVVM（ Model-View-ViewModel ） 为一种设计模式，下图不仅概括了 M
 
 ![](IMGS/mvvm.gif)
 
-使用Vue的过程就是定义MVVM各个组成部分的过程的过程。
+使用Vue的过程就是定义MVVM各个组成部分的过程。
 
 1. **定义View**
 2. **定义Model**
