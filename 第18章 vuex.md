@@ -18,7 +18,7 @@ Vuex 是一个专为 Vue.js 应用程序开发的**状态管理模式**。它采
 
 View -> （Dispatch）Action -> （Commit）Mutations -> （Mutate）state -> View
 
-注意：Action 不是必需品，如果有异步操做才可能有道Action，否则可以不适用。
+注意：Action 不是必需品，如果有异步操做才可能用到Action，否则可以不使用。
 
 # # 回顾
 
@@ -36,7 +36,7 @@ $ npm i -S vuex
 
 在一个模块化的打包系统中，您必须显式地通过 `Vue.use()` 来安装 Vuex：
 
--> main.js
+-> ./src/store/index.js
 
 ```js
 import Vue  from 'vue'
@@ -54,10 +54,10 @@ Vue.use(Vuex)
 
 [安装](https://vuex.vuejs.org/zh/installation.html) Vuex 之后，让我们来创建一个 store。
 
--> main.js
+-> ./src/store/index.js
 
 ```js
-const store = new Vuex.Store({
+export default new Vuex.Store({
   state: {
       
   },
@@ -71,7 +71,7 @@ const store = new Vuex.Store({
 > 注意：一定要在将store注入到vue实例中，如下所示：
 >
 > ```js
-> /* eslint-disable no-new */
+> import store from './Store'
 > new Vue({
 >   el: '#app',
 >   store,
@@ -91,7 +91,7 @@ Vuex 使用**单一状态树**，用一个对象就包含了全部的应用层�
 我们定义一个状态属性，如下所示：
 
 ```js
-const store = new Vuex.Store({
+new Vuex.Store({
   state: {
     count: 0
   }
@@ -106,7 +106,7 @@ this.$store.state.count
 
 ## 2、Mutation
 
-更改 Vuex 的 store 中的状态的唯一方法是提交 mutation。Vuex 中的 mutation 非常类似于事件：每个 mutation 都有一个字符串的 **事件类型 (type)** 和 一个 **回调函数 (handler)**。这个回调函数就是我们实际进行状态更改的地方，并且它会接受 state 作为第一个参数：
+更改 Vuex 的 store 中的状态的**唯一方法**是提交 mutation。Vuex 中的 mutation 非常类似于事件：每个 mutation 都有一个字符串的 **事件类型 (type)** 和 一个 **回调函数 (handler)**。这个回调函数就是我们实际进行状态更改的地方，并且它会接受 state 作为第一个参数：
 
 ```js
 const store = new Vuex.Store({
@@ -219,7 +219,7 @@ const store = new Vuex.Store({
     }
   },
   actions: {
-    // context: 承上启下
+    // context: 承上启下/上下文
     increment(context) {
       context.commit('increment');
     }

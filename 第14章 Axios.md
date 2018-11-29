@@ -67,10 +67,11 @@ this.$axios.get('url', {
 // 请求地址：
 // -> http://www.wwtliu.com/sxtstu/blueberrypai/login.php
 // 请求参数：
-// user_id:'iwen@qq.com',
-// password: 'iwen123',
-// verification_code: 'crfvw'
-
+/*
+{user_id:'iwen@qq.com',
+password: 'iwen123',
+verification_code: 'crfvw'}
+*/
 this.$axios.post('url', {
   // post 参数直接在第2个参数中以key-value对形式设置
 })
@@ -88,7 +89,7 @@ this.$axios.post('url', {
 >
 > x-www-form-urlencode：{name=LiHongyao, age=25}
 >
-> axios 接受的post请求参数格式是 form-data 格式，
+> axios 接受的 **post** 请求参数格式是 form-data 格式，
 >
 > 如何将 x-www-form-urlencode 转换为 form-data 格式呢？操作如下：
 >
@@ -131,7 +132,7 @@ Axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 // 添加请求拦截器
 Axios.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么
-  console.log("请求：" + config)
+  console.log( config)
   return config;
 }, function (error) {
   // 对请求错误做些什么
@@ -141,7 +142,7 @@ Axios.interceptors.request.use(function (config) {
 // 添加响应拦截器
 Axios.interceptors.response.use(function (response) {
   // 对响应数据做点什么
-  console.log("响应：" + response)
+  console.log(response)
   return response;
 }, function (error) {
   // 对响应错误做点什么
