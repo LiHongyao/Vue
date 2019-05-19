@@ -61,8 +61,8 @@ var app = new Vue({
 var app = new Vue({
     el: '#app',
     data: {
-        "class1":"active",
-        "class2":"box"
+        class1:"active",
+        class2:"box"
     }
 })
 // <div class="active box"></div>

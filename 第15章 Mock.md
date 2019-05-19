@@ -1,3 +1,5 @@
+http://mockjs.com/
+
 # # 概述
 
 Mock -> 数据模拟
@@ -20,12 +22,38 @@ Mock -> 数据模拟
 
    缺点：不一定每个项目都存在
 
+# # Mock 特性
 
-# # 数据模拟库
+- 前后端分离
+- 增加单元测试的真实性
+- 开发无侵入
+- 用法简单
+- 数据类型丰富
+- 方便扩展
 
-http://mockjs.com/
+# #  安装 & 导入
 
+```shell
+$ npm install mockjs
+```
 
+```js
+const Mock = require("mockjs");
+```
+
+# # 使用
+
+```js
+let data = Mock.mock({
+  "list|1-10":[{
+    "id|+1":1,
+    "name":"@cname"
+  }]
+})
+console.log(data);
+```
+
+参考示例：<http://mockjs.com/examples.html>
 
 
 
