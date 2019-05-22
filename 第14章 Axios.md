@@ -47,7 +47,6 @@ Vue.prototype.$axios = Axios
 
 ```javascript
 // 请求示例地址参考：
-// -> http://www.wwtliu.com/sxtstu/blueberrypai/getIndexBanner.php
 // -> http://www.wwtliu.com/sxtstu/news/juhenews.php?type=junshi&count=30
 
 this.$axios.get('url', {
@@ -66,13 +65,7 @@ this.$axios.get('url', {
 ## 2. POST
 
 ```javascript
-// 请求地址：
-// -> http://www.wwtliu.com/sxtstu/blueberrypai/login.php
-// 请求参数：
-/*
-{user_id:'iwen@qq.com',password: 'iwen123',verification_code: 'crfvw'}
-*/
-this.$axios.post('url', {
+this.$axios.post(url, {
   // post 参数直接在第2个参数中以key-value对形式设置
 })
 .then(res => {
@@ -106,9 +99,9 @@ this.$axios.post('url', {
 > 	// 请求参数key-value对
 > }))
 > .then(res => {
->   console.log(res);
+>   	console.log(res);
 > }).catch(error => {
->   console.log(error);
+>   	console.log(error);
 > })
 > ```
 
@@ -190,21 +183,17 @@ proxyTable: {
 }
 ```
 
-2. 在main.js 文件中添加host
+2. 在main.js 设置基础路径
 
 ```js
-Vue.prototype.HOST = '/api'
+Axios.defaults.baseURL = "/api";
 ```
 
 3. 请求数据
 
 ```js
-let url = this.HOST + '/movie/top250';
-this.$axios.get(url, {
-  params: {
-    count: 10,
-    start: 0
-  }
+this.$axios.get("/movie/top250", {
+  params: { count: 10, start: 0}
 })
 .then(res => {
   console.log(res);

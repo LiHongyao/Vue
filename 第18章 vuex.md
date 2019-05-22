@@ -84,7 +84,7 @@ export default new Vuex.Store({
 
 # # 核心概念
 
-## 1、State
+## 1、State *
 
 Vuex 使用**单一状态树**，用一个对象就包含了全部的应用层级状态。至此它便作为一个“唯一数据源 ([SSOT](https://en.wikipedia.org/wiki/Single_source_of_truth))”而存在。这也意味着，每个应用将仅仅包含一个 store 实例。单一状态树让我们能够直接地定位任一特定的状态片段，在调试的过程中也能轻易地取得整个当前应用状态的快照。
 
@@ -104,7 +104,81 @@ new Vuex.Store({
 this.$store.state.count
 ```
 
-## 2、Mutation
+### \> mapState
+
+当一个组件需要获取多个状态时候，将这些状态都声明为计算属性会有些重复和冗余。为了解决这个问题，我们可以使用 `mapState` 辅助函数帮助我们生成计算属性，让你少按几次键：
+
+```js
+import Vue from "vue";
+import Vuex from "vuex";
+
+Vue.use(Vuex);
+
+export default new Vuex.Store({
+    state: {
+        msg: "Hello, VueX",
+        username: "admin",
+        num: 10
+    },
+    mutations: {
+
+    }
+});
+```
+
+
+
+```js
+import { mapState } from 'vuex'
+
+export default {
+    name: "Home",
+    data() {
+        return {
+            m: 5
+        }
+    },
+    computed: mapState({
+        // 写法1：箭头函数可使代码更简练
+        msg:state => state.msg,
+        // 写法2：传字符串参数 'username' 等同于 `state => state.username`
+        username: "username",
+        // 写法3：为了能够使用 `this` 获取局部状态，必须使用常规函数
+        sum(state) {
+            return state.num + this.m;
+        }
+    })
+}
+```
+
+当映射的计算属性的名称与 state 的子节点名称相同时，我们也可以给 `mapState` 传一个字符串数组。
+
+```js
+computed: mapState([
+    "msg", 
+    "num", 
+    "username"
+])
+```
+
+### \> 对象展开运算符
+
+`mapState` 函数返回的是一个对象。我们如何将它与局部计算属性混合使用呢？通常，我们需要使用一个工具函数将多个对象合并为一个，以使我们可以将最终对象传给 `computed` 属性。但是自从有了[对象展开运算符](https://github.com/sebmarkbage/ecmascript-rest-spread)（现处于 ECMAScript 提案 stage-4 阶段），我们可以极大地简化写法：
+
+```js
+computed: {
+    sum() {
+        return this.num + this.m;
+    },
+    ...mapState([
+        "msg", 
+        "num", 
+        "username"
+    ])
+}
+```
+
+## 2、Mutation *
 
 更改 Vuex 的 store 中的状态的**唯一方法**是提交 mutation。Vuex 中的 mutation 非常类似于事件：每个 mutation 都有一个字符串的 **事件类型 (type)** 和 一个 **回调函数 (handler)**。这个回调函数就是我们实际进行状态更改的地方，并且它会接受 state 作为第一个参数：
 
@@ -162,7 +236,7 @@ this.$store.commit('increment', {
 });
 ```
 
-### > 对象风格的提交方式
+### > 对象提交
 
 提交 mutation 的另一种方式是直接使用包含 `type` 属性的对象：
 
@@ -183,7 +257,7 @@ mutations: {
 }
 ```
 
-### > Mutation 需遵守Vue响应规则
+### > 响应规则
 
 既然 Vuex 的 store 中的状态是响应式的，那么当我们变更状态时，监视状态的 Vue 组件也会自动更新。这也意味着 Vuex 中的 mutation 也需要与使用 Vue 一样遵守一些注意事项：
 
@@ -199,7 +273,60 @@ mutations: {
      state.obj = { ...state.obj, newProp: 123 }
      ```
 
-## 3、Action
+### \> 使用常量
+
+使用常量替代 mutation 事件类型在各种 Flux 实现中是很常见的模式。这样可以使 linter 之类的工具发挥作用，同时把这些常量放在单独的文件中可以让你的代码合作者对整个 app 包含的 mutation 一目了然：
+
+```js
+// mutation-types.js
+export const SOME_MUTATION = 'SOME_MUTATION'
+```
+
+```js
+// store.js
+import Vuex from 'vuex'
+import { SOME_MUTATION } from './mutation-types'
+
+const store = new Vuex.Store({
+  state: { ... },
+  mutations: {
+    // 我们可以使用 ES2015 风格的计算属性命名功能来使用一个常量作为函数名
+    [SOME_MUTATION] (state) {
+      // mutate state
+    }
+  }
+})
+```
+
+用不用常量取决于你——在需要多人协作的大型项目中，这会很有帮助。但如果你不喜欢，你完全可以不这样做。
+
+### \> mapMutations
+
+你可以在组件中使用 `this.$store.commit('xxx')` 提交 mutation，或者使用 `mapMutations` 辅助函数将组件中的 methods 映射为 `store.commit` 调用（需要在根节点注入 `store`）。
+
+```js
+import { mapMutations } from 'vuex'
+
+export default {
+  // ...
+  methods: {
+    ...mapMutations([
+      'increment', 
+      // 将 `this.increment()` 映射为 `this.$store.commit('increment')`
+
+      // `mapMutations` 也支持载荷：
+      'incrementBy'
+      // 将 `this.incrementBy(amount)` 映射为 `this.$store.commit('incrementBy', amount)`
+    ]),
+    ...mapMutations({
+      add: 'increment' 
+      // 将 `this.add()` 映射为 `this.$store.commit('increment')`
+    })
+  }
+}
+```
+
+## 3、Action *
 
 Action 类似于 Mutation，不同在于：
 
@@ -227,6 +354,16 @@ const store = new Vuex.Store({
 });
 ```
 
+实践中，我们会经常用到 ES2015 的 [参数解构](https://github.com/lukehoban/es6features#destructuring) 来简化代码（特别是我们需要调用 `commit` 很多次的时候）
+
+```js
+actions: {
+  increment ({ commit }) {
+    commit('increment')
+  }
+}
+```
+
 分发Action
 
 ```js
@@ -248,14 +385,44 @@ store.dispatch({
 })
 ```
 
+### \> mapActions
+
+你在组件中使用 `this.$store.dispatch('xxx')` 分发 action，或者使用 `mapActions`辅助函数将组件的 methods 映射为 `store.dispatch` 调用（需要先在根节点注入 `store`）：
+
+```js
+import { mapActions } from 'vuex'
+
+export default {
+  // ...
+  methods: {
+    ...mapActions([
+      'increment', 
+      // 将 `this.increment()` 映射为 `this.$store.dispatch('increment')`
+
+      // `mapActions` 也支持载荷：
+      'incrementBy' 
+      // 将 `this.incrementBy(amount)` 映射为 `this.$store.dispatch('incrementBy', amount)`
+    ]),
+    ...mapActions({
+      add: 'increment'
+      // 将 `this.add()` 映射为 `this.$store.dispatch('increment')`
+    })
+  }
+}
+```
+
 ## 4、Getter
 
 有时候我们需要从 store 中的 state 中派生出一些状态
 
 ```js
 getters: {
-  getCount(state) {
-    return state.count > 0 ? state.count : 0;
+  birth(state) {
+    let idCard = state.idCard;
+    let year   = idCard.slice(6, 10);
+    let month  = idCard.slice(10, 12);
+    let day    = idCard.slice(12, 14);
+    return `${year}-${month}-${day}`
   }
 }
 ```
@@ -263,8 +430,50 @@ getters: {
 读取：
 
 ```js
-this.$store.getters.getCount
+this.$store.getters.birth
 ```
+
+# # Module
+
+由于使用单一状态树，应用的所有状态会集中到一个比较大的对象。当应用变得非常复杂时，store 对象就有可能变得相当臃肿。
+
+为了解决以上问题，Vuex 允许我们将 store 分割成**模块（module）**。每个模块拥有自己的 state、mutation、action、getter。
+
+参考：<https://vuex.vuejs.org/zh/guide/modules.html>
+
+
+
+# # 总结
+
+1. vuex 使用流程
+
+```js
+1. 安装
+2. 引入
+3. 创建
+4. 配置
+- state  状态属性
+- mutaions 修改状态
+- actions(可选) 提交修改(异步)
+5. 访问状态：this.$store.state.属性名
+6. 提交mutaions：this.$store.commit("", params.)
+7. 提交actions：this.$store.dispatch("", params.)
+
+# 简化操作
+1. 
+mapState: computed> ...mapState(["state_name"...])
+this.state_name === this.$store.state.state_name
+
+2. 
+mapMutaions: methods> ...mapMutations(["mutaion_name"...])
+this.mutaion_name() === this.$store.commit("mutaion_name");
+
+3. 
+mapActions: methods> ...mapActions(["action_name"...])
+this.action_name() === this.$store.dispatch("action_name")
+```
+
+
 
 
 
