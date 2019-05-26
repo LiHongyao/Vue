@@ -1,4 +1,4 @@
-# shopping-cart
+# shose_store
 
 > A Vue.js project
 

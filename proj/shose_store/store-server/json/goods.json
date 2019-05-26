@@ -1,0 +1,192 @@
+{
+    "bannerImgs": [
+        "https://ccdn.goodq.top/caches/26c4e5f54723647c72b958e3ab61c375/aHR0cDovLzVjYWM2OGMwYjFkZTcudDczLnFpZmVpeWUuY29tL3FmeS1jb250ZW50L3VwbG9hZHMvMjAxOS8wMy8yZWNjMDM5MGQyNDNkZDA0YjUxNGMwMWVlMjFhYjY4Yy5qcGc_p_p100_p_3D.jpg",
+        "https://ccdn.goodq.top/caches/26c4e5f54723647c72b958e3ab61c375/aHR0cDovLzVjYWM2OGMwYjFkZTcudDczLnFpZmVpeWUuY29tL3FmeS1jb250ZW50L3VwbG9hZHMvMjAxOS8wNC84YzY5Y2NhZDJlMDI1ZGNlMTI0YzU1MDMxNTBiMzU1OC5qcGc_p_p100_p_3D.jpg"
+    ],
+    "goods": [
+        {
+            "kind":"男鞋",
+            "contentlist":[
+                {
+                   "name":"男子篮球鞋耐磨战靴",
+                   "url":"http://5cac68c0b1de7.t73.qifeiye.com/qfy-content/uploads/2019/04/09b7bf31db0ad4f884ae7da4cd89ac47.jpg",
+                   "tag":"男士 Fresh Foam系列",
+                   "price":"2900.00",
+                   "des":"- 激光镭射加工的Fresh Foam中底轻量缓震\n- 四向拉伸厚针织，包裹性和支撑性更好，可减少运动时脚在鞋内移动产生摩擦而带来的不适；后跟加厚处理，提升了运动中的足跟的支撑性和保护性；ABZORB全脚掌中底带来出色缓震体验；高帮U型鞋口设计，穿脱更方便，保持脚踝舒适。",
+                   "code":" DA911001",
+                   "color":["红色", "黑色", "白色"],
+                   "size":[40, 41, 42, 43],
+                   "details":"从 21 世纪初期的元年鞋款汲取设计灵感，夸大演绎一向不按常理出牌的标杆级别运动鞋。Nike React 泡棉呈现前沿造型，以轻盈的弹性穿着感受尽显个性风格。",
+                   "comments":""
+                },
+                {
+                    "name":"男子低帮一体战靴",
+                    "url":"http://5cac68c0b1de7.t73.qifeiye.com/qfy-content/uploads/2019/04/2327db705288b03e24f7359f1575dbfd.jpg",
+                    "tag":"男士 Fresh Foam系列",
+                    "price":"5900.00",
+                    "des":"Nike Air Max 720 搭载厚度升级的大型 Air 气垫，为足下注入更多空气，带来非凡舒适脚感。Air Max 的大体积设计让你耳目一新？当然是越大越好。",
+                    "code":" DA911002",
+                    "color":["蓝色", "粉色"],
+                    "size":[36,37,40, 41, 42, 43],
+                    "details":"划线价格：划线的价格可能是商品的专柜价吊牌价或正品零售价指导价或该商品的曾经展示过的销售价等，仅供您参考。未划线价格：未划线的价格是商品在本平台上的销售标价，具体的成交价格可能因顾客使用优惠券、礼品卡等情况发生变化，最终以订单结算页价格为准。",
+                    "comments":""
+                 },
+                 {
+                    "name": "男子户外篮球鞋",
+                    "url": "http://5cac68c0b1de7.t73.qifeiye.com/qfy-content/uploads/2019/04/f82efdba5dfaeb1d41d12ae9e82a3b3e.jpg",
+                    "tag": "男士 fly Foam系列",
+                    "price": "2500.00",
+                    "des": "- 激光镭射加工的Fresh Foam中底轻量缓震\n- 四向拉伸厚针织，包裹性和支撑性更好，可减少运动时脚在鞋内移动产生摩擦而带来的不适；后跟加厚处理，提升了运动中的足跟的支撑性和保护性；ABZORB全脚掌中底带来出色缓震体验；高帮U型鞋口设计，穿脱更方便，保持脚踝舒适。",
+                    "code": "DA911001",
+                    "color": ["黄色", "青色", "菊花色"],
+                    "size": [39, 40, 41, 42],
+                    "details": "从 21 世纪初期的元年鞋款汲取设计灵感，夸大演绎一向不按常理出牌的标杆级别运动鞋。Nike React 泡棉呈现前沿造型，以轻盈的弹性穿着感受尽显个性风格。",
+                    "comments": ""
+                },
+                {
+                    "name":"男子帕克系列篮球鞋",
+                    "url":"https://ccdn.goodq.top/caches/26c4e5f54723647c72b958e3ab61c375/aHR0cDovLzVjYWM2OGMwYjFkZTcudDczLnFpZmVpeWUuY29tL3FmeS1jb250ZW50L3VwbG9hZHMvMjAxOS8wNC9iYWU4ZjRiODAxMGZlZTQ0MTM3OGY5MTE4Mjc2NzIxOS5qcGc_p_p100_p_3D.jpg ",
+                    "tag":"男士 Fresh Foam系列",
+                    "price":"5900.00",
+                    "des":"- 激光镭射加工的Fresh Foam中底轻量缓震\n- 四向拉伸厚针织，包裹性和支撑性更好，可减少运动时脚在鞋内移动产生摩擦而带来的不适；后跟加厚处理，提升了运动中的足跟的支撑性和保护性；ABZORB全脚掌中底带来出色缓震体验；高帮U型鞋口设计，穿脱更方便，保持脚踝舒适。",
+                    "code":" E91011A ",
+                    "color":["黄色", "绿色", "白色"],
+                    "size":[40, 41, 42, 43],
+                    "details":"从 21 世纪初期的元年鞋款汲取设计灵感，夸大演绎一向不按常理出牌的标杆级别运动鞋。Nike React 泡棉呈现前沿造型，以轻盈的弹性穿着感受尽显个性风格。",
+                    "comments":""
+                 },
+                 {
+                    "name":"男子轻质耐磨篮球鞋",
+                    "url":"https://ccdn.goodq.top/caches/26c4e5f54723647c72b958e3ab61c375/aHR0cDovLzVjYWM2OGMwYjFkZTcudDczLnFpZmVpeWUuY29tL3FmeS1jb250ZW50L3VwbG9hZHMvMjAxOS8wNC8wOWI3YmYzMWRiMGFkNGY4ODRhZTdkYTRjZDg5YWM0Ny5qcGc_p_p100_p_3D.jpg",
+                    "tag":"男士 Fresh Foam系列",
+                    "price":"8900.00",
+                    "des":"- 激光镭射加工的Fresh Foam中底轻量缓震\n- 四向拉伸厚针织，包裹性和支撑性更好，可减少运动时脚在鞋内移动产生摩擦而带来的不适；后跟加厚处理，提升了运动中的足跟的支撑性和保护性；ABZORB全脚掌中底带来出色缓震体验；高帮U型鞋口设计，穿脱更方便，保持脚踝舒适。",
+                    "code":"E843221A",
+                    "color":["红色", "黑色", "白色"],
+                    "size":[40, 41, 42, 43],
+                    "details":"Nike Air Force 1 '07 LV8 3 生动演绎战靴传奇，集经典风格与新颖利落细节于一身，以现代手法承袭标志性鞋款的魅力。",
+                    "comments":""
+                 },
+                 {
+                    "name":"男子运动鞋",
+                    "url":"https://ccdn.goodq.top/caches/26c4e5f54723647c72b958e3ab61c375/aHR0cDovLzVjYWM2OGMwYjFkZTcudDczLnFpZmVpeWUuY29tL3FmeS1jb250ZW50L3VwbG9hZHMvMjAxOS8wNC8zMzlmYzU1ZGRiNGE3ZTA5ZDg2OWZhMjM1ZjYyY2ViMy04MDB4ODAwLmpwZw_p_p100_p_3D_p_p100_p_3D.m.jpg",
+                    "tag":"男士 Fresh Foam系列",
+                    "price":"999",
+                    "des":"Nike React Presto 从 21 世纪初期的元年鞋款汲取设计灵感，夸大演绎一向不按常理出牌的标杆级别运动鞋。Nike React 泡棉呈现前沿造型，以轻盈的弹性穿着感受尽显个性风格。",
+                    "code":"  AV2605-100",
+                    "color":["红色", "黑曜石色", "白色","太平洋蓝"],
+                    "size":[38, 39, 41, 42,43],
+                    "details":"划线价格：划线的价格可能是商品的专柜价吊牌价或正品零售价指导价或该商品的曾经展示过的销售价等，仅供您参考。未划线价格：未划线的价格是商品在本平台上的销售标价，具体的成交价格可能因顾客使用优惠券、礼品卡等情况发生变化，最终以订单结算页价格为准。",
+                    "comments":""
+                 }
+
+            ]
+        },
+        {
+            "kind":"女鞋",
+            "contentlist":[
+                {
+                    "name": "耐克女子透气轻逸跑鞋",
+                    "url": "https://ccdn.goodq.top/caches/26c4e5f54723647c72b958e3ab61c375/aHR0cDovLzVjYWM2OGMwYjFkZTcudDczLnFpZmVpeWUuY29tL3FmeS1jb250ZW50L3VwbG9hZHMvMjAxOS8wNC9iYWU4ZjRiODAxMGZlZTQ0MTM3OGY5MTE4Mjc2NzIxOS04MDB4ODAwLmpwZw_p_p100_p_3D_p_p100_p_3D.m.jpg",
+                    "tag": "Nike Epic Phantom React FK",
+                    "price": "2900.00",
+                    "des": "- Nike Epic Phantom React FK 脚感柔软，一脚蹬款式结合无鞋带设计，方便轻松穿上，助你随时畅跑。透气 Flyknit 鞋面稳固舒适，带来如袜子般的贴合感，在跑步时脚踏 Phantom 鞋款，塑就“赤足”般感受。",
+                    "code": " DA911001",
+                    "color": ["蓝", "黑色", "白色","蓝色"],
+                    "size": [39,40, 41, 42, 43,44,45],
+                    "details": "划线价格：划线的价格可能是商品的专柜价吊牌价或正品零售价指导价或该商品的曾经展示过的销售价等，仅供您参考。未划线价格：未划线的价格是商品在本平台上的销售标价，具体的成交价格可能因顾客使用优惠券、礼品卡等情况发生变化，最终以订单结算页价格为准。",
+                    "comments": ""
+                },
+                {
+                    "name": "女子透气百搭轻逸跑鞋",
+                    "url": "http://5cac68c0b1de7.t73.qifeiye.com/qfy-content/uploads/2019/04/73db570e858b9a52d2868a092239dbf9.jpg",
+                    "tag": "男士 Fresh Foam系列",
+                    "price": "5900.00",
+                    "des": "- 激光镭射加工的Fresh Foam中底轻量缓震\n- 四向拉伸厚针织，包裹性和支撑性更好，可减少运动时脚在鞋内移动产生摩擦而带来的不适；后跟加厚处理，提升了运动中的足跟的支撑性和保护性；ABZORB全脚掌中底带来出色缓震体验；高帮U型鞋口设计，穿脱更方便，保持脚踝舒适。",
+                    "code": " DH830018",
+                    "color": ["红色", "蓝色"],
+                    "size": [32, 33, 34, 35, 36, 37],
+                    "details": "从 21 世纪初期的元年鞋款汲取设计灵感，夸大演绎一向不按常理出牌的标杆级别运动鞋。Nike React 泡棉呈现前沿造型，以轻盈的弹性穿着感受尽显个性风格。",
+                    "comments": ""
+                  },
+                  {
+                    "name":"女子运动鞋Nike Blazer Low LE",
+                    "url":"https://ccdn.goodq.top/caches/26c4e5f54723647c72b958e3ab61c375/aHR0cDovLzVjYWM2OGMwYjFkZTcudDczLnFpZmVpeWUuY29tL3FmeS1jb250ZW50L3VwbG9hZHMvMjAxOS8wNC83M2RiNTcwZTg1OGI5YTUyZDI4NjhhMDkyMjM5ZGJmOS04MDB4ODAwLmpwZw_p_p100_p_3D_p_p100_p_3D.m.jpg",
+                    "tag":"女子运动鞋",
+                    "price":"1900.00",
+                    "des":"- 激光镭射加工的Fresh Foam中底轻量缓震\n- 四向拉伸厚针织，包裹性和支撑性更好，可减少运动时脚在鞋内移动产生摩擦而带来的不适；后跟加厚处理，提升了运动中的足跟的支撑性和保护性；ABZORB全脚掌中底带来出色缓震体验；高帮U型鞋口设计，穿脱更方便，保持脚踝舒适。",
+                    "code":" E82008A ",
+                    "color":["红色", "粉色", "白色"],
+                    "size":[36, 36.5, 37, 38],
+                    "details":"Nike Blazer Low LE 女子运动鞋采用皮革鞋面和低帮鞋口，打造优质外观和舒适感受，展现篮球风范。 ",
+                    "comments":""
+                },
+                {
+                    "name":"女子运动鞋Nike Outburst",
+                    "url":"https://ccdn.goodq.top/caches/26c4e5f54723647c72b958e3ab61c375/aHR0cDovLzVjYWM2OGMwYjFkZTcudDczLnFpZmVpeWUuY29tL3FmeS1jb250ZW50L3VwbG9hZHMvMjAxOS8wNC8wMTgwMjYyZmZlZjE1YzRkMzQzMjhkODE2Y2I1NjQ3OC04MDB4ODAwLmpwZw_p_p100_p_3D_p_p100_p_3D.m.jpg",
+                    "tag":"女子运动鞋",
+                    "price":"5900.00",
+                    "des":"- 激光镭射加工的Fresh Foam中底轻量缓震\n- 四向拉伸厚针织，包裹性和支撑性更好，可减少运动时脚在鞋内移动产生摩擦而带来的不适；后跟加厚处理，提升了运动中的足跟的支撑性和保护性；ABZORB全脚掌中底带来出色缓震体验；高帮U型鞋口设计，穿脱更方便，保持脚踝舒适。",
+                    "code":" E82008A ",
+                    "color":["红色", "粉色", "白色"],
+                    "size":[36, 36.5, 37, 38],
+                    "details":"Nike Blazer Low LE 女子运动鞋采用皮革鞋面和低帮鞋口，打造优质外观和舒适感受，展现篮球风范。 ",
+                    "comments":""
+                }
+            ]
+        },
+        {
+            "kind":"童鞋",
+            "contentlist":[
+                {
+                    "name":"街霸战靴男子篮球鞋",
+                    "url":"https://ccdn.goodq.top/caches/26c4e5f54723647c72b958e3ab61c375/aHR0cDovLzVjYWM2OGMwYjFkZTcudDczLnFpZmVpeWUuY29tL3FmeS1jb250ZW50L3VwbG9hZHMvMjAxOS8wNC8wMTgwMjYyZmZlZjE1YzRkMzQzMjhkODE2Y2I1NjQ3OC04MDB4ODAwLmpwZw_p_p100_p_3D_p_p100_p_3D.m.jpg",
+                    "tag":"男士 Fresh Foam系列",
+                    "price":"29.00",
+                    "des":"有时候插件需要获得状态的“快照”，比较改变的前后状态。想要实现这项功能，你需要对状态对象进行深拷贝：",
+                    "code":" DA911002",
+                    "color":["红色", "黑色", "白色"],
+                    "size":[32, 33, 35, 29],
+                    "details":"从 21 世纪初期的元年鞋款汲取设计灵感，夸大演绎一向不按常理出牌的标杆级别运动鞋。Nike React 泡棉呈现前沿造型，以轻盈的弹性穿着感受尽显个性风格。",
+                    "comments":""
+                 },
+                 {
+                    "name":"男子轻质耐磨篮球鞋",
+                    "url":"https://ccdn.goodq.top/caches/26c4e5f54723647c72b958e3ab61c375/aHR0cDovLzVjYWM2OGMwYjFkZTcudDczLnFpZmVpeWUuY29tL3FmeS1jb250ZW50L3VwbG9hZHMvMjAxOS8wNC8wOWI3YmYzMWRiMGFkNGY4ODRhZTdkYTRjZDg5YWM0Ny04MDB4ODAwLmpwZw_p_p100_p_3D_p_p100_p_3D.m.jpg",
+                    "tag":"童鞋 Fresh Foam系列",
+                    "price":"100.00",
+                    "des":"Nike Novice 小绳力系列轻盈舒适，专为\n成长中的双足匠心打造。一脚蹬款式易于穿脱，脚\n踝和后跟添加衬垫，舒适非凡。鞋底融入凹槽设计，柔韧灵活。让孩子乐享日常玩耍体验。",
+                    "code":" DA840041 ",
+                    "color":["红色", "蓝色", "白色"],
+                    "size":[35,36,37,40, 41],
+                    "details":"Nike Novice BR (TD) 采用弹性一脚蹬款式设计，易于穿脱。透气网眼布面料，在炎热天气帮助稚嫩双足保持凉爽舒适。",
+                    "comments":""
+                 },
+                 {
+                    "name":"幼童运动童鞋",
+                    "url":"https://ccdn.goodq.top/caches/26c4e5f54723647c72b958e3ab61c375/aHR0cDovLzVjYWM2OGMwYjFkZTcudDczLnFpZmVpeWUuY29tL3FmeS1jb250ZW50L3VwbG9hZHMvMjAxOS8wNC83OWY3NWUxNDVmYTcyNWU3YWQyMGI1MDQ3MzY1ZmQyMi04MDB4ODAwLmpwZw_p_p100_p_3D_p_p100_p_3D.m.jpg",
+                    "tag":"Nike Free RN 5.0 (PSV)",
+                    "price":"569",
+                    "des":"Nike Free RN 5.0 (PSV) 采用轻盈透气材料，弹力包覆双足，缔造舒适贴合感。鞋底采用 Nike Free 技术，柔韧灵活，可随步伐灵活调整，塑就非凡舒适感受。",
+                    "code":" DA911001",
+                    "color":["黑","煤黑","荧光黄","白色"],
+                    "size":[28, 29, 30, 31],
+                    "details":"鞋底结合 Nike Free 技术，带来灵活舒适的日常穿着体验",
+                    "comments":""
+                 },
+                 {
+                    "name":"Featherlite Natural（米色）",
+                    "url":"https://ccdn.goodq.top/caches/26c4e5f54723647c72b958e3ab61c375/aHR0cDovLzVjYWM2OGMwYjFkZTcudDczLnFpZmVpeWUuY29tL3FmeS1jb250ZW50L3VwbG9hZHMvMjAxOS8wNC9mMGU4N2RiZWY1ODczOGVkYzljZTNmMWU1MGY5MTI3Yy04MDB4ODAwLmpwZw_p_p100_p_3D_p_p100_p_3D.m.jpg",
+                    "tag":"男士 Fresh Foam系列",
+                    "price":"88.00",
+                    "des":"有时候插件需要获得状态的“快照”，比较改变的前后状态。想要实现这项功能，你需要对状态对象进行深拷贝：",
+                    "code":" DA911002",
+                    "color":["红色", "黑色", "白色"],
+                    "size":[32, 33, 35, 29],
+                    "details":"从 21 世纪初期的元年鞋款汲取设计灵感，夸大演绎一向不按常理出牌的标杆级别运动鞋。Nike React 泡棉呈现前沿造型，以轻盈的弹性穿着感受尽显个性风格。",
+                    "comments":""
+                 }                
+            ]
+        }
+    ]
+}
