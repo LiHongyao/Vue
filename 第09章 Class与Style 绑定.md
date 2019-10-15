@@ -1,8 +1,8 @@
-# # 简介
+# 一、简介
 
 操作元素的 class 列表和内联样式是数据绑定的一个常见需求。因为它们都是属性，所以我们可以用 `v-bind` 处理它们：只需要通过表达式计算出字符串结果即可。不过，字符串拼接麻烦且易错。因此，在将 `v-bind` 用于 `class` 和 `style` 时，Vue.js 做了专门的增强。表达式结果的类型除了字符串之外，还可以是对象或数组。
 
-# # 绑定 HTML Class
+# 二、绑定 HTML Class
 
 ## 1、对象语法
 
@@ -10,7 +10,7 @@
 
 ```html
 <div id="app">
-    <div v-bind:class="{'active': isActive, 'error':hasError}"></div>
+    <div :class="{'active': isActive, 'error':hasError}"></div>
 </div>
 ```
 
@@ -53,7 +53,7 @@ var app = new Vue({
 
 ```html
 <div id="app">
-    <div v-bind:class="[class1, class2]"></div>
+    <div :class="[class1, class2]"></div>
 </div>
 ```
 
@@ -106,7 +106,7 @@ HTML 将被渲染为
 <p class='box raidus active'>CHINA</p>
 ```
 
-# # 绑定内联样式
+# 三、绑定内联样式
 
 ## 1、对象语法
 
@@ -114,7 +114,7 @@ HTML 将被渲染为
 
 ```html
 <div id="app">
-    <h1 v:style="{color: color, fontSize: fontSize + 'px'}">Hello, World!</h1>
+    <h1 :style="{color, fontSize}">Hello, World!</h1>
 </div>
 ```
 
@@ -123,7 +123,7 @@ var app = new Vue({
     el: '#app',
     data: {
         color:"red",
-        fontSize: 36
+        fontSize: "36px"
     }
 })
 ```
@@ -154,7 +154,7 @@ var app = new Vue({
 
 ```html
 <div id="app">
-    <h1 v-bind:style="[style1, style2]">Hello, World!</h1>
+    <h1 :style="[style1, style2]">Hello, World!</h1>
 </div>
 ```
 
