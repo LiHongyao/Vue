@@ -47,13 +47,17 @@ const Mock = require("mockjs");
 let data = Mock.mock({
   "list|1-10":[{
     "id|+1":1,
-    "name":"@cname"
+    "name":"@cname",
   }]
 })
 console.log(data);
 ```
 
-参考示例：<http://mockjs.com/examples.html>
+参考示例：
+
+<http://mockjs.com/examples.html>
+
+https://www.jianshu.com/p/4579f40e6108
 
 
 
