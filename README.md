@@ -91,23 +91,39 @@ $ npm i -g @vue/cli
 
 ```shell
 $ vue --version
-@vue/cli 4.0.3
+@vue/cli 4.1.2
 ```
 
 创建项目：
 
 ```shell
-$ vue create project_name
+$ vue create <project_name>
+```
+如果没有设置淘宝镜像，提示是否使用淘宝镜像：
+```
+?  Your connection to the default yarn registry seems to be slow.
+   Use https://registry.npm.taobao.org for faster installation? (Y/n) 
 ```
 
-配置选择：
+选择默认配置：
 
 ```shell
 ? Please pick a preset: (Use arrow keys)
 ❯ default (babel, eslint)    # 默认配置
   Manually select features   # 自定义配置
 ```
-选择自定义配置，通过按“空格”选择要安装的项：
+选择包管理工具：
+
+```shell
+? Pick the package manager to use when installing dependencies: (Use arrow keys)
+❯ Use Yarn 
+  Use NPM 
+```
+
+**选择自定义配置流程如下：**
+
+通过按“空格”选择要安装的项：
+
 ```shell
 Vue CLI v4.0.3
 ? Please pick a preset: Manually select features
@@ -205,7 +221,7 @@ module.exports = {
 }
 ```
 
-###  # 包管理工具变
+###  # 包管理工具设置
 
 ```
 $ open ~/.vuerc
@@ -263,6 +279,24 @@ steps 06：执行如下指令，如果出现版本号，表示正确
 ```shell
 $ vue --version
 2.9.6
+```
+
+**> 3. 关闭Eslint 代码检测**
+
+在项目根目录创建 vue.config.js文件并添加如下代码：
+
+```js
+module.exports = {
+    lintOnSave: false
+}
+```
+
+或者在package.json文件中添加字段：
+
+```js
+"rules": {
+	"no-console":"off"
+}
 ```
 
 

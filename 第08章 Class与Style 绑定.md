@@ -31,7 +31,7 @@ var app = new Vue({
 
 ```html
 <div id="app">
-    <div v-bind:class="classObj"></div>
+    <div :class="classObj"></div>
 </div>
 ```
 
