@@ -287,7 +287,7 @@ $ vue --version
 
 ```js
 module.exports = {
-    lintOnSave: false
+	lintOnSave: false
 }
 ```
 
