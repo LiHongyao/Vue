@@ -40,17 +40,19 @@ $ npm install mockjs
 ```
 
 ```js
-const Mock = require("mockjs");
+// => 挂载
+import Mock from 'mockjs'
+Vue.prototype.$mock = Mock.mock;
 ```
 
 # 四、使用
 
 ```js
-let data = Mock.mock({
-  "list|1-10":[{
-    "id|+1":1,
-    "name":"@cname",
-  }]
+let data = this.$mock({
+	"list|1-10": [{
+		"id|+1": 1,
+		"name": "@cname",
+	}]
 })
 console.log(data);
 ```
@@ -66,10 +68,7 @@ https://www.jianshu.com/p/4579f40e6108
 数据模板中的每个属性由 3 部分构成：属性名、生成规则、属性值
 
 ```js
-// 属性名   name
-// 生成规则 rule
-// 属性值   value
-"name|rule": value
+"key|rule": value
 ```
 
 > 注意：
@@ -77,21 +76,6 @@ https://www.jianshu.com/p/4579f40e6108
 > - 属性名 和 生成规则 之间用竖线 | 分隔。
 > - 生成规则 是可选的。
 > - 生成规则 有 7 种格式
-
-# 六、小技巧
-
-在vue中的导入小技巧：
-
-```js
-// 导入
-Vue.prototype.$mock  = require("mockjs").mock;
-// 使用
-this.$mock({
-  // 配置项
-});
-```
-
-
 
 
 

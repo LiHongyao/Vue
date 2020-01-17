@@ -1,24 +1,24 @@
 参考：
 
-- [Axios 中文文档](https://www.kancloud.cn/yunye/axios/234845)
+- [Axios 中文文档 >>](http://www.axios-js.com/)
+
+- [Axios 中文说明 >>](https://www.kancloud.cn/yunye/axios/234845)
 - [DATA API](http://www.wwtliu.com/sxtstu/)
 
 # 一、概述
 
-Axios 是一个基于 promise 的 HTTP 库，可以用在浏览器和 node.js 中。
+Axios 是一个基于 promise 的易用、简洁且高效的http库 
 
 **\> 特性：**
 
-- 从浏览器中创建 [XMLHttpRequests](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)
-- 从 node.js 创建 [http](http://nodejs.org/api/http.html) 请求
-- 支持 [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) API
-- 拦截请求和响应
-- 转换请求数据和响应数据
-- 取消请求
-- 自动转换 JSON 数据
-- 客户端支持防御 [XSRF](http://en.wikipedia.org/wiki/Cross-site_request_forgery)
+- 支持node端和浏览器端：同样的API，node和浏览器全支持，平台切换无压力
+- 支持Promise：使用Promise管理异步，告别传统callback方式
+- 丰富的配置项：支持拦截器等高级配置
+- 社区支持：axios相关的npm包数量一直在增长
 
-# 二、安装 *
+> 提示：引自官网
+
+# 二、安装
 
 ```shell
 # NPM
@@ -27,10 +27,10 @@ $ npm install axios
 $ yarn add  axios
 ```
 
-# 三、引入	 *
+# 三、引入
 
 ```js
-// 1. 通过Webpack plugins全局导入
+// 1. 通过Webpack全局导入
 new webpack.ProvidePlugin({
   Axios: 'axios',
 });
@@ -54,48 +54,48 @@ Vue.prototype.$axios = Axios
 
 API 参考：<https://www.showapi.com/>
 
-## 1. GET *
+## 1. GET 
 
 ```javascript
-// => 直接将请求参数拼接在资源地址后面
-const url = "http://10.2.1.2:8081/phones?pages=1&size=8";
-this.$axios.get(url).then(res => {
-  // 请求成功
-  console.log(res);
+// => 1. 直接将请求参数拼接在资源地址后面
+const URI = "http://192.168.110.65:8090/info?id=1&city=chengdu";
+this.$axios.get(URI).then(res => {
+	console.log(res);
 }).catch(err => {
-  // 请求失败
-  console.log(err.message);
-})
-// => 通过params配置请求参数
-const url = "http://10.2.1.2:8081/phones";
-const params = {
-  pages: 1,
-  size: 8
-};
-this.$axios.get(url, {
-  params
+	console.log(err.message);
+});
+
+
+// => 2. 通过params配置请求参数
+const URI = "http://192.168.110.65:8090/info";
+this.$axios.get(URI, {
+	params: {
+		id: 1,
+		city: "chengdu"
+	}
 }).then(res => {
-  // 请求成功
-  console.log(res);
+	console.log(res);
 }).catch(err => {
-  // 请求失败
-  console.log(err.message);
-})
+	console.log(err.message);
+});
 ```
 
-## 2. POST *
+## 2. POST 
 
 ```javascript
-this.$axios.post(url, {
-  // post 参数直接在第2个参数中以key-value对形式设置
-})
-.then(res => {
-  console.log(res)
-})
-.catch(error => {
-  console.log(error);
-})
+const URI = "http://192.168.110.65:8090/login"
+this.$axios.post(URI, {
+	username: "lihy",
+	password: "123"
+}).then(res => {
+	console.log(res);
+}).catch(err => {
+	console.log(err.message)
+});
+
 ```
+
+> 提示：POST请求参数不需要使用params字段。
 
 ## 3. 并发请求
 
@@ -110,7 +110,7 @@ function getArticles() {
 axios.all([getOrders(), getArticles()])
   .then(axios.spread(function (orders, articles) {
     // 两个请求现在都执行完成
-  }));
+}));
 ```
 
 # 五、参数传输格式
@@ -132,14 +132,15 @@ import Qs from 'qs';
 \2. -> 在使用 axios.post 请求时使用 Qs.stringify() 方法包裹传递参数即可进行转换：
 
 ```js
-this.$axios.post('url',Qs.stringify({
-	// 请求参数key-value对
-}))
-.then(res => {
+const URI = "http://192.168.110.65:8090/login"
+this.$axios.post(URI, Qs.stringify({
+	username: "lihy",
+	password: "123"
+})).then(res => {
 	console.log(res);
-}).catch(error => {
-	console.log(error);
-})
+}).catch(err => {
+	console.log(err.message)
+});
 ```
 
 # 六、全局默认配置
@@ -159,23 +160,23 @@ Axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 在请求或响应被 `then` 或 `catch` 处理前拦截它们。
 
 ```javascript
-// 添加请求拦截器
-Axios.interceptors.request.use(function (config) {
+// => 1. 添加请求拦截器
+Axios.interceptors.request.use(config => {
   // 在发送请求之前做些什么
-  console.log( config)
+  console.log(config)
   return config;
-}, function (error) {
+}, error => {
   // 对请求错误做些什么
   return Promise.reject(error);
 });
 
-// 添加响应拦截器
-Axios.interceptors.response.use(function (response) {
-  // 对响应数据做点什么
-  console.log(response)
-  return response;
-}, function (error) {
-  // 对响应错误做点什么
+// => 2. 添加响应拦截器
+Axios.interceptors.response.use(res => {
+  // 在发送请求之前做些什么
+  console.log(res)
+  return res;
+}, error => {
+  // 对请求错误做些什么
   return Promise.reject(error);
 });
 ```
@@ -199,71 +200,6 @@ Axios.interceptors.request.use(function (config) {
 ```
 
 这样一来，我们就相当于全局配置了请求设置，而无需在每一次请求时设置了。
-
-# 八、跨域解决方案
-
-## 1. Vue-cli 3.x 之前
-
-1. 修改 ./config/index.js 文件：
-
-```js
-proxyTable: {
-  '/api': {
-    target: 'http://api.douban.com/v2', // 跨域地址
-    changeOrigin: true, // 是否跨域
-    secure: false, // 是否使用https
-    pathRewrite: {
-      '^/api': '/api'
-    }
-  }
-}
-```
-
-2. 在main.js 设置基础路径
-
-```js
-Axios.defaults.baseURL = "/api";
-```
-
-3. 请求数据
-
-```js
-this.$axios.get("/movie/top250", {
-  params: { count: 10, start: 0}
-})
-.then(res => {
-  console.log(res);
-}).catch(error => {
-  console.log(error);
-})
-```
-
-> 注意：此种跨域解决方案，只适用于测试阶段，打包的时候，不具备服务器，就不能跨域了，交给后端处理。产品上线之后，就不存在跨域问题啦。
-
-> 提示：一旦修改了配置文件，需重新执行‘npm run dev’，否则配置不生效。
-
-## 2. Vue-cli 3.x 之后
-
-1. 在根目录创建 vue.config.js ，配置如下：
-
-```js
-module.exports = {
-    dev: {
-        proxyTable: {
-            '/api': {
-                target: 'http://api.douban.com/v2', // 跨域地址
-                changeOrigin: true, // 是否跨域
-                secure: false, // 是否使用https
-                pathRewrite: {
-                    '^/api': '/api'
-                }
-            }
-        }
-    }
-}
-```
-
-
 
 
 
