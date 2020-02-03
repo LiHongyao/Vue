@@ -17,8 +17,8 @@ Vuex 是一个专为 Vue.js 应用程序开发的**状态管理模式**。它采
 ## 2、vuex 状态管理
 
 - State：驱动视图的数据源（不能直接修改state）
-- Mutate：修改数据源
-- Action：提交Mutations（异步）
+- Mutations：修改数据源
+- Actions：提交Mutations（异步）
 
 View -> [（Dispatch）Action  ] -> （Commit）Mutations -> （Mutate）state -> View
 
@@ -69,10 +69,6 @@ export default new Vuex.Store({
   state: {
   },
   mutations: {
-  },
-  actions: {
-  },
-  modules: {
   }
 })
 ```
@@ -174,10 +170,10 @@ Vuex 允许我们在 store 中定义 getter（可以认为是 store 的计算属
 getters: {
   birth: (state) => {
     let idCard = state.idCard;
-    let year = idCard.slice(6, 10);
-    let month = idCard.slice(10, 12);
-    let day = idCard.slice(12, 14);
-    return `${year}-${month}-${day}`
+    let year   = idCard.slice(6, 10);
+    let month  = idCard.slice(10, 12);
+    let day    = idCard.slice(12, 14);
+    return `出生年月：${year}-${month}-${day}`
   }
 },
 ```
@@ -201,11 +197,11 @@ export default {
 
 ## 3. Mutation *
 
-更改 Vuex 的 store 中的状态的 唯一方法是提交 mutation。Vuex 中的 mutation 非常类似于事件：每个 mutation 都有一个字符串的 事件类型 和 一个 回调函数 。这个回调函数就是我们实际进行状态更改的地方，并且它会接受 state 作为第一个参数：
+更改 Vuex 的 store 中的状态的<b><ins>唯一方法</ins></b>是提交 mutation。Vuex 中的 mutation 非常类似于事件：每个 mutation 都有一个字符串的 事件类型 和 一个 回调函数 。这个回调函数就是我们实际进行状态更改的地方，并且它会接受 state 作为第一个参数：
 
 ```js
 mutations: {
-  modifyName(state, payload) {
+  updateName(state, payload) {
     state.name = payload;
   }
 }
@@ -214,7 +210,7 @@ mutations: {
 触发mutaion：
 
 ```js
-this.$store.commit("modifyName", "李鸿耀");
+this.$store.commit("updateName", "李鸿耀");
 ```
 
 > 注意：一条重要的原则就是要记住 **mutation 必须是同步函数**
@@ -226,10 +222,10 @@ import { mapMutations } from "vuex";
 
 export default {
   created() {
-    this.modifyName("李鸿耀");
+    this.updateName("李鸿耀");
   },
   methods: {
-      ...mapMutations(["modifyName"])
+      ...mapMutations(["updateName"])
   }
 };
 ```
@@ -244,7 +240,7 @@ export default {
 
    - 使用 *Vue.set(obj, 'newProp', 123)* , 或者
 
-   - 以新对象替换老对象。例如，利用 stage-3 的[对象展开运算符](https://github.com/sebmarkbage/ecmascript-rest-spread)我们可以这样写：
+   - 以新对象替换旧对象。例如，利用 stage-3 的[对象展开运算符](https://github.com/sebmarkbage/ecmascript-rest-spread)我们可以这样写：
 
      ```js
      state.obj = { ...state.obj, newProp: 123 }
@@ -289,7 +285,7 @@ Action 类似于 Mutation，不同在于：
 
 ```js
 {
-	action: {
+	actions: {
     // {commit, state, getters} = context;
 		action_name(context, payload) {
 			context.commit("mutation_name", payload);
@@ -310,17 +306,17 @@ this.$store.dispatch('action_name', payload);
 import { mapActions } from 'vuex'
 
 export default {
-  // ...
   methods: {
     ...mapActions([
-      'increment', // 将 `this.increment()` 映射为 `this.$store.dispatch('increment')`
-
-      // `mapActions` 也支持载荷：
-      // 将 `this.incrementBy(amount)` 映射为 `this.$store.dispatch('incrementBy', amount)`
+      // => 将 this.increment() 映射为 this.$store.dispatch('increment')
+      'increment', 
+      // => mapActions 也支持载荷：
+      // => 将 this.incrementBy(amount) 映射为 this.$store.dispatch('incrementBy', amount)
       'incrementBy' 
     ]),
     ...mapActions({
-      add: 'increment' // 将 `this.add()` 映射为 `this.$store.dispatch('increment')`
+      // => 将 this.add() 映射为 this.$store.dispatch('increment')
+      add: 'increment' 
     })
   }
 }
@@ -440,23 +436,22 @@ Vuex 并不限制你的代码结构。但是，它规定了一些需要遵守的
         └── products.js   # 产品模块
 ```
 
-
-
 # 六、总结
 
 1. vuex 使用流程
 
 ```js
-1. 安装
-2. 引入
-3. 创建
+1. 安装：yarn add vuex / npm install vuex
+2. 引入：import Vuex form 'vuex' => Vue.use(Vuex)
+3. 创建：./src/store/index.js
 4. 配置
 - state  状态属性
 - mutaions 修改状态
 - actions(可选) 提交修改(异步)
+
 5. 访问状态：this.$store.state.属性名
-6. 提交mutaions：this.$store.commit("", params.)
-7. 提交actions：this.$store.dispatch("", params.)
+6. 提交mutaion：this.$store.commit("mutation_name", params)
+7. 提交action：this.$store.dispatch("action_name", params)
 
 # 简化操作
 1. 
