@@ -18,11 +18,13 @@ MVVM（ Model-View-ViewModel ） 为一种设计模式，下图不仅概括了 M
 
 **\> ViewModel 是 Vue.js 的核心，它是一个 Vue 实例。**
 
-当创建了ViewModel 后，双向绑定是如何达成的呢？
+MVVM分为Model、View、ViewModel三者。
+\1. **Model** 代表数据模型，数据和业务逻辑都在Model层中定义；
+\2. **View** 代表UI视图，负责数据的展示；
+\3. **ViewModel** 负责监听 **Model** 中数据的改变并且控制视图的更新，处理用户交互操作；
+\4. **Model** 和 **View** 并无直接关联，而是通过 **ViewModel** 来进行联系的，**Model** 和 **ViewModel** 之间有着双向数据绑定的联系。因此当 **Model** 中的数据改变时会触发 **View** 层的刷新，**View** 中由于用户交互操作而改变的数据也会在 **Model** 中同步。
 
-- 首先，我们将上图中的DOM Listeners 和 Data Bindings 看作两个工具，它们是实现双向绑定的关键。
-- 从 View 看，ViewModel 中的 DOM Listeners 工具会帮我们监测页面上DOM元素的变化，如果有变化，则更改Model中的数据；
-- 从 Model 看，当我们更新Model中的数据时，Data Bindings工具会帮我们更新页面中的DOM元素。
+这种模式实现了 **Model** 和 **View** 的数据自动同步，因此开发者只需要专注对数据的维护操作即可，而不需要自己操作 **dom**。
 
 我们通过一组 `Hello, world!` 实例来深入了解 MVVM 设计模式：
 
@@ -78,13 +80,11 @@ let vm = new Vue({
 
 > Vue.js有多种数据绑定的语法，最基础的形式是文本插值，使用一对大括号语法，在运行时`{{ message }}`会被数据对象的message属性替换，所以页面上会输出"Hello World!"。
 
-# 三、创建一个 vue 实例
+# 三、Vue 响应式原理
 
-上述 `Hello, world!` 示例已经结合 MVVM 设计模式创建了一个 vue 实例，这里不再阐述。
+当一个Vue实例创建时，vue会遍历data选项的属性，用 **Object.defineProperty** 将它们转为 getter/setter并且在内部追踪相关依赖，在属性被访问和修改时通知变化。每个组件实例都有相应的 watcher 程序实例，它会在组件渲染的过程中把属性记录为依赖，之后当依赖项的 setter 被调用时，会通知 watcher 重新计算，从而致使它关联的组件得以更新。
 
-# 四、数据与方法
-
-当一个 Vue 实例被创建时，它将 `data` 对象中的所有的属性加入到 Vue 的**响应式系统**中。当这些属性的值发生改变时，视图将会产生“响应”，即匹配更新为新的值。
+![](./IMGS/response-yuanli.jpg)
 
 # 五、生命周期
 

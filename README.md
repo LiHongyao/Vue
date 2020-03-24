@@ -17,15 +17,15 @@ Vue.js 不支持 IE8 及其以下版本，因为 Vue.js 使用了 IE8 不能模�
 ## 2、CDN
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 ```
 
 ## 3、包管理工具
 
 ```shell
-$ npm i -S vue
-$ yarn add vue
+$ npm install --save-dev vue
+$ yarn add --save-dev vue
 ```
 
 ## 4、脚手架安装
@@ -189,7 +189,15 @@ $ npm run serve
   - Network: http://10.2.1.2:8080/
 ```
 
-**重点提示**
+**# vue - ui**
+
+vue 提供了 GUI 来构建项目，唤起指令入如下：
+
+```shell
+$ vue ui
+```
+
+**# 重点提示**
 
 vue-cli 从3.x起 *webpack* 的配置已经被脚手架默认了，并不会显示。如果我们需要手动配置webpack的一些配置，可以手动创建配置文件。文件名为vue.config.js，此文件应该和package.json同级（创建之后会自动加载）,此文件需要按照JSON格式来撰写。
 
