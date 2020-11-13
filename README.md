@@ -229,19 +229,6 @@ module.exports = {
 }
 ```
 
-###  # 包管理工具设置
-
-```
-$ open ~/.vuerc
-```
-
-```js
-{
-  "useTaobaoRegistry": true,
-  "packageManager":"yarn"
-}
-```
-
 # 四、在线练习
 
 在线练习：https://jsfiddle.net/chrisvfritz/50wL7mdz/

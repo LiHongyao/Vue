@@ -467,6 +467,23 @@ mapActions: methods> ...mapActions(["action_name"...])
 this.action_name() === this.$store.dispatch("action_name")
 ```
 
+# 七、异常
+
+vuex会遇到一个尴尬的问题，就是当用户手动刷新页面之后状态会被情况，我们可以在页面刷新的时候将状态存本地，每次加载的时候再读取就是了，具体操作如下：
+
+```js
+// main.js
+// 页面进入：合并状态
+const localState = localStorage.getItem('LOCAL_STATE');
+if(localState) {
+	store.replaceState(Object.assign(store.state, JSON.parse(localState)));
+}
+// 页面刷新：存储状态
+window.addEventListener("beforeunload", () => {
+  localStorage.setItem("LOCAL_STATE", JSON.stringify(store.state))
+});
+```
+
 
 
 
