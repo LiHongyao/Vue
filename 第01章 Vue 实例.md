@@ -88,55 +88,11 @@ let vm = new Vue({
 
 # 五、生命周期
 
-每个 Vue 实例在被创建之前都要经过一系列的初始化过程。例如需要设置数据监听、编译模板、挂载实例到 DOM、在数据变化时更新 DOM 等。同时在这个过程中也会运行一些叫做**生命周期钩子**的函数，给予用户机会在一些特定的场景下添加他们自己的代码。
+每个 Vue 实例在被创建之前都要经过一系列的初始化过程，在这个过程中也会运行一些叫做**生命周期钩子**的函数，给予用户机会在一些特定的场景下添加他们自己的代码。
 
-比如 [`created`](https://cn.vuejs.org/v2/api/#created) 钩子可以用来在一个实例被创建之后执行代码：
-
-```javascript
-new Vue({
-    el: "#app",
-    data: {
-        name: "Henrry Lee"
-    },
-    created() {
-        // this 指向 vue 实例
-        console.log(`Hello, ${this.name}!`);
-    }
-});
-// => "Hello, Henrry Lee!"
-```
-
-也有一些其它的钩子，在实例生命周期的不同场景下调用，如 [`mounted`](https://cn.vuejs.org/v2/api/#mounted)、[`updated`](https://cn.vuejs.org/v2/api/#updated)、[`destroyed`](https://cn.vuejs.org/v2/api/#destroyed)。钩子的 `this` 指向调用它的 Vue 实例。
-
-> 注意：
->
-> 不要在选项属性或回调上使用[箭头函数](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions)，比如：
->
-> ```js
-> created: () => console.log(this.a)
-> OR
-> vm.$watch('a', newValue => this.myMethod())
-> ```
->
-> 因为箭头函数是和父级上下文绑定在一起的，`this` 不会是如你所预期的 Vue 实例，经常导致 
->
-> ```
-> Uncaught TypeError: Cannot read property of undefined
-> OR
-> Uncaught TypeError: this.myMethod is not a function
-> ```
->
-> 之类的错误。
-
-## 1、生命周期图示
-
-下图说明了实例的生命周期。你不需要立马弄明白所有的东西，不过随着你的不断学习和使用，它的参考价值会越来越高。
+##　2.ｘ
 
 ![](IMGS/lifecycle.png)
-
-## 2、生命周期详解
-
-[参考官网](https://cn.vuejs.org/v2/api/#%E9%80%89%E9%A1%B9-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90)
 
 ### \> beforeCreate
 
@@ -182,7 +138,33 @@ keep-alive 组件停用时调用。
 
 Vue 实例销毁后调用。调用后，Vue 实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。
 
+### \> errorCaptured
 
+当捕获一个来自子孙组件的错误时被调用。
+
+## 3. x
+
+**被替换**
+
+1. beforeCreate -> setup()
+2. created -> setup()
+
+**重命名**
+
+1. beforeMount -> onBeforeMount
+2. mounted -> onMounted
+3. beforeUpdate -> onBeforeUpdate
+4. updated -> onUpdated
+5. beforeDestroy -> onBeforeUnmount
+6. destroyed -> onUnmounted
+7. errorCaptured -> onErrorCaptured
+
+**新增的**
+
+新增的以下2个方便调试 `debug` 的回调钩子：
+
+1. onRenderTracked
+2. onRenderTriggered
 
 
 
