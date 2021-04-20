@@ -235,48 +235,7 @@ module.exports = {
 
 # 五、问题
 
-**\> 1. Windows 系统提示不是内部指令**
-
-解决方案：添加系统环境变量
-
-**\> 2. MacOS 系统提示 ”-bash: vue: command not found“**
-
-解决方案：添加系统环境变量
-
-steps 01：获取安装路径
-
-![](IMGS/vue-i-question-solve-1.jpg)
-
-steps 02：切换至终端编辑 '.bash_profile' 文件
-
-```shell
-$ vim .bash_profile
-```
-
-steps 03：按 `i` 进行编辑，添加如下代码：
-
-```tex
-export PATH=$PATH:/Users/LiHongyao/.npm-blobal/bin/
-```
-
-> 注意：请把路径更换为自己的路径
-
-steps 04：按`ESC`，输入`wq!` 保存并退出
-
-steps 05：通过如下指令运行刚刚编辑的文件
-
-```shell
-$ source .bash_profile
-```
-
-steps 06：执行如下指令，如果出现版本号，表示正确
-
-```shell
-$ vue --version
-2.9.6
-```
-
-**> 3. 关闭Eslint 代码检测**
+**> 1. 关闭Eslint 代码检测**
 
 在项目根目录创建 vue.config.js文件并添加如下代码：
 
