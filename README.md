@@ -17,6 +17,7 @@ Vue.js 不支持 IE8 及其以下版本，因为 Vue.js 使用了 IE8 不能模�
 1. [CDN >>](https://v3.vuejs.org/guide/installation.html#cdn)
 2. [npm >>](https://v3.vuejs.org/guide/installation.html#npm)
 3. [cli >>](https://v3.vuejs.org/guide/installation.html#cli)
+4. [vite >>](https://cn.vitejs.dev/)
 
 全局安装：
 
