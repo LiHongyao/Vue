@@ -4,68 +4,40 @@
 
 # 二、绑定 HTML Class
 
-## 1、对象语法
+## 1、类型
 
-1）、我们可以为 `v-bind:class`  设置一个对象，从而动态的切换 class。
+```vue
+<template>
+  <!-- 变量绑定 -->
+  <div :class="clsName"></div>
+  <!-- 对象绑定 -->
+  <div :class="{ active: isActive, error: hasError }"></div>
+  <div :class="clsObj"></div>
+  <!-- 数组绑定 -->
+  <div :class="[activeCls, errorCls]"></div>
+  <!-- 表达式绑定 -->
+  <div :class="isActive ? 'active' : 'no-active'"></div>
+</template>
 
-```html
-<div id="app">
-    <div :class="{'active': isActive, 'error':hasError}"></div>
-</div>
-```
 
-```javascript
-var app = new Vue({
-    el: '#app',
-    data: {
-        isActive: false,
-      	hasError: true
-    },
-})
-```
-
-> 语法：` v-bind:class="{className: prop,....}"`
->
-
-2）、我们也可以直接绑定数据里的一个对象
-
-```html
-<div id="app">
-    <div :class="classObj"></div>
-</div>
-```
-
-```javascript
-var app = new Vue({
-    el: '#app',
-    data: {
-        classObj: {
-            "active":true,
-            "box":true
-        }
-    }
-})
-```
-
-## 2、数组语法
-
-我们可以把一个数组传递给 v-bind:class，如下所示
-
-```html
-<div id="app">
-    <div :class="[class1, class2]"></div>
-</div>
-```
-
-```javascript
-var app = new Vue({
-    el: '#app',
-    data: {
-        class1:"active",
-        class2:"box"
-    }
-})
-// <div class="active box"></div>
+<script>
+export default {
+  setup() {
+    return {
+      isActive: false,
+      hasError: true,
+      clsName: "wrap",
+      clsObj: {
+        wrap: true,
+        bar: false,
+        foo: true,
+      },
+      activeCls: "active",
+      errorCls: "text-danger",
+    };
+  },
+};
+</script>
 ```
 
 ## 3、用在组件上
@@ -108,76 +80,39 @@ HTML 将被渲染为
 
 # 三、绑定内联样式
 
-## 1、对象语法
+## 1. 类型
 
-通过 `v-bind:style ` 指令可直接设置样式。
+```vue
+<template>
+  <!-- 对象绑定 -->
+  <div :style="{ color }">Hello, Vue3.x!</div>
+  <div :style="styleObj">Hello, Vue3.x!</div>
+  <!-- 数组绑定 -->
+  <div :style="[styleObj, baseStyle]">Hello, Vue3.x!</div>
+</template>
 
-```html
-<div id="app">
-    <h1 :style="{color, fontSize}">Hello, World!</h1>
-</div>
+<script>
+export default {
+  setup() {
+    return {
+      color: "blue",
+      styleObj: {
+        color: "orange",
+      },
+      baseStyle: {
+        letterSpacing: "2px",
+      },
+    };
+  },
+};
+</script>
 ```
 
-```javascript
-var app = new Vue({
-    el: '#app',
-    data: {
-        color:"red",
-        fontSize: "36px"
-    }
-})
-```
-
-也可以直接设置一个样式对象
-
-```html
-<div id="app">
-    <h1 :style="styleObj">Hello, World!</h1>
-</div>
-```
-
-```javascript
-var app = new Vue({
-    el: '#app',
-    data: {
-        styleObj: {
-            color: "red",
-            fontSize: "36px"
-        }
-    }
-})
-```
-
-## 2、数组语法
-
-还可以使用数组将多个样式对象应用到一个元素上
-
-```html
-<div id="app">
-    <h1 :style="[style1, style2]">Hello, World!</h1>
-</div>
-```
-
-```javascript
-var app = new Vue({
-    el: '#app',
-    data: {
-        style1: {
-            color: "blue",
-            fontSize: "36px"
-        },
-        style2: {
-            textDecoration: "underline"
-        }
-    }
-})
-```
-
-## 3、自动添加前缀
+## 2、自动添加前缀
 
 当 `:style` 使用需要添加[浏览器引擎前缀](https://developer.mozilla.org/zh-CN/docs/Glossary/Vendor_Prefix)的 CSS 属性时，如 `transform`，Vue.js 会自动侦测并添加相应的前缀。
 
-## 4、多重值
+## 3、多重值
 
 从 2.3.0 起你可以为 `style` 绑定中的属性提供一个包含多个值的数组，常用于提供多个带前缀的值，例如：
 

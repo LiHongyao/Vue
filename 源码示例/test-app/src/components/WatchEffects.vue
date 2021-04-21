@@ -1,14 +1,14 @@
 <!--
  * @Author: Li-HONGYAO
  * @Date: 2021-04-20 17:51:33
- * @LastEditTime: 2021-04-20 17:55:31
+ * @LastEditTime: 2021-04-21 18:12:24
  * @LastEditors: Li-HONGYAO
  * @Description: 
- * @FilePath: \test-app\src\components\WatchEffect.vue
+ * @FilePath: \test-app\src\components\WatchEffects.vue
 -->
 
 <template>
-  <div></div>
+  <div class="watch-effect"></div>
 </template>
 
 <script>
