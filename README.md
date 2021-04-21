@@ -1,5 +1,11 @@
 官网地址：https://cn.vuejs.org/
 
+V2教程：https://cn.vuejs.org/v2/guide/
+
+V3教程：https://v3.vuejs.org/guide/introduction.html
+
+迁移指南：https://v3.vuejs.org/guide/migration/introduction.html#overview
+
 # 一、概述
 
 vue是一套用于构建用户界面的**渐进式框架**。与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。另一方面，当与[现代化的工具链](https://cn.vuejs.org/v2/guide/single-file-components.html)以及各种[支持类库](https://github.com/vuejs/awesome-vue#libraries--plugins)结合使用时，Vue 也完全能够为复杂的单页应用提供驱动。
@@ -29,7 +35,7 @@ $ npm install -g @vue/cli
 
 ```shell
 $ vue --version
-@vue/cli 4.5.11
+@vue/cli 4.5.12
 ```
 
 创建项目：
@@ -223,48 +229,7 @@ module.exports = {
 
 # 五、问题
 
-**\> 1. Windows 系统提示不是内部指令**
-
-解决方案：添加系统环境变量
-
-**\> 2. MacOS 系统提示 ”-bash: vue: command not found“**
-
-解决方案：添加系统环境变量
-
-steps 01：获取安装路径
-
-![](IMGS/vue-i-question-solve-1.jpg)
-
-steps 02：切换至终端编辑 '.bash_profile' 文件
-
-```shell
-$ vim .bash_profile
-```
-
-steps 03：按 `i` 进行编辑，添加如下代码：
-
-```tex
-export PATH=$PATH:/Users/LiHongyao/.npm-blobal/bin/
-```
-
-> 注意：请把路径更换为自己的路径
-
-steps 04：按`ESC`，输入`wq!` 保存并退出
-
-steps 05：通过如下指令运行刚刚编辑的文件
-
-```shell
-$ source .bash_profile
-```
-
-steps 06：执行如下指令，如果出现版本号，表示正确
-
-```shell
-$ vue --version
-2.9.6
-```
-
-**> 3. 关闭Eslint 代码检测**
+**> 1. 关闭Eslint 代码检测**
 
 在项目根目录创建 vue.config.js文件并添加如下代码：
 
