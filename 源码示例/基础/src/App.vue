@@ -1,10 +1,10 @@
 <!--
  * @Author: Li-HONGYAO
  * @Date: 2021-04-20 11:12:36
- * @LastEditTime: 2021-04-21 17:57:44
+ * @LastEditTime: 2021-04-22 22:03:36
  * @LastEditors: Li-HONGYAO
  * @Description: 
- * @FilePath: \test-app\src\App.vue
+ * @FilePath: /基础/src/App.vue
 -->
 
 <template>
@@ -19,12 +19,7 @@
     <!-- 表达式 -->
     <div>{{ isLogin ? "已登录" : "未登录" }}</div>
     <div>
-      {{
-      text
-      .split("")
-      .reverse()
-      .join("")
-      }}
+      {{ text.split("").reverse().join("") }}
     </div>
     <div>{{ num + 1 }}</div>
     <!-- 属性绑定 -->
@@ -45,6 +40,8 @@
     <watch />
     <WatchEffects />
     <ClsAndStyleBinding />
+    <!-- 组件交互 -->
+    <comp />
   </div>
 </template>
 
@@ -61,16 +58,25 @@ import {
   onErrorCaptured,
   onMounted,
   onUnmounted,
-  onUpdated
+  onUpdated,
 } from "vue";
 import Computed from "./components/Computed.vue";
 import Events from "./components/Events.vue";
 import ListRendering from "./components/ListRendering.vue";
 import Watch from "./components/Watch.vue";
 import WatchEffects from "./components/WatchEffects.vue";
-import ClsAndStyleBinding from './components/ClsAndStyleBinding.vue';
+import ClsAndStyleBinding from "./components/ClsAndStyleBinding.vue";
+import Comp from "./components/Comp.vue";
 export default defineComponent({
-  components: { ListRendering, Events, Computed, Watch, WatchEffects, ClsAndStyleBinding },
+  components: {
+    ListRendering,
+    Events,
+    Computed,
+    Watch,
+    WatchEffects,
+    ClsAndStyleBinding,
+    Comp,
+  },
   name: "App",
   setup() {
     // constants
@@ -109,9 +115,9 @@ export default defineComponent({
       text: "ABC",
       isLogin: false,
       clsName: "title",
-      onButtonClick
+      onButtonClick,
     };
-  }
+  },
 });
 </script>
 <!--

@@ -1,10 +1,10 @@
 <!--
  * @Author: Li-HONGYAO
  * @Date: 2021-04-20 14:54:53
- * @LastEditTime: 2021-04-20 15:48:30
+ * @LastEditTime: 2021-04-21 22:30:33
  * @LastEditors: Li-HONGYAO
  * @Description: 
- * @FilePath: \test-app\src\components\ListRendering.vue
+ * @FilePath: /test-app/src/components/ListRendering.vue
 -->
 
 <template>
@@ -20,7 +20,7 @@
       {{ index }} . {{ key }} . {{ value }}
     </div>
     <!-- 迭代整数 -->
-    <div v-for="value in 3" :key="value">{{ value }}</div>
+    <div v-for="value in 3" :key="value" :ref="setItemRef">{{ value }}</div>
   </div>
 </template>
 
@@ -29,7 +29,12 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   setup() {
+    const listRefs = [];
+    const setItemRef = (ref) => {
+      listRefs.push(ref);
+    };
     return {
+      setItemRef,
       hero: {
         name: "露娜",
         position: "战士/法师",
