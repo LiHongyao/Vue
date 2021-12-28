@@ -1,273 +1,108 @@
-官网地址：https://cn.vuejs.org/
+# 一、前言
 
-V2教程：https://cn.vuejs.org/v2/guide/
+Hello，各位小伙伴，我是耀哥。2020年09月18日， Vue.js 3.0 正式发布，目前，我在项目开发中，除了使用React之外，也在使用 Vue3。闲暇之余，为了加深自己对Vue的理解，同时作为一个记录，特出此教程，之前我也出过Vue2.x的教程，那么这次也主要是在2.x差的基础上升级更新。本次教程，也会从基础开始，由浅到深进行讲解，并结合实际中遇到的问题进行总结。
 
-V3教程：https://v3.vuejs.org/guide/introduction.html
+由于近期也在忙公司项目，所以更新或许会比较慢，不过我争取在过年之前出完。
 
-迁移指南：https://v3.vuejs.org/guide/migration/introduction.html#overview
+特别提示：本教程主要以3.x为主，参照[官网文档 >>](https://v3.cn.vuejs.org/)，章节中，或许会出一些和vue2.x的对比。
 
-# 一、概述
+# 二、概述
 
-vue是一套用于构建用户界面的**渐进式框架**。与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。另一方面，当与[现代化的工具链](https://cn.vuejs.org/v2/guide/single-file-components.html)以及各种[支持类库](https://github.com/vuejs/awesome-vue#libraries--plugins)结合使用时，Vue 也完全能够为复杂的单页应用提供驱动。
+Vue (读音 /vjuː/，类似于 **view**) 是一套用于构建用户界面的**渐进式框架**。与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。另一方面，当与[现代化的工具链](https://v3.cn.vuejs.org/guide/single-file-component.html)以及各种[支持类库](https://github.com/vuejs/awesome-vue#components--libraries)结合使用时，Vue 也完全能够为复杂的单页应用提供驱动。
 
 如果你已经是有经验的前端开发者，想知道 Vue 与其它库/框架有哪些区别，请查看[对比其它框架](https://cn.vuejs.org/v2/guide/comparison.html)。
 
-# 二、兼容性
+# 三、引入
 
-Vue.js 不支持 IE8 及其以下版本，因为 Vue.js 使用了 IE8 不能模拟的 ECMAScript 5 特性。Vue.js 支持所有[兼容 ECMAScript 5 的浏览器](http://caniuse.com/#feat=es5)。
+1. [CDN >>](https://v3.cn.vuejs.org/guide/installation.html#cdn)
+2. [npm >>](https://v3.cn.vuejs.org/guide/installation.html#npm)
+3. [CLI >>](https://v3.cn.vuejs.org/guide/installation.html#%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7-cli)
+4. [vite >>](https://v3.cn.vuejs.org/guide/installation.html#vite)
 
-# 三、安装
+在目前的开发中，我主要使用 `Vite2` + `Vue3` + `TypeScript` 开发，所以，本系列教程我主要使用 Vite 来创建项目。
 
-[安装参考地址 >>](https://v3.vuejs.org/guide/installation.html#release-notes)
+[Vite](https://cn.vitejs.dev/) 是一个 web 开发构建工具，由于其原生 ES 模块导入方式，可以实现闪电般的冷服务器启动。
 
-1. [CDN >>](https://v3.vuejs.org/guide/installation.html#cdn)
-2. [npm >>](https://v3.vuejs.org/guide/installation.html#npm)
-3. [cli >>](https://v3.vuejs.org/guide/installation.html#cli)
-4. [vite >>](https://cn.vitejs.dev/)
-
-全局安装：
+接下来，我们一起尝试使用 Vite 来创建项目：
 
 ```shell
-$ npm install -g @vue/cli
+$ npm init vite@latest vue-tutorial -- --template vue-ts
+$ cd vue-tutorial
+$ npm install
 ```
 
-查看版本：
-
-```shell
-$ vue --version
-@vue/cli 4.5.12
-```
-
-创建项目：
-
-```shell
-$ vue create <project_name>
-```
-如果没有设置淘宝镜像，提示是否使用淘宝镜像：
-```
-?  Your connection to the default yarn registry seems to be slow.
-   Use https://registry.npm.taobao.org for faster installation? (Y/n) 
-```
-
-选择默认配置：
-
-```shell
-? Please pick a preset: 
-  Default ([Vue 2] babel, eslint)   # 默认配置
-❯ Default (Vue 3 Preview) ([Vue 3] babel, eslint) 
-  Manually select features  # 自定义配置
-```
-选择包管理工具：
-
-```shell
-? Pick the package manager to use when installing dependencies: (Use arrow keys)
-❯ Use Yarn 
-  Use NPM 
-```
-
-**选择自定义配置流程如下：**
-
-通过按“空格”选择要安装的项：
-
-```shell
-Vue CLI v4.5.11
-? Please pick a preset: Manually select features
-? Check the features needed for your project: 
-❯◉ Choose Vue version # 选择Vue版本
- ◉ Babel
- ◉ TypeScript # 支持TypeScript
- ◯ Progressive Web App (PWA) Support # 支持渐进式网页应用程序
- ◉ Router # 路由管理器
- ◉ Vuex  # 状态管理模式（构建一个中大型单页应用时）
- ◉ CSS Pre-processors  # css预处理
- ◉ Linter / Formatter # 代码风格、格式校验
- ◯ Unit Testing # 单元测试
- ◯ E2E Testing # （End To End）即端对端测试
-```
-
-选择Vue版本：
-
-```
-? Choose a version of Vue.js that you want to start the project with 
-  2.x 
-❯ 3.x (Preview) 
-```
-
-> 提示：这里我选择3.x
-
-是否使用Class风格装饰器：
-
-```
-? Use class-style component syntax? No
-```
-
-使用Babel与TypeScript一起用于自动检测的填充：
-
-```
-? Use Babel alongside TypeScript (required for modern mode, auto-detected polyfi
-lls, transpiling JSX)? Yes
-```
-
-是否使用历史路由模式：
-
-```
-? Use history mode for router? (Requires proper server setup for index fallback 
-in production) Yes
-```
-
-选择CSS预编译，这里我选择使用Less：
-
-```shell
-? Pick a CSS pre-processor (PostCSS, Autoprefixer and CSS Modules are supported 
-by default): 
-  Sass/SCSS (with dart-sass) 
-  Sass/SCSS (with node-sass) 
-❯ Less 
-  Stylus 
-```
-
-选择 代码格式化检测 因为是用typescript 所以选择 TSLint
-
-```shell
-? Pick a linter / formatter config: 
-  ESLint with error prevention only 
-  ESLint + Airbnb config 
-  ESLint + Standard config 
-  ESLint + Prettier 
-❯ TSLint (deprecated) 
-
-? Pick additional lint features: (Press <space> to select, <a> to toggle all, <i
-> to invert selection)
-❯◉ Lint on save # 保存时检查
- ◯ Lint and fix on commit  # 提交时检查
-```
-
-选择Babel、PostCSS、ESLint等配置文件的放置位置：
-
-```shell
-? Where do you prefer placing config for Babel, ESLint, etc.? (Use arrow keys)
-❯ In dedicated config files  # 在专用的配置文件中
-  In package.json # package.json
-```
-
-是否保存预设：
-
-```shell
-? Save this as a preset for future projects? Yes
-? Save preset as: # 输入预设
-```
-
-选择包管理工具：
-
-```
-? Pick the package manager to use when installing dependencies: (Use arrow keys)
-
-❯ Use Yarn 
-  Use NPM 
-```
-
-**启动项目：**
-
-```shell
-$ cd project_name
-$ yarn serve
-  App running at:
-  - Local:   http://localhost:8080/ 
-  - Network: http://192.168.101.113:8080/
-
-  Note that the development build is not optimized.
-  To create a production build, run yarn build.
-```
-
-> 提示：
+> 温馨提示 :
 >
-> 安装过程中可能会遇到如下错误 " ERROR Error: Cannot find module 'vue-template-compiler'"，不用担心，直接在项目安装该依赖即可。
+> - `vue-tutorial` ：项目名称；
+> - `vue-ts`：项目模板，这里我加入了TS，如果你TS还不是很了解，建议你先去学习 [Typescript >>](https://www.typescriptlang.org/)
 
-**# vue - ui**
+# 四、模板改造
 
-vue 提供了 GUI 来构建项目，唤起指令入如下：
+通过 Vite 构建的项目为我们预生成了一些文件，由于本教程主要从基础开始讲解，所以我们需要从头开始引入Vue，接下来我们删除不必要的文件，只保留如下目录结构：
 
-```shell
-$ vue ui
+```ini
+vue-tutorial
+.
+├── node_modules
+├── public                    
+├── src                       # 源码文件
+│   ├── assets                # 静态资源（如图片）
+│   ├── App.vue								# 根组件
+│   ├── env.d.ts              # 类型定义
+│	  └──	main.ts               # 入口文件 
+├── .gitignore                # git跟踪忽略配置
+├── index.html                # 模板
+├── tsconfig.json             # TS 配置文件
+└── vite.config.js            # vite 配置文件 
 ```
 
-**# 重点提示**
+首先我们来改造 `App.vue` 文件：
 
-vue-cli 从3.x起 *webpack* 的配置已经被脚手架默认了，并不会显示。如果我们需要手动配置webpack的一些配置，可以手动创建配置文件。文件名为vue.config.js，此文件应该和package.json同级（创建之后会自动加载）,此文件需要按照JSON格式来撰写。
-
-```js
-// vue.config.js
-module.exports = {
-  // 选项...
-}
+```vue
+<!-- 脚本 -->
+<script setup lang="ts"></script>
+<!-- 模板 -->
+<template>
+  <div class="root">Hello, Vue3.x!</div>
+</template>
+<!-- 样式 -->
+<style scoped></style>
 ```
 
-比如：有时候我们前后端是分离情况下，在开发模式下，我们需要在vue.config.js中配置了。
+> 提示：`App.vue` 文件为一个单文件组件，通常作为 vue 根组件，一个完整的组件包含脚本、模板以及样式。关于组件的更多知识点我们会在后续讲到，这里只需要了解即可。
 
-```js
-// vue config.js
-module.exports = {
-    devServer: {
-        port: 8080,
-        host: 'localhost',
-        open: true,
-        proxy: {
-            '/api': {
-                target: 'http://127.0.0.1:2019',
-                secure: false,
-                changeOrigin: true,
-                pathRewrite: { '^/api': '' }
-            }
-        }
-    }
-}
+# 五、组件实例
+
+每个 Vue 应用都是通过用 `createApp` 函数创建一个新的**应用实例**开始的，通常，我们需要传一个组件给它用于配置 **根组件**，该组件被作为渲染的起点。
+
+一个应用需要被挂载到一个 DOM 元素中，例如，如果你想把一个 Vue 应用挂载到 `<div id="app"></div>`，应该传入 `#app`：
+
+```typescript
+// -- main.js
+// -- 导入创建实例方法
+import { createApp } from 'vue';
+// -- 导入根组件
+import App from './App.vue';
+
+// -- 创建应用程序实例
+const app = createApp(App);
+// -- 挂载
+const vm = app.mount('#app');
+// -- 输出实例
+console.log(vm);
 ```
 
-# 四、在线练习
+ 
 
-在线练习：https://jsfiddle.net/chrisvfritz/50wL7mdz/
+> 提示：通过 `vite` 生成的模板 `index.html` 文件中默认存在 `<div id="app" />`，所以我们挂载vue时使用 `#app`。
 
-# 五、问题
+与大多数应用方法不同的是，`mount` 不返回应用本身。相反，它返回的是根组件实例。
 
-**> 1. 关闭Eslint 代码检测**
+# 六、运行项目
 
-在项目根目录创建 vue.config.js文件并添加如下代码：
+终端输入：`npm run dev`
 
-```js
-module.exports = {
-	lintOnSave: false
-}
-```
-
-或者在package.json文件中添加字段：
-
-```js
-"rules": {
-	"no-console":"off"
-}
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+然后在浏览器访问：`http://locahost:300`，可以看到，界面输入 “Hello，Vue3.x！”
 
 
 
