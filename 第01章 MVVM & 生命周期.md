@@ -101,6 +101,23 @@ const increment = () => {
 
 > 提示：`ref` 一般包裹基本数据类型，如 字符串、数值、布尔类型等。如果你要将一个对象加入响应式，请使用 `reactive`。
 
+`ref()` 也可以用于获取单个 DOM元素，如下：
+
+```vue
+<script setup lang="ts">
+import { onMounted, ref } from 'vue';
+const domRef = ref(null);
+onMounted(() => {
+  console.log(domRef.value); //  <div>Hello</div>
+})
+</script>
+
+<template>
+  <!-- ref -->
+  <div ref="domRef">Hello</div>
+</template>
+```
+
 ### 1.2. `reactive()`
 
 返回对象的响应式副本。

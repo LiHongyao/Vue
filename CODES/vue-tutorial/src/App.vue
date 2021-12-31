@@ -2,7 +2,7 @@
  * @Author: Lee
  * @Date: 2021-12-28 21:36:15
  * @LastEditors: Lee
- * @LastEditTime: 2021-12-31 16:55:05
+ * @LastEditTime: 2022-01-01 03:23:47
 -->
 
 <!-- 脚本 -->
@@ -19,6 +19,8 @@ import Basic from './components/Basic.vue';
 import Response from './components/Response.vue';
 import ModelBind from './components/ModelBind.vue';
 import EventHandler from './components/EventHandler.vue';
+import Conditional from './components/Conditional.vue';
+import ListRendering from './components/ListRendering.vue';
 /** -- 生命周期 */
 console.log('__setup__');
 
@@ -51,6 +53,8 @@ onUnmounted(() => {
   <!-- <Basic /> -->
   <!-- <ModelBind /> -->
   <EventHandler />
+  <!-- <Conditional /> -->
+  <!-- <ListRendering /> -->
 </template>
 
 <!-- 样式 -->
