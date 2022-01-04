@@ -2,7 +2,7 @@
  * @Author: Lee
  * @Date: 2021-12-31 16:54:39
  * @LastEditors: Lee
- * @LastEditTime: 2022-01-01 03:30:39
+ * @LastEditTime: 2022-01-04 19:10:45
 -->
 
 <script setup lang="ts">
@@ -36,6 +36,9 @@ const handler5 = () => {
   <button type="button" @click="handler1('Li-HONGYAO')">Button 1</button>
   <!-- 通过监听函数处理事件 -->
   <button type="button" @click="handler2">BUTTON 2</button>
-  <button type="button" @click="handler3($event, '前端工程师')">BUTTON 3</button>
+  <button type="button" @click="handler3($event, '前端工程师')">
+    BUTTON 3
+  </button>
   <button type="button" @click="handler4(), handler5()">BUTTON 4</button>
+  
 </template>
