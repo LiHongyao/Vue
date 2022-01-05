@@ -2,7 +2,7 @@
  * @Author: Lee
  * @Date: 2022-01-05 06:46:03
  * @LastEditors: Lee
- * @LastEditTime: 2022-01-05 17:46:57
+ * @LastEditTime: 2022-01-05 22:26:03
 -->
 
 <!-- css 过渡 -->
@@ -204,10 +204,75 @@ button {
 }
 </style> -->
 
-<script setup lang="ts">
+<!-- 列表进入&离开过渡 -->
+<!-- <script setup lang="ts">
+import { reactive } from 'vue';
 
+const list = reactive<number[]>([1, 2, 3, 4, 5, 6]);
+let nextNum = 7;
+
+// methods
+const randomIndex = () => Math.floor(Math.random() * list.length);
+// events
+const onInsert = () => {
+  list.splice(randomIndex(), 0, ++nextNum);
+};
+const onRemove = () => {
+  list.splice(randomIndex(), 1);
+};
 </script>
 
 <template>
-<page-a/>
+  <button type="button" @click="onInsert">INSERT</button>
+  <button type="button" @click="onRemove">REMOVE</button>
+  <transition-group name="list" tag="div" class="list">
+    <div class="item" v-for="item in list" :key="item">
+      {{ item }}
+    </div>
+  </transition-group>
+</template>
+
+<style scoped>
+button {
+  margin-right: 10px;
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+.item {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.list-enter-active,
+.list-leave-active {
+  transition: all 1s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
+</style> -->
+
+<!-- gsap -->
+<script setup lang="ts">
+import { reactive } from 'vue';
+import gsap from 'gsap';
+
+const state = reactive({
+  count: 100,
+});
+
+const onPlus = () => {
+  gsap.to(state, {
+    duration: 0.75 /** 持续时间 */,
+    count: state.count + Math.random() * 100 /** 变更key-value */,
+    ease: 'sine' /** 速度曲线 */,
+  });
+};
+</script>
+
+<template>
+  <button type="button" style="cursor: pointer" @click="onPlus">增加数额</button>
+  <p>&yen;&nbsp;{{ state.count.toFixed(2) }}</p>
 </template>

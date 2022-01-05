@@ -2,11 +2,11 @@
  * @Author: Lee
  * @Date: 2022-01-05 19:43:26
  * @LastEditors: Lee
- * @LastEditTime: 2022-01-05 20:13:28
+ * @LastEditTime: 2022-01-05 21:07:39
 -->
 
 <!-- child.vue -->
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 // -- 声明属性类型（TS）
 interface IProps {
   name: string;
@@ -32,4 +32,29 @@ const emit = defineEmits<{
   <div>{{ name }} - {{ age }} - {{ job }}</div>
     <button type="button" @click="emit('change', 1)">触发[change]事件</button>
     <button type="button" @click="emit('update', 'Hello')">触发[update]事件</button>
+</template> -->
+
+
+<!-- 子组件 -->
+<script setup lang="ts">
+defineProps<{
+  modelValue: string;
+}>();
+
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: string): void;
+}>();
+</script>
+
+<template>
+  <div>
+    <span>子组件：{{ modelValue }}</span>
+    <button
+      style="margin-left: 10px"
+      type="button"
+      @click="emit('update:modelValue', 'Hello, world!')"
+    >
+      修改msg
+    </button>
+  </div>
 </template>

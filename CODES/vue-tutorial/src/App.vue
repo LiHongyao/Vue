@@ -2,7 +2,7 @@
  * @Author: Lee
  * @Date: 2021-12-28 21:36:15
  * @LastEditors: Lee
- * @LastEditTime: 2022-01-05 19:49:05
+ * @LastEditTime: 2022-01-05 21:45:50
 -->
 
 <!-- 脚本 -->
@@ -66,10 +66,10 @@ onUnmounted(() => {
   <!-- <Watch /> -->
   <!-- <BindClassAndStyle /> -->
   <!-- <InputBinding /> -->
-  <!-- <TransitionAndAnimation /> -->
+  <TransitionAndAnimation />
   <!-- <button-counter /> -->
   <!-- <SFC /> -->
-  <Parent />
+  <!-- <Parent /> -->
 </template>
 
 <!-- 样式 -->
