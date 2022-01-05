@@ -28,7 +28,7 @@ MVVM（ **Model-View-ViewModel** ） 为一种设计模式。
 
 这种模式实现了 **Model** 和 **View** 的数据自动同步，因此开发者只需要专注对数据的维护操作即可，而不需要自己操作 **DOM**。
 
-# 三、Vue 响应式
+# 二、Vue 响应式
 
 ## 1. 响应式属性
 
@@ -236,13 +236,13 @@ Vue3.x 改用 `Proxy` 替代`Object.defineProperty`，因为Proxy可以直接监
 
 我们可以判断 `key` 是否为当前被代理对象 `target` 自身属性，也可以判断旧值与新值是否相等，只有满足以上两个条件之一时，才有可能执行 `trigger`。
 
-# 四、生命周期
+# 三、生命周期
 
 每个 Vue 实例在被创建之前都要经过一系列的初始化过程，在这个过程中也会运行一些叫做 **生命周期钩子** 的函数，给予用户机会在一些特定的场景下添加他们自己的代码。
 
 ##　@2.ｘ
 
-![](https://v3.vuejs.org/images/lifecycle.svg)
+![](./IMGS/lifecycle.png)
 
 ## @3. x
 
@@ -310,12 +310,3 @@ onUnmounted(() => {
 <!-- 样式 -->
 <style scoped></style>
 ```
-
-
-
-
-
-
-
-
-

@@ -109,7 +109,39 @@ console.log(vm);
 
 然后在浏览器访问：`http://locahost:300`，可以看到，界面输入 “Hello，Vue3.x！”
 
+# 七、特别说明
 
+为了方便演示示例，在讲解一个新的知识点前，你应该新建组件，比如，讲解条件渲染，你应该在 `./src/components` 目录下新建 `ConditionalRendering.vue` 文件（名字可以自己随意取，但还是要保证语义化），该文件为一个单文件组件，尽管还没有讲到组件章节，但你可以提前了解组件相关的一些基础。
 
+现在先简单介绍一个组件的基本结构，组件通常包含三个部分：
 
+```vue
+<!-- 脚本 -->
+<script setup lang="ts"></script>
+
+<!-- 模板 -->
+<template></template>
+
+<!-- 样式 -->
+<style scoped></style>
+```
+
+组件定义好之后需要在 `App.vue` 文件中引用：
+
+```vue
+<!-- 脚本 -->
+<script setup lang="ts">
+// 导入组件
+import ConditionalRendering from './components/ConditionalRendering.vue';
+
+</script>
+<!-- 模板 -->
+<template>
+  <div class="root">Hello, Vue3.x!</div>
+  <!-- 使用组件 -->
+  <ConditionalRendering />
+</template>
+<!-- 样式 -->
+<style scoped></style>
+```
 

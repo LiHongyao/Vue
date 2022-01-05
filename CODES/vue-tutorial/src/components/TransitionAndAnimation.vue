@@ -2,7 +2,7 @@
  * @Author: Lee
  * @Date: 2022-01-05 06:46:03
  * @LastEditors: Lee
- * @LastEditTime: 2022-01-05 08:40:08
+ * @LastEditTime: 2022-01-05 17:46:57
 -->
 
 <!-- css 过渡 -->
@@ -145,7 +145,7 @@ const visible = ref(true);
 </style> -->
 
 <!-- animate.css -->
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 import { ref } from 'vue';
 const visible = ref(true);
 </script>
@@ -158,4 +158,56 @@ const visible = ref(true);
   >
     <h1 v-show="visible">Animate.css</h1>
   </transition>
+</template> -->
+
+<!-- 过渡模式 -->
+<!-- <script setup lang="ts">
+import { ref, computed } from 'vue';
+
+// -- 定义 buttonState 形状（TS语法）
+type ButtonStateType = 'disable' | 'enable';
+// -- 定义 buttonState 变量，其类型为 ButtonStateType
+const buttonState = ref<ButtonStateType>('disable');
+</script>
+
+<template>
+  <transition mode="out-in">
+    <button type="button" v-if="buttonState === 'enable'" @click="buttonState = 'disable'">禁用</button>
+    <button type="button" v-else @click="buttonState = 'enable'">启用</button>
+  </transition>
+</template>
+
+<style scoped>
+
+@keyframes move-in {
+  from {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+button {
+  
+  position: absolute;
+  top: 50px;
+  left: 50px;
+}
+.v-enter-active {
+  animation: move-in 1s linear;
+}
+.v-leave-active {
+  animation: move-in 1s linear reverse;
+}
+</style> -->
+
+<script setup lang="ts">
+
+</script>
+
+<template>
+<page-a/>
 </template>

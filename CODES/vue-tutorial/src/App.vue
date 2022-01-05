@@ -2,7 +2,7 @@
  * @Author: Lee
  * @Date: 2021-12-28 21:36:15
  * @LastEditors: Lee
- * @LastEditTime: 2022-01-05 06:46:22
+ * @LastEditTime: 2022-01-05 19:49:05
 -->
 
 <!-- 脚本 -->
@@ -26,7 +26,8 @@ import Watch from './components/Watch.vue';
 import BindClassAndStyle from './components/BindClassAndStyle.vue';
 import InputBinding from './components/InputBinding.vue';
 import TransitionAndAnimation from './components/TransitionAndAnimation.vue';
-
+import SFC from './components/SFC.vue';
+import Parent from './components/Parent.vue';
 /** -- 生命周期 */
 console.log('__setup__');
 
@@ -65,7 +66,10 @@ onUnmounted(() => {
   <!-- <Watch /> -->
   <!-- <BindClassAndStyle /> -->
   <!-- <InputBinding /> -->
-  <TransitionAndAnimation />
+  <!-- <TransitionAndAnimation /> -->
+  <!-- <button-counter /> -->
+  <!-- <SFC /> -->
+  <Parent />
 </template>
 
 <!-- 样式 -->

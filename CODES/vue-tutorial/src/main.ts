@@ -2,7 +2,7 @@
  * @Author: Lee
  * @Date: 2021-12-31 14:14:04
  * @LastEditors: Lee
- * @LastEditTime: 2022-01-05 08:35:47
+ * @LastEditTime: 2022-01-05 18:18:01
  */
 // -- 导入创建实例方法
 import { createApp } from 'vue';
@@ -18,5 +18,18 @@ app.directive('highlight', {
     el.style.color = binding.value || 'orange';
   },
 });
+
+app.component('button-counter', {
+  data() {
+    return {
+      count: 0,
+    };
+  },
+  template: `
+    <button @click="count++">
+      You clicked me {{ count }} times.
+    </button>`,
+});
+
 // -- 挂载
 const vm = app.mount('#app');
