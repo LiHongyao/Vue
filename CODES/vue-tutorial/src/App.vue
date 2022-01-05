@@ -2,7 +2,7 @@
  * @Author: Lee
  * @Date: 2021-12-28 21:36:15
  * @LastEditors: Lee
- * @LastEditTime: 2022-01-04 21:46:05
+ * @LastEditTime: 2022-01-05 06:46:22
 -->
 
 <!-- 脚本 -->
@@ -25,6 +25,7 @@ import Computed from './components/Computed.vue';
 import Watch from './components/Watch.vue';
 import BindClassAndStyle from './components/BindClassAndStyle.vue';
 import InputBinding from './components/InputBinding.vue';
+import TransitionAndAnimation from './components/TransitionAndAnimation.vue';
 
 /** -- 生命周期 */
 console.log('__setup__');
@@ -53,7 +54,7 @@ onUnmounted(() => {
 
 <!-- 模板 -->
 <template>
-  <div class="app" v-highlight="'blue'">Hello, Vue3.x!</div>
+  <!-- <div class="app" v-highlight="'blue'">Hello, Vue3.x!</div> -->
   <!-- <Response /> -->
   <!-- <Basic /> -->
   <!-- <ModelBind /> -->
@@ -63,7 +64,8 @@ onUnmounted(() => {
   <!-- <Computed /> -->
   <!-- <Watch /> -->
   <!-- <BindClassAndStyle /> -->
-  <InputBinding />
+  <!-- <InputBinding /> -->
+  <TransitionAndAnimation />
 </template>
 
 <!-- 样式 -->

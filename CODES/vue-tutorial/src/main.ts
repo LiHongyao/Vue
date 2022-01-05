@@ -2,13 +2,13 @@
  * @Author: Lee
  * @Date: 2021-12-31 14:14:04
  * @LastEditors: Lee
- * @LastEditTime: 2022-01-04 21:48:51
+ * @LastEditTime: 2022-01-05 08:35:47
  */
 // -- 导入创建实例方法
 import { createApp } from 'vue';
 // -- 导入根组件
 import App from './App.vue';
-
+import 'animate.css';
 // -- 创建应用程序实例
 const app = createApp(App);
 // -- 自定义指令
