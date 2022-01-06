@@ -2,7 +2,7 @@
  * @Author: Lee
  * @Date: 2022-01-05 06:46:03
  * @LastEditors: Lee
- * @LastEditTime: 2022-01-05 22:26:03
+ * @LastEditTime: 2022-01-06 11:38:53
 -->
 
 <!-- css 过渡 -->
@@ -206,27 +206,41 @@ button {
 
 <!-- 列表进入&离开过渡 -->
 <!-- <script setup lang="ts">
+// +++
+import _ from 'lodash';
+// +++
+
 import { reactive } from 'vue';
 
-const list = reactive<number[]>([1, 2, 3, 4, 5, 6]);
+const state = reactive({
+  list: [1, 2, 3, 4, 5, 6],
+});
 let nextNum = 7;
 
 // methods
-const randomIndex = () => Math.floor(Math.random() * list.length);
+const randomIndex = () => Math.floor(Math.random() * state.list.length);
 // events
+// +++
+const onShuffle = () => {
+  // 打乱集合顺序
+  state.list = _.shuffle(state.list);
+};
+// +++
 const onInsert = () => {
-  list.splice(randomIndex(), 0, ++nextNum);
+  state.list.splice(randomIndex(), 0, ++nextNum);
 };
 const onRemove = () => {
-  list.splice(randomIndex(), 1);
+  state.list.splice(randomIndex(), 1);
 };
 </script>
 
 <template>
+  <button type="button" @click="onShuffle">SHUFFLE</button>
+
   <button type="button" @click="onInsert">INSERT</button>
   <button type="button" @click="onRemove">REMOVE</button>
   <transition-group name="list" tag="div" class="list">
-    <div class="item" v-for="item in list" :key="item">
+    <div class="item" v-for="item in state.list" :key="item">
       {{ item }}
     </div>
   </transition-group>
@@ -243,6 +257,12 @@ button {
   margin-right: 10px;
 }
 
+/* +++ */
+.list-move {
+  transition: transform 1s;
+}
+/* +++ */
+
 .list-enter-active,
 .list-leave-active {
   transition: all 1s ease;
@@ -255,7 +275,7 @@ button {
 </style> -->
 
 <!-- gsap -->
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 import { reactive } from 'vue';
 import gsap from 'gsap';
 
@@ -275,4 +295,93 @@ const onPlus = () => {
 <template>
   <button type="button" style="cursor: pointer" @click="onPlus">增加数额</button>
   <p>&yen;&nbsp;{{ state.count.toFixed(2) }}</p>
+</template> -->
+
+<!-- 列表交错过渡 -->
+<script setup lang="ts">
+import { reactive } from 'vue';
+import gsap from 'gsap';
+
+interface StateProps {
+  list: number[] | null;
+}
+const state = reactive<StateProps>({
+  list: null,
+});
+
+// -- 模拟请求数据
+setTimeout(() => {
+  state.list = [1, 2, 3, 4, 5];
+}, 1000);
+
+const beforeEnter = (el: Element) => {
+  const dom = el as HTMLDivElement;
+  dom.style.cssText = 'opacity: 0; transform: translateY(30px)';
+};
+const enter = (el: Element, done: () => void) => {
+  const dom = el as HTMLDivElement;
+  const dataset = dom.dataset;
+  const index = dataset.index || '';
+  gsap.to(dom, {
+    duration: 1,
+    opacity: 1,
+    translateY: 0,
+    delay: +index * 0.25,
+    onComplete: done,
+  });
+};
+</script>
+
+<template>
+  <transition-group
+    tag="div"
+    :css="false"
+    @before-enter="beforeEnter"
+    @enter="enter"
+  >
+    <div
+      class="item"
+      v-for="(item, index) in state.list"
+      :key="item"
+      :data-index="index"
+    >
+      <div class="avatar"></div>
+      <div class="info">
+        <div class="title"></div>
+        <div class="desc"></div>
+      </div>
+    </div>
+  </transition-group>
 </template>
+
+<style scoped>
+.item {
+  width: 90%;
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: 0 0 10px 1px #eeeeee;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+}
+.avatar {
+  width: 60px;
+  height: 60px;
+  background: #6bb6fc;
+  border-radius: 12px;
+  margin-right: 16px;
+}
+.title {
+  width: 160px;
+  height: 20px;
+  border-radius: 20px;
+  background: #6bb6fc;
+  margin-bottom: 10px;
+}
+.desc {
+  width: 80px;
+  height: 20px;
+  border-radius: 20px;
+  background: #9ed0f8;
+}
+</style>

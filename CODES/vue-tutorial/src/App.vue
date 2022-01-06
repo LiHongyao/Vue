@@ -2,11 +2,12 @@
  * @Author: Lee
  * @Date: 2021-12-28 21:36:15
  * @LastEditors: Lee
- * @LastEditTime: 2022-01-05 21:45:50
+ * @LastEditTime: 2022-01-06 20:12:30
 -->
 
 <!-- 脚本 -->
 <script setup lang="ts">
+import { provide, ref } from 'vue';
 import {
   onBeforeMount,
   onBeforeUnmount,
@@ -28,7 +29,14 @@ import InputBinding from './components/InputBinding.vue';
 import TransitionAndAnimation from './components/TransitionAndAnimation.vue';
 import SFC from './components/SFC.vue';
 import Parent from './components/Parent.vue';
+import Slot from './components/Slot.vue';
+import ComponentIs from './components/ComponentIs.vue';
+import Attrs from './components/Attrs.vue';
+
+const removeParent = ref(false);
+
 /** -- 生命周期 */
+/*
 console.log('__setup__');
 
 onBeforeMount(() => {
@@ -48,6 +56,11 @@ onBeforeUnmount(() => {
 });
 onUnmounted(() => {
   console.log('__onUnmounted__');
+});*/
+
+provide('global', {
+  env: 'development',
+  appID: 'xxx',
 });
 
 /** 插值 */
@@ -66,11 +79,17 @@ onUnmounted(() => {
   <!-- <Watch /> -->
   <!-- <BindClassAndStyle /> -->
   <!-- <InputBinding /> -->
-  <TransitionAndAnimation />
+  <!-- <TransitionAndAnimation /> -->
   <!-- <button-counter /> -->
   <!-- <SFC /> -->
-  <!-- <Parent /> -->
+  <Parent v-if="!removeParent" />
+  <button type="button" style="cursor: pointer;" @click="removeParent = true">销毁父组件</button>
+  <!-- <Slot /> -->
+  <!-- <ComponentIs /> -->
+  <!-- <Attrs name="Li-HONGYAO" job="Senior Front-End Developer" /> -->
 </template>
 
 <!-- 样式 -->
 <style scoped></style>
+
+

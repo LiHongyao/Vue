@@ -30,8 +30,6 @@ MVVM（ **Model-View-ViewModel** ） 为一种设计模式。
 
 # 二、Vue 响应式
 
-## 1. 响应式属性
-
 在 vue 中，可以通过双花括号来将数据绑定在视图上，比如：
 
 ```vue
@@ -70,11 +68,13 @@ const increment = () => {
 
 上述示例中，`@click` 表示为按钮 `button` 添加一个点击事件，事件处理函数为：`increment`，在事件处理函数中，我们让 `count` 变量自增，点击按钮，可以发现，视图并没有更新。这是因为我们定义的变量 `count` 并非是响应式的（尽管你可以将其呈现在视图上，但变量 `count` 并没有加入响应式系统中）。
 
-接下来，我们看看在 vue3.x 中将变量加入响应式系统中的几种形式：
+接下来，我们看看在 vue 中响应式相关的 API：
+
+## 1. 响应式基础API
 
 ### 1.1. `ref()`
 
-接受一个内部值并返回一个响应式且可变的 `ref` 对象。`ref` 对象具有指向内部值的单个 property `.value`。
+接受一个内部值并返回一个响应式且可变的 `ref` 对象，该对象只有一个 `value` 属性指向该内部值。
 
 接下来我们改造一下示例，将 `count` 值通过 `ref` 包裹：
 
@@ -86,7 +86,7 @@ let count = ref(0);
 
 // -- 事件处理函数
 const increment = () => {
-  count.value++;
+  count.value++; // count.value = count.value + 1
 };
 </script>
 
@@ -99,7 +99,7 @@ const increment = () => {
 
 点击按钮，可以发现，`count` 值成功更新。
 
-> 提示：`ref` 一般包裹基本数据类型，如 字符串、数值、布尔类型等。如果你要将一个对象加入响应式，请使用 `reactive`。
+> 提示：`ref` 一般用于原始数据类型，如 字符串、数值、布尔类型等。如果你要将一个对象加入响应式，建议使用 `reactive`。
 
 `ref()` 也可以用于获取单个 DOM元素，如下：
 
@@ -143,11 +143,11 @@ const increment = () => {
 </template>
 ```
 
-> 提示：`reactive` 一般包裹对象类型。
+> 提示：`reactive` 一般用于对象类型。
 
 ### 1.3. `toRefs()`
 
-将响应式对象转换为普通对象，其中结果对象的每个 `property` 都是指向原始对象相应 `property` 的  [`ref`](https://v3.cn.vuejs.org/api/refs-api.html#ref)。
+将响应式对象转换为普通对象，其中结果对象的每个属性都是指向原始对象相应属性的  [`ref`](https://v3.cn.vuejs.org/api/refs-api.html#ref)。
 
 ```vue
 <script setup lang="ts">
@@ -177,7 +177,7 @@ console.log(state.age); // 20
 
 ```
 
-小妙招：在一个页面中，通常会有多个状态（`state`），比如用户信息、登录状态等等，你可能会定义多个 `ref` 或者 `reactive` 变量来保存这些信息，在 vue2.x，属性一般统一定义在 `data` 属性中集中管理，如果你也想将一个页面的状态统定义在一个 `state` 变量中，可以这么做：
+小妙招：在一个页面中，通常会有多个状态（`state`），比如用户信息、登录状态等等，你可能会定义多个 `ref` 或者 `reactive` 变量来保存这些信息，在 vue2.x，属性一般统一定义在 `data` 选项中集中管理，如果你也想将一个页面的状态统一定义在一个 `state` 变量中，可以这么做：
 
 ```typescript
 const state = reactive({
