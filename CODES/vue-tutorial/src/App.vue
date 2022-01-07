@@ -2,7 +2,7 @@
  * @Author: Lee
  * @Date: 2021-12-28 21:36:15
  * @LastEditors: Lee
- * @LastEditTime: 2022-01-06 20:12:30
+ * @LastEditTime: 2022-01-07 11:51:07
 -->
 
 <!-- 脚本 -->
@@ -32,13 +32,14 @@ import Parent from './components/Parent.vue';
 import Slot from './components/Slot.vue';
 import ComponentIs from './components/ComponentIs.vue';
 import Attrs from './components/Attrs.vue';
-
+import Mixin from './components/Mixin.vue';
+import Hooks from './components/Hooks.vue';
 const removeParent = ref(false);
 
 /** -- 生命周期 */
+
 /*
 console.log('__setup__');
-
 onBeforeMount(() => {
   console.log('__onBeforeMount__');
 });
@@ -82,14 +83,14 @@ provide('global', {
   <!-- <TransitionAndAnimation /> -->
   <!-- <button-counter /> -->
   <!-- <SFC /> -->
-  <Parent v-if="!removeParent" />
-  <button type="button" style="cursor: pointer;" @click="removeParent = true">销毁父组件</button>
+  <!-- <Parent v-if="!removeParent" />
+  <button type="button" style="cursor: pointer;" @click="removeParent = true">销毁父组件</button> -->
   <!-- <Slot /> -->
   <!-- <ComponentIs /> -->
   <!-- <Attrs name="Li-HONGYAO" job="Senior Front-End Developer" /> -->
+  <!-- <Mixin /> -->
+  <Hooks />
 </template>
 
 <!-- 样式 -->
 <style scoped></style>
-
-
