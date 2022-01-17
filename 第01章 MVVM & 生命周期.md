@@ -226,9 +226,9 @@ Vue 数据双向绑定主要是指：**数据变化更新视图，视图变化�
 
 ### 2.2. @3.x
 
-Vue3.x 改用 `Proxy` 替代`Object.defineProperty`，因为Proxy可以直接监听对象和数组的变化，并且有多达13种拦截方法。并且作为新标准将受到浏览器厂商重点持续的性能优化。
+Vue3.x 改用 `Proxy` 替代`Object.defineProperty`，因为Proxy可以直接监听对象和数组的变化，并且有多达13种拦截方法。
 
-**Proxy 只会代理对象的第一层，Vue3是怎样处理这个问题的呢?**
+**Proxy 只会代理对象的第一层，Vue3 是怎样处理这个问题的呢?**
 
 判断当前 `Reflect.ge`t 的返回值是否为Object，如果是则再通过 `reactive` 方法做代理， 这样就实现了深度观测。
 
@@ -238,35 +238,29 @@ Vue3.x 改用 `Proxy` 替代`Object.defineProperty`，因为Proxy可以直接监
 
 # 三、生命周期
 
-每个 Vue 实例在被创建之前都要经过一系列的初始化过程，在这个过程中也会运行一些叫做 **生命周期钩子** 的函数，给予用户机会在一些特定的场景下添加他们自己的代码。
+## @概述
 
-##　@2.ｘ
+每个 Vue 实例在被创建之前都要经过一系列的初始化过程，在这个过程中也会运行一些叫做 **生命周期钩子** 的函数，给予用户机会在一些特定的场景下添加他们自己的代码。
 
 ![](./IMGS/lifecycle.png)
 
-## @3. x
+- `beforeCreate`：在实例初始化之后，数据观测（data observe ）和 `event`/`watcher` 事件配置之前同步调用，在当前阶段 `data`、`methods`、`computed` 以及 `watch` 上的数据和方法都不能被访问。
+- `creared`：实例已经创建完成之后被调用。在这一步，实例已经完成以下的配置：数据观测（data observe ），属性和方法的运算，watch/event 事件回调。这里没有 `$el`，如果非要想与 DOM 进行交互，可以通过 `vm.$nextTick` 来访问 DOM。
+- `beforeMount`：在挂载开始之前被调用：相关的 `render` 函数首次被调用。
+- `mounted`：挂载完成后发生，在当前阶段，真实的 DOM挂载完毕，数据完成双向绑定，可以访问到 DOM 节点。
+- `beforeUpdate`：数据更新时调用，发生在虚拟 DOM 重新渲染之前。可以在这个钩子中进一步地更改状态，这不会触发附加的重渲染过程。
+- `updated`：发生在更新完成之后，当前阶段组件 DOM 已经完成更新。要注意的是避免在此期间更新数据，因为这个可能导致无限循环的更新，该钩子在服务器渲染期间不被调用。
+- `activated`：被 `keep-alive` 缓存的组件激活时调用。
+- `deactivated`：被 `keep-alive` 缓存的组件失活时调用。
+- `beforeUnmount`：实例销毁之前调用。在这一步，实力仍然完全可用。我们可以在这时进行 善后收尾工作，比如清除定时器（3.x之前為：`beforeDestroy`）。
+- `unmounted`： Vue实例销毁后调用，调用此钩子时，组件实例的所有指令都被解除绑定，所有事件侦听器都被移除，所有子组件实例被卸载（3.x之前為：`destroyed`）
 
-**被替换**
+## @`<script setup>`
 
 1. `beforeCreate` -> setup()
 2. `created` -> `setup()`
 
-**重命名**
-
-1. `beforeMount` -> `onBeforeMount`
-2. `mounted` -> `onMounted`
-3. `beforeUpdate` -> `onBeforeUpdate`
-4. `updated` -> `onUpdated`
-5. `beforeDestroy` -> `onBeforeUnmount`
-6. `destroyed` -> `onUnmounted`
-7. `errorCaptured` -> `onErrorCaptured`
-
-**新增的**
-
-新增的以下2个方便调试 `debug` 的回调钩子：
-
-1. `onRenderTracked`
-2. `onRenderTriggered`
+生命周期函数调用：`on + 生命周期钩子函数名`，如 `mounted` 在 `setup` 中调用为：`onMounted`
 
 ## @代码示例
 
