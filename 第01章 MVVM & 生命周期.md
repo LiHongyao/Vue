@@ -209,9 +209,253 @@ const { loginStatus, user } = toRefs(state);
 
 ## 2. 响应式原理
 
-Vue 数据双向绑定主要是指：**数据变化更新视图，视图变化更新数据**
+### 2.1. 定义
 
-### 2.1. @2.x
+**响应式**：组件 data 的数据一旦变化，立刻触发视图的更新。它是实现数据驱动视图的第一步。
+
+### 2.2. 监听data变化的核心API
+
+Vue 实现响应式的一个核心 API 是 `Object.defineProperty`。该方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性，并返回此对象。
+
+基本用法：
+
+```javascript
+const data = {};
+const name = 'Li-HONGYAO';
+Object.defineProperty(data, 'name', {
+  get: function () {
+    console.log('__get__');
+    return name;
+  },
+  set: function (newVal) {
+    console.log('__set__');
+    console.log(newVal);
+  },
+});
+
+console.log(data.name);
+data.name = '李鴻耀同學';
+```
+
+利用 `Object.defineProperty` 重写 `get` 和 `set`，将对象属性的赋值和获取变成函数，我们可以实现一个简单的双向绑定。
+
+### 2.3. 如何监听 data 变化
+
+共定义了三个函数：
+
+- `updateView`：模拟 Vue 更新视图的入口函数。
+- `defineReactive`：对数据进行监听的具体实现。
+- `observer`：调用该函数后，可对目标对象进行监听，将目标对象编程响应式的。
+
+执行逻辑为：  
+
+定义一个对象 `data` → 调用 `observer(data)` 将对象变成响应式的 → 修改对象内的属性 → 更新视图
+
+```javascript
+// -- 触发更新视图
+function updateView() {
+  console.log('视图更新');
+}
+
+// -- 重新定义属性，监听起来
+function defineReactive(target, key, value) {
+  // 核心API
+  Object.defineProperty(target, key, {
+    get() {
+      return value;
+    },
+    set(newValue) {
+      if (newValue !== value) {
+        // 设置新值（注意：value 一直在闭包中，此处设置完之后，再 get 时也是会获取最新的值）
+        value = newValue;
+        // 触发更新视图
+        updateView();
+      }
+    },
+  });
+}
+
+// -- 监听对象属性
+function observer(target) {
+  if (typeof target !== 'object' || target === null) {
+    // 监听的不是对象或数组时，直接返回
+    return target;
+  }
+  // 重新定义各个属性（for in 也可以遍历数组）
+  for (let key in target) {
+    defineReactive(target, key, target[key]);
+  }
+}
+```
+
+测试一下，会打印出两个 “视图更新” 字符串！
+
+```javascript
+// -- 准备数据
+const data = {
+  name: 'Li-HONGYAO',
+  address: '成都市武侯区',
+};
+
+// -- 监听数据
+observer(data);
+
+// -- 修改数据
+data.name = '李鴻耀同學';
+data.address = '成都市高新区';
+```
+
+### 2.4. 如何深度监听 data 变化？
+
+对于有嵌套属性的数据，例如：
+
+```javascript
+const data = {
+  name: 'Li-HONGYAO',
+  address: '成都市武侯区',
+  info: {
+    age: 28,
+  },
+};
+```
+
+要想监听到 `info.age` 的变化，则需要深度监听，修改 `defineReactive` 方法即可：
+
+- 在刚进入 `defineReactive` 函数的时候，先调用 `observer` 对传进来的值进行判断，由于 `info` 是个对象，所以会对 `info` 遍历后再执行 `defineReactive`；而其它基本类型的值在 `observer` 中被直接返回。
+- 在设置新值时也要对新值进行深度监听，原因是新值也可能是个对象，需要监听到它里面的属性。
+
+```javascript
+function defineReactive(target, key, value) {
+  // 深度监听
+  observer(value);
+
+  // 核心API
+  Object.defineProperty(target, key, {
+    get() {
+      return value;
+    },
+    set(newValue) {
+      if (newValue !== value) {
+        // 深度监听
+        observer(newValue);
+        // 设置新值（注意：value 一直在闭包中，此处设置完之后，再 get 时也是会获取最新的值）
+        value = newValue;
+        // 触发更新视图
+        updateView();
+      }
+    },
+  });
+}
+```
+
+### 2.5. `Object.defineProperty()` 缺点
+
+- 深度监听时，需要 **递归** 到底，一次性计算量大；
+- 无法监听新增属性/删除属性（所以开发中需要使用 `Vue.set` 和 `Vue.delete` 这两个 API 来增删 data 的属性）；
+- 无法原生监听数组，需要特殊处理；
+
+### 2.6. 如何监听数组变化
+
+[由于性能原因 >>](https://segmentfault.com/a/1190000015783546)，Vue 不是通过 `Object.defineProperty` 来监听数组的。
+
+对于数组，是通过重写数组方法来实现，共修改了两处：
+
+- 对原生数组原型做一个备份（防止后续的操作污染原生数组原型），基于这个备份创建一个新的数组，并扩展（在执行原方法前触发一次视图更新）它的方法。
+- `observer` 方法中，增加对数组的处理。
+
+执行逻辑为：  
+
+定义一个对象 `data` → 调用 `observer(data)` ，在内部判断 `data` 是对象，则遍历该对象的每个属性并依次执行 `defineReactive`→ `defineReactive` 内部的 `observer(value)` 碰到数组 `nums`，则将该数组的隐式原型赋值成我们重写之后的原型；除 `nums` 外的其它类型属性，走之前的逻辑 → 更新视图
+
+```javascript
+// -- 触发更新视图
+function updateView() {
+  console.log('视图更新');
+}
+
+// ++++++++++++++++++++++
+// -- 重新定义数组原型
+var __proto__;
+(function () {
+  const oldArrayProperty = Array.prototype;
+  // 创建新对象，原型指向 oldArrayProperty ，再扩展新的方法不会影响原型
+  __proto__ = Object.create(oldArrayProperty);
+  ['push', 'pop', 'shift', 'unshift', 'splice'].forEach((methodName) => {
+    __proto__[methodName] = function () {
+      updateView(); // 触发视图更新
+      oldArrayProperty[methodName].call(this, ...arguments);
+    };
+  });
+})();
+// ++++++++++++++++++++++
+
+// -- 重新定义属性，监听起来
+function defineReactive(target, key, value) {
+  // 深度监听
+  observer(value);
+
+  // 核心API
+  Object.defineProperty(target, key, {
+    get() {
+      return value;
+    },
+    set(newValue) {
+      if (newValue !== value) {
+        // 深度监听
+        observer(newValue);
+        // 设置新值（注意：value 一直在闭包中，此处设置完之后，再 get 时也是会获取最新的值）
+        value = newValue;
+        // 触发更新视图
+        updateView();
+      }
+    },
+  });
+}
+
+// -- 监听对象属性
+function observer(target) {
+  if (typeof target !== 'object' || target === null) {
+    // 监听的不是对象或数组时，直接返回
+    return target;
+  }
+  // ++++++++++++++++++++++
+  if (Array.isArray(target)) {
+    target.__proto__ = __proto__;
+  }
+  // ++++++++++++++++++++++
+
+  // 重新定义各个属性（for in 也可以遍历数组）
+  for (let key in target) {
+    defineReactive(target, key, target[key]);
+  }
+}
+```
+
+测试一下，执行 `data.nums.push(4)` 时会打印出 `"视图更新"` 字符串并在数组末尾添加进元素。
+
+```javascript
+// -- 准备数据
+const data = {
+  name: 'Li-HONGYAO',
+  address: '成都市武侯区',
+  info: {
+    age: 28,
+  },
+  nums: [1, 2, 3],
+};
+
+// -- 监听数据
+observer(data);
+
+// -- 修改数据
+data.nums.push(4);
+```
+
+### 2.7. 原理概述
+
+> **@2.x**
+
+数据劫持 + 观察者模式
 
 当一个Vue实例创建时，你可以把一个普通的 JavaScript 对象传入 Vue 实例作为 data 选项，vue会遍历 data 选项的属性，并使用 `Object.defineProperty` 将它们全部转为 `getter/setter` 并且在内部追踪相关依赖，在属性被访问和修改时通知变化。每个组件实例都有相应的 `watcher`  程序实例，它会在组件渲染的过程中把属性记录为依赖，之后当依赖项的 `setter` 被调用时，会通知 `watcher` 重新计算，从而致使它关联的组件得以更新。
 
@@ -224,7 +468,7 @@ Vue 数据双向绑定主要是指：**数据变化更新视图，视图变化�
 - **订阅者 Watcher**：Watcher 订阅者是 Observer 和 Compile 之间通信的桥梁 ，主要的任务是订阅 Observer 中的属性值变化的消息，当收到属性值变化的消息时，触发解析器 Compile 中对应的更新函数。每个组件实例都有相应的 watcher 实例对象，它会在组件渲染的过程中把属性记录为依赖，之后当依赖项的 setter 被调用时，会通知 watcher 重新计算，从而致使它关联的组件得以更新——这是一个典型的观察者模式
 - **订阅器 Dep**：订阅器采用 发布-订阅 设计模式，用来收集订阅者 Watcher，对监听器 Observer 和 订阅者 Watcher 进行统一管理。
 
-### 2.2. @3.x
+> **@3.x**
 
 Vue3.x 改用 `Proxy` 替代`Object.defineProperty`，因为Proxy可以直接监听对象和数组的变化，并且有多达13种拦截方法。
 
