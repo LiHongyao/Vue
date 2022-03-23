@@ -455,9 +455,13 @@ data.nums.push(4);
 
 > **@2.x**
 
-数据劫持 + 观察者模式
+整体思路是：**数据劫持** + **观察者模式**
 
-当一个Vue实例创建时，你可以把一个普通的 JavaScript 对象传入 Vue 实例作为 data 选项，vue会遍历 data 选项的属性，并使用 `Object.defineProperty` 将它们全部转为 `getter/setter` 并且在内部追踪相关依赖，在属性被访问和修改时通知变化。每个组件实例都有相应的 `watcher`  程序实例，它会在组件渲染的过程中把属性记录为依赖，之后当依赖项的 `setter` 被调用时，会通知 `watcher` 重新计算，从而致使它关联的组件得以更新。
+对象内部通过 `defineReactive` 方法，使用 `Object.defineProperty` 将属性进行劫持（只会劫持已存在的属性），数组则是通过重写数组来实现。当页面使用对应属性时，每个属性都拥有自己的 `dep` 属性，存在它所依赖的 `watcher` （依赖收集）`get`，当属性变化后会通知自己对应的 `watcher` 去更新（派发更新）`set`。
+
+1）`Object.defineProperty` 数据劫持
+2）使用 `getter` 收集依赖 ，`setter` 通知 `watcher` 派发更新。
+3）`watcher` 发布订阅模式
 
 ![](./IMGS/response-yuanli.jpg)
 
@@ -479,6 +483,182 @@ Vue3.x 改用 `Proxy` 替代`Object.defineProperty`，因为Proxy可以直接监
 **监测数组的时候可能触发多次get/set，那么如何防止触发多次呢？**
 
 我们可以判断 `key` 是否为当前被代理对象 `target` 自身属性，也可以判断旧值与新值是否相等，只有满足以上两个条件之一时，才有可能执行 `trigger`。
+
+## 3. 数据双向绑定
+
+`Vue.js` 最核心的功能有两个：
+
+- 响应式的数据绑定系统
+- 组件系统
+
+> 什么是数据双向绑定？
+
+`Vue` 是一个 `MVVM` 框架，即数据双向绑定。当数据发生变化的时候，触发视图更新；当视图发生变化的时候，触发数据更新。
+
+> 为什么要实现数据的双向绑定？
+
+在 Vue 中，如果使用 VueX，实际上数据还是单向的，之所以说是数据双向绑定，这是从使用UI控件来说，对于我们处理表单，Vue的双向数据绑定用起来就特别舒服了。
+
+即两者并不互斥， 在全局性数据流使用单向，方便跟踪； 局部性数据流使用双向，简单易操作。
+
+### 3.1. 访问器属性
+
+`Object.defineProperty()` 函数可以定义对象的属性相关描述符， 其中的 `set` 和 `get` 函数对于完成数据双向绑定起到了至关重要的作用，下面，我们看看这个函数的基本使用方式。
+
+```javascript
+var obj = {
+  foo: 'foo',
+};
+
+Object.defineProperty(obj, 'foo', {
+  get: function () {
+    console.log('将要读取obj.foo属性');
+  },
+  set: function (newVal) {
+    console.log('当前值为', newVal);
+  },
+});
+
+obj.foo; // 将要读取obj.foo属性
+obj.foo = 'name'; // 当前值为 name
+```
+
+可以看到，`get` 即为我们访问属性时调用，`set` 为我们设置属性值时调用。
+
+### 3.2. 简单的数据双向绑定实现方法
+
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>数据双向绑定</title>
+  </head>
+  <body>
+    <form autocomplete="off">
+      <label>输入：</label>
+      <input type="text" id="textInput" style="outline: none" />
+      <br /><br />
+      <label>输出：</label>
+      <span id="textSpan"></span>
+    </form>
+    <script>
+      // -- 获取DOM元素
+      const textInput = document.getElementById('textInput');
+      const textSpan = document.getElementById('textSpan');
+      // -- 定义数据模型
+      const data = { value: 'Hello' };
+      textInput.value = data.value;
+      textSpan.textContent = data.value;
+      // -- 数据劫持
+      Object.defineProperty(data, 'value', {
+        set: function (newValue) {
+          textInput.value = newValue;
+          textSpan.textContent = newValue;
+        },
+        get: function () {},
+      });
+      // -- 监听用户操作
+      textInput.addEventListener('input', function ({ target: { value } }) {
+        data.value = value;
+      });
+    </script>
+  </body>
+</html>
+```
+
+
+
+![](./IMGS/bindings.gif)
+
+可以看到，实现一个简单的数据双向绑定还是不难的： 使用 `Object.defineProperty()` 来定义属性的 `set` 函数，属性被赋值的时候，修改 `input` 的 `value` 值以及 `span` 标签的 `textContent`；然后监听 `input` 的 `input` 事件，修改对象的属性值，即可实现这样的一个简单的数据双向绑定。
+
+### 3.3. 实现任务的思路
+
+上面我们只是实现了一个最简单的数据双向绑定，而我们真正希望实现的是下面这种方式：
+
+```vue
+<div id="app">
+  <input type="text" v-model="message" />
+  {{ text }}
+</div>
+
+<script>
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      message: 'Hello，Vue.js',
+    },
+  });
+</script>
+```
+
+即和 `Vue` 一样的方式来实现数据的双向绑定。那么，**我们可以把整个实现过程分为下面几步： **
+
+- 输入框以及文本节点与 `data` 中的数据 **绑定**；
+- 输入框内容变化时，data 中的数据同步变化，即 `view` → `model` 的变化；
+- `data` 中的数据变化时，文本节点的内容同步变化，即 `model` → `view` 的变化；
+
+### 3.4. DocumentFragment
+
+如果希望实现任务一，我们还需要使用到 `DocumentFragment` 文档片段，可以把它看做一个容器，如下所示：
+
+```html
+<div id="app"></div>
+<script>
+  const flag = document.createDocumentFragment();
+  const span = document.createElement('span');
+  const textNode = document.createTextNode('Hello, Vue.js!');
+  span.appendChild(textNode);
+  flag.append(span);
+  document.getElementById('app').appendChild(flag);
+</script>
+```
+
+这样，我们就可以得到下面的DOM树：
+
+![](./IMGS/dom_tree.PNG)
+
+使用文档片段的好处在于：在文档片段上进行操作DOM，而不会影响到真实的DOM，操作完成之后，我们就可以添加到真实DOM上，这样的效率比直接在正式DOM上修改要高很多 。
+
+> Tips：`Vue` 进行编译时，就是将挂载目标的所有子节点劫持到 `DocumentFragment` 中，经过一番处理之后，再将 `DocumentFragment` 整体返回插入挂载目标。
+
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" id="a" />
+      <span id="b"></span>
+    </div>
+    <script>
+      var dom = nodeToFragment(document.getElementById('app'));
+      console.log(dom);
+      function nodeToFragment(node) {
+        var flag = document.createDocumentFragment();
+        var child; 
+        while ((child = node.firstChild)) {
+          flag.appendChild(child);
+        }
+        return flag;
+      }
+      document.getElementById('app').appendChild(dom);
+    </script>
+  </body>
+</html>
+```
+
+即首先获取到 `div`，然后通过 `documentFragment` 劫持，接着再把这个文档片段添加到 `div` 上去。
+
+### 3.5. 初始化数据绑定
 
 # 三、生命周期
 

@@ -1,0 +1,36 @@
+<!--
+ * @Author: Lee
+ * @Date: 2022-03-22 11:48:18
+ * @LastEditors: Lee
+ * @LastEditTime: 2022-03-22 15:52:52
+-->
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>模板解析</title>
+  </head>
+  <body>
+    <!-- 模板文件 -->
+    <div id="app">
+      <p>Name: {{name}}</p>
+      <p>Age: {{age}}</p>
+      <p>Email: {{email}}</p>
+      <p>Address: {{ address }}</p>
+    </div>
+
+    <script src="./libs/index.js"></script>
+    <!-- 实例化 -->
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          name: 'Li-HONGYAO',
+          age: 28,
+          email: 'lihy_online@163.com',
+        },
+      });
+    </script>
+  </body>
+</html>

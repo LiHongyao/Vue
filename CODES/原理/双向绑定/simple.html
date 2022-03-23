@@ -1,0 +1,47 @@
+<!--
+ * @Author: Lee
+ * @Date: 2022-03-22 11:19:27
+ * @LastEditors: Lee
+ * @LastEditTime: 2022-03-22 11:45:24
+ 
+-->
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>数据双向绑定</title>
+  </head>
+  <body>
+    <form autocomplete="off">
+      <label>输入：</label>
+      <input type="text" id="textInput" style="outline: none" />
+      <br /><br />
+      <label>输出：</label>
+      <span id="textSpan"></span>
+    </form>
+    <script>
+      // -- 获取DOM元素
+      const textInput = document.getElementById('textInput');
+      const textSpan = document.getElementById('textSpan');
+      // -- 定义数据模型
+      const data = { value: 'Hello' };
+      textInput.value = data.value;
+      textSpan.textContent = data.value;
+      // -- 数据劫持
+      Object.defineProperty(data, 'value', {
+        set: function (newValue) {
+          textInput.value = newValue;
+          textSpan.textContent = newValue;
+        },
+        get: function () {},
+      });
+      // -- 监听用户操作
+      textInput.addEventListener('input', function ({ target: { value } }) {
+        data.value = value;
+      });
+    </script>
+  </body>
+</html>
