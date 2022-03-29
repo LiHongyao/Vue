@@ -2,7 +2,7 @@
  * @Author: Lee
  * @Date: 2021-12-28 21:36:15
  * @LastEditors: Lee
- * @LastEditTime: 2022-03-21 14:43:52
+ * @LastEditTime: 2022-03-29 16:30:26
 -->
 
 <!-- 脚本 -->
@@ -34,6 +34,7 @@ import ComponentIs from './components/ComponentIs.vue';
 import Attrs from './components/Attrs.vue';
 import Mixin from './components/Mixin.vue';
 import Hooks from './components/Hooks.vue';
+import DialogScroll from './components/DialogScroll.vue';
 const removeParent = ref(false);
 
 
@@ -91,7 +92,8 @@ provide('global', {
   <!-- <ComponentIs /> -->
   <!-- <Attrs name="Li-HONGYAO" job="Senior Front-End Developer" /> -->
   <!-- <Mixin /> -->
-  <Hooks />
+  <!-- <Hooks /> -->
+  <DialogScroll />
 </template>
 
 <!-- 样式 -->
