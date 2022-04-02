@@ -4,17 +4,15 @@ Hello，各位小伙伴，我是耀哥。2020年09月18日， Vue.js 3.0 正式�
 
 由于近期也在忙公司项目，所以更新或许会比较慢，不过我争取在过年之前出完。
 
-特别提示：本教程主要以3.x为主，参照 [官网文档 >>](https://v3.cn.vuejs.org/)，章节中，或许会出一些和vue2.x的对比。
+特别提示：本教程主要以3.x为主，参照 [官网文档 >>](https://staging-cn.vuejs.org/)，章节中，或许会出一些和vue2.x的对比。
 
 **特别提示：**
 
-在目前的开发中，我主要使用 `Vite2` + `Vue3` + `TypeScript` 开发，所以，本系列教程我主要使用 Vite 来创建项目，并结合 TypeScript 使用，如果你还不了解什么是 TypeScript ，建议你先去 [学习 TypeScript  >>](https://www.yuque.com/u2209957/sd1ag6)
+在目前的开发中，我主要使用 `Vite2` + `Vue3` + `TypeScript` 开发，所以，本系列教程我主要使用 Vite 来创建项目，并结合 `TypeScript` 使用，如果你还不了解什么是 `TypeScript` ，建议你先去 [学习 TypeScript  >>](https://www.yuque.com/u2209957/sd1ag6)
 
 # 二、概述
 
-Vue (读音 /vjuː/，类似于 **view**) 是一套用于构建用户界面的**渐进式框架**。与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。另一方面，当与[现代化的工具链](https://v3.cn.vuejs.org/guide/single-file-component.html)以及各种[支持类库](https://github.com/vuejs/awesome-vue#components--libraries)结合使用时，Vue 也完全能够为复杂的单页应用提供驱动。
-
-如果你已经是有经验的前端开发者，想知道 Vue 与其它库/框架有哪些区别，请查看 [对比其它框架 >>](https://cn.vuejs.org/v2/guide/comparison.html)。
+Vue (发音为 /vjuː/，类似 **view**) 是一款用于构建用户界面的 JavaScript 框架。它基于标准 HTML、CSS 和 JavaScript 构建，并提供了一套声明式的、组件化的编程模型，帮助你高效地开发用户界面，无论任务是简单还是复杂。
 
 # 三、引入
 
@@ -110,6 +108,8 @@ console.log(vm);
 然后在浏览器访问：`http://locahost:300`，可以看到，界面输入 “Hello，Vue3.x！”
 
 # 七、Composition API & Options API
+
+[官方参考 >>](https://staging-cn.vuejs.org/guide/introduction.html#api-styles)
 
 本小节主要讲解vue中的 组合式API（Composition API） 和 选项式API（Options API） 的区别，对于介绍中的一些概念可能你不是很了解，不过没有关系，这不是重点，后续章节会重点介绍，在这里，你只需要了解二者的区别和我们最终的取舍即可。 
 
