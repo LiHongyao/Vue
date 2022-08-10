@@ -2,7 +2,7 @@
  * @Author: Lee
  * @Date: 2021-12-28 21:36:15
  * @LastEditors: Lee
- * @LastEditTime: 2022-03-29 16:30:26
+ * @LastEditTime: 2022-08-03 15:14:10
 -->
 
 <!-- 脚本 -->
@@ -37,6 +37,7 @@ import Hooks from './components/Hooks.vue';
 import DialogScroll from './components/DialogScroll.vue';
 const removeParent = ref(false);
 
+console.log(this);
 
 
 /** -- 生命周期 */
@@ -72,7 +73,7 @@ provide('global', {
 
 <!-- 模板 -->
 <template>
-  <!-- <div class="app" v-highlight="'blue'">Hello, Vue3.x!</div> -->
+  <div class="app" v-highlight="'blue'">Hello, Vue3.x!</div>
   <!-- <Response /> -->
   <!-- <Basic /> -->
   <!-- <ModelBind /> -->
@@ -93,7 +94,7 @@ provide('global', {
   <!-- <Attrs name="Li-HONGYAO" job="Senior Front-End Developer" /> -->
   <!-- <Mixin /> -->
   <!-- <Hooks /> -->
-  <DialogScroll />
+  <!-- <DialogScroll /> -->
 </template>
 
 <!-- 样式 -->

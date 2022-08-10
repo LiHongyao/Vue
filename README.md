@@ -1,14 +1,12 @@
 # 一、前言
 
-Hello，各位小伙伴，我是耀哥。2020年09月18日， Vue.js 3.0 正式发布，目前，我在项目开发中，除了使用React之外，也在使用 Vue3。闲暇之余，为了加深自己对Vue的理解，同时作一个记录，特出此教程，之前我也出过Vue2.x的教程，那么这次也主要是在2.x差的基础上升级更新。本次教程，也会从基础开始，由浅到深进行讲解，并结合实际中遇到的问题进行总结。
+2020年09月18日， Vue.js 3.0 正式发布，本教程，从基础开始，由浅到深进行讲解，并结合实际中遇到的问题进行总结。
 
-由于近期也在忙公司项目，所以更新或许会比较慢，不过我争取在过年之前出完。
-
-特别提示：本教程主要以3.x为主，参照 [官网文档 >>](https://staging-cn.vuejs.org/)，章节中，或许会出一些和vue2.x的对比。
+> 本教程主要以3.x为主，参照 [官网文档 >>](https://staging-cn.vuejs.org/)，章节中，或许会出一些和vue2.x的对比。
 
 **特别提示：**
 
-在目前的开发中，我主要使用 `Vite2` + `Vue3` + `TypeScript` 开发，所以，本系列教程我主要使用 Vite 来创建项目，并结合 `TypeScript` 使用，如果你还不了解什么是 `TypeScript` ，建议你先去 [学习 TypeScript  >>](https://www.yuque.com/u2209957/sd1ag6)
+在开发中，我主要使用 `Vite2` + `Vue3` + `TypeScript` 开发，所以，本系列教程我主要使用 Vite 来创建项目（这也是官方目前推荐的方式），并结合 `TypeScript` 使用，如果你还不了解什么是 `TypeScript` ，建议你先去 [学习 TypeScript  >>](https://www.yuque.com/u2209957/sd1ag6)
 
 # 二、概述
 
@@ -52,7 +50,7 @@ vue-tutorial
 ├── public                    
 ├── src                       # 源码文件
 │   ├── assets                # 静态资源
-│   ├── App.vue		          # 根组件
+│   ├── App.vue		            # 根组件
 │   ├── env.d.ts              # 类型定义
 │   └──	main.ts               # 入口文件 
 ├── .gitignore                # git跟踪忽略配置
@@ -74,11 +72,11 @@ vue-tutorial
 <style scoped></style>
 ```
 
-> 提示：`App.vue` 文件为一个单文件组件，通常作为 vue **根组件**，一个完整的组件包含脚本、模板以及样式。关于组件的更多知识点我们会在后续讲到，这里只需要了解即可。
+> 提示：`App.vue` 文件为一个单文件组件（**SFC**），通常作为 vue **根组件**，一个完整的组件包含脚本、模板以及样式。关于组件的更多知识点我们会在后续讲到，这里只需要了解即可。
 
 # 五、应用实例
 
-每个 Vue 应用都是通过用 `createApp` 函数创建一个新的 **应用实例** 开始的，通常，我们需要传一个组件给它用于配置 **根组件**，该组件被作为渲染的起点。
+每个 Vue 应用都是从通过用 `createApp` 函数创建一个新的 **应用实例** 开始的，通常，我们需要传一个组件给它用于配置 **根组件**，该组件被作为渲染的起点。
 
 一个应用需要被挂载到一个 DOM 元素中，例如，如果你想把一个 Vue 应用挂载到 `<div id="app"></div>`，应该传入 `#app`：
 
@@ -105,9 +103,11 @@ console.log(vm);
 
 终端输入：`npm run dev`
 
-然后在浏览器访问：`http://locahost:300`，可以看到，界面输入 “Hello，Vue3.x！”
+然后在浏览器访问：`http://locahost:300`，可以看到，界面输出 “Hello，Vue3.x！”
 
-# 七、Composition API & Options API
+# 七、API风格
+
+Vue 的组件可以按两种不同的风格书写：**选项式 API** 和**组合式 API**。
 
 [官方参考 >>](https://staging-cn.vuejs.org/guide/introduction.html#api-styles)
 
@@ -135,59 +135,84 @@ export default defineComponent({
 </script>
 ```
 
-除了上面列出的部分，还包括一些生命周期钩子函数。这么做有一个很大的弊端：
+除了上面列出的部分，还包括一些生命周期钩子函数。
 
-- 当我们实现某一个功能时，这个功能对应的 `代码逻辑会被拆分` 到各个属性中；
-- 当我们组件变得更大、更复杂时，逻辑关注点的列表就会增长，那么`同一个功能的逻辑就会被拆分的很分散`；
+使用选项式 API，我们可以用包含多个选项的对象来描述组件的逻辑，选项所定义的属性都会暴露在函数内部的 `this` 上，它会指向当前的组件实例。
+
+```vue
+<script>
+export default {
+  // data() 返回的属性将会成为响应式的状态
+  // 并且暴露在 this 上
+  data() {
+    return {
+      count: 0
+    }
+  },
+
+  // methods 是一些用来更改状态与触发更新的函数
+  // 它们可以在模板中作为事件监听器绑定
+  methods: {
+    increment() {
+      this.count++
+    }
+  },
+
+  // 生命周期钩子会在组件生命周期的各个不同阶段被调用
+  // 例如这个函数就会在组件挂载完成后被调用
+  mounted() {
+    console.log(`The initial count is ${this.count}.`)
+  }
+}
+</script>
+
+<template>
+  <button @click="increment">Count is: {{ count }}</button>
+</template>
+```
+
+这么做有一个很大的弊端：
+
+- 当我们实现某一个功能时，这个功能对应的 **代码逻辑会被拆分** 到各个属性中；
+- 当我们组件变得更大、更复杂时，逻辑关注点的列表就会增长，那么 **同一个功能的逻辑就会被拆分的很分散**；
 - 对于那些一开始没有编写这些组件的人来说，这个组件的代码是难以阅读和理解的；
 
 ## 2. Composition API
 
-`Composition API` 就是为了解决上述问题而存在的，它能将同一个逻辑关注点相关的代码收集到一起，其形式如下：
+通过组合式 API，我们可以使用导入的 API 函数来描述组件逻辑。在单文件组件中，组合式 API 通常会与 [`<script setup>`](https://staging-cn.vuejs.org/api/sfc-script-setup.html) 搭配使用。这个 `setup` 属性是一个标识，告诉 Vue 需要在编译时进行转换，来减少使用组合式 API 时的样板代码。例如，`<script setup>` 中的导入和顶层变量/函数都能够在模板中直接使用。
 
 ```vue
-<script lang="ts">
-import { defineComponent } from 'vue';
-export default defineComponent({
-  name: 'component-name',
-  setup(props, ctx) {
-    // code in here...
-  },
-});
+<script setup>
+import { ref, onMounted } from 'vue'
+
+// 响应式状态
+const count = ref(0)
+
+// 用来修改状态、触发更新的函数
+function increment() {
+  count.value++
+}
+
+// 生命周期钩子
+onMounted(() => {
+  console.log(`The initial count is ${count.value}.`)
+})
 </script>
+
+<template>
+  <button @click="increment">Count is: {{ count }}</button>
+</template>
 ```
 
-`setup` 函数主要有两个参数：
+> **注意！** 由于 `setup` 在 `beforeCreate` 生命周期函数之前执行（也就是说在实例被完全初始化之前执行），所以在 `setup` 中的 `this` 没有任何东西，故而在 `setup` 中**不能使用 `this`**.
 
-- `props`：接收父组件传递过来的参数；
-- `ctx`：上下文，包含三个属性 → `attrs`、`slots`、`emit`
+## 3. 该如何选？
 
-由于 `setup` 在 `beforeCreate` 生命周期函数之前执行（也就是说在实例被完全初始化之前执行），所以在 `setup` 中的 `this` 没有任何东西，故而在 `setup` 中**不能使用 `this`**.
+两种 API 风格都能够覆盖大部分的应用场景。它们只是 **同一个底层系统所提供的两套不同的接口**。实际上，**选项式 API 是在组合式 API 的基础上实现的**！关于 Vue 的基础概念和知识在它们之间都是通用的
 
-Vue 为组合式API在单文件组件（SFC）中提供了一个编译时的语法糖：`<script setup>`，相比于普通的 `<script>` 语法，它具有更多优势：
-
-- 更少的样板内容，更简洁的代码。
-- 能够使用纯 Typescript 声明 props 和抛出事件。
-- 更好的运行时性能 (其模板会被编译成与其同一作用域的渲染函数，没有任何的中间代理)。
-- 更好的 IDE 类型推断性能 (减少语言服务器从代码中抽离类型的工作)。
-
-其格式如下：
-
-```vue
-<script setup lang="ts">
-// code in here...
-</script>
-```
-
-> 提示：在后续的课程讲解中，案例主要使用 `Composition API` / `<script setup>` 来处理组件业务逻辑。
-
-## 2. 总结
-
-1）`Option API` 编写的代码相对比较分散，不利于后期的维护和抽取(代码复用)；
-
-2）`Composition API` 可以将 `Option API` 的代码整合到一起，增加了代码的可读性和可复用性，同时 方便代码的抽离，可以将代码抽离成为一个个的hook函数，以提高代码的可复用性;
-
-3）在后续的课程讲解中，如非必要，我都会使用 `Composition API` 构造组件;
+- 选项式 API 以“**组件实例**”的概念为中心 (即上述例子中的 `this`)，对于有面向对象语言背景的用户来说，这通常与基于类的心智模型更为一致。同时，它将响应性相关的细节抽象出来，并强制按照选项来组织代码，从而对初学者而言更为友好。
+- 组合式 API 的核心思想是直接**在函数作用域内定义响应式状态变量**，**并将从多个函数中得到的状态组合起来处理复杂问题**。这种形式更加自由，也需要你对 Vue 的响应式系统有更深的理解才能高效使用。相应的，它的灵活性也使得组织和重用逻辑的模式变得更加强大。
+- 在后续的课程讲解中，如非必要，我都会使用 `Composition API` 构造组件;
 
 # 八、特别说明
 
