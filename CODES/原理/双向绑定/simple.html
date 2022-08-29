@@ -2,7 +2,7 @@
  * @Author: Lee
  * @Date: 2022-03-22 11:19:27
  * @LastEditors: Lee
- * @LastEditTime: 2022-03-22 11:45:24
+ * @LastEditTime: 2022-08-29 10:50:08
  
 -->
 
@@ -21,11 +21,13 @@
       <br /><br />
       <label>输出：</label>
       <span id="textSpan"></span>
+      <p><button type="button" id="eidtButton">修改数据</button></p>
     </form>
     <script>
       // -- 获取DOM元素
       const textInput = document.getElementById('textInput');
       const textSpan = document.getElementById('textSpan');
+      const eidtButton = document.getElementById('eidtButton');
       // -- 定义数据模型
       const data = { value: 'Hello' };
       textInput.value = data.value;
@@ -41,6 +43,10 @@
       // -- 监听用户操作
       textInput.addEventListener('input', function ({ target: { value } }) {
         data.value = value;
+      });
+      // -- 监听用户修改
+      eidtButton.addEventListener('click', function() {
+        data.value = 'Hello, Vue.js!';
       });
     </script>
   </body>

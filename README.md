@@ -2,15 +2,20 @@
 
 2020年09月18日， Vue.js 3.0 正式发布，本教程，从基础开始，由浅到深进行讲解，并结合实际中遇到的问题进行总结。
 
-> 本教程主要以3.x为主，参照 [官网文档 >>](https://staging-cn.vuejs.org/)，章节中，或许会出一些和vue2.x的对比。
+> 本教程主要以 `3.x` 为主，参考 [官方文档 >>](https://staging-cn.vuejs.org/)，章节中，会出一些和 `2.x` 的对比。
 
 **特别提示：**
 
-在开发中，我主要使用 `Vite2` + `Vue3` + `TypeScript` 开发，所以，本系列教程我主要使用 Vite 来创建项目（这也是官方目前推荐的方式），并结合 `TypeScript` 使用，如果你还不了解什么是 `TypeScript` ，建议你先去 [学习 TypeScript  >>](https://www.yuque.com/u2209957/sd1ag6)
+本教程主要以 `Vite2` + `Vue3` + `TypeScript` 构建演示示例，如果你还不了解什么是 `TypeScript` ，建议你先去 [学习 TypeScript  >>](https://www.yuque.com/u2209957/sd1ag6)
 
 # 二、概述
 
-Vue (发音为 /vjuː/，类似 **view**) 是一款用于构建用户界面的 JavaScript 框架。它基于标准 HTML、CSS 和 JavaScript 构建，并提供了一套声明式的、组件化的编程模型，帮助你高效地开发用户界面，无论任务是简单还是复杂。
+Vue (发音为 /vjuː/，类似 **view**) 是一款用于构建用户界面的 JavaScript 框架。它基于标准 HTML、CSS 和 JavaScript 构建，并提供了一套 声明式的、组件化的编程模型，帮助你高效地开发用户界面，无论任务是简单还是复杂。
+
+**两大核心**：
+
+- **声明式渲染**：Vue 基于标准 HTML 拓展了一套模板语法，使得我们可以声明式地描述最终输出的 HTML 和 JavaScript 状态之间的关系。
+- **响应性**：Vue 会自动跟踪 JavaScript 状态变化并在改变发生时响应式地更新 DOM。
 
 # 三、引入
 
@@ -50,7 +55,7 @@ vue-tutorial
 ├── public                    
 ├── src                       # 源码文件
 │   ├── assets                # 静态资源
-│   ├── App.vue		            # 根组件
+│   ├── App.vue		          # 根组件
 │   ├── env.d.ts              # 类型定义
 │   └──	main.ts               # 入口文件 
 ├── .gitignore                # git跟踪忽略配置
@@ -72,11 +77,11 @@ vue-tutorial
 <style scoped></style>
 ```
 
-> 提示：`App.vue` 文件为一个单文件组件（**SFC**），通常作为 vue **根组件**，一个完整的组件包含脚本、模板以及样式。关于组件的更多知识点我们会在后续讲到，这里只需要了解即可。
+> 提示：`App.vue` 文件为一个单文件组件（单文件组件也被称为 `*.vue` 文件，英文 Single-File Components，缩写为 **SFC**），通常作为 vue **根组件**，一个完整的组件包含脚本、模板以及样式。关于组件的更多知识点我们会在后续讲到，这里只需要了解即可。
 
 # 五、应用实例
 
-每个 Vue 应用都是从通过用 `createApp` 函数创建一个新的 **应用实例** 开始的，通常，我们需要传一个组件给它用于配置 **根组件**，该组件被作为渲染的起点。
+每个 Vue 应用都是通过`createApp` 函数创建一个新的 **应用实例** 开始的，通常，我们需要传一个组件给它用于配置 **根组件**，该组件被作为渲染的起点（通常为 `App.vue`）。
 
 一个应用需要被挂载到一个 DOM 元素中，例如，如果你想把一个 Vue 应用挂载到 `<div id="app"></div>`，应该传入 `#app`：
 
@@ -107,15 +112,15 @@ console.log(vm);
 
 # 七、API风格
 
-Vue 的组件可以按两种不同的风格书写：**选项式 API** 和**组合式 API**。
+Vue 的组件可以按两种不同的风格书写：**选项式** 和 **组合式**。
 
 [官方参考 >>](https://staging-cn.vuejs.org/guide/introduction.html#api-styles)
 
-本小节主要讲解vue中的 组合式API（Composition API） 和 选项式API（Options API） 的区别，对于介绍中的一些概念可能你不是很了解，不过没有关系，这不是重点，后续章节会重点介绍，在这里，你只需要了解二者的区别和我们最终的取舍即可。 
+本小节主要讲解vue中的 组合式 API（Composition API） 和 选项式API（Options API） 的区别，对于介绍中的一些概念可能你不是很了解，不过没有关系，这不是重点，后续章节会重点介绍，在这里，你只需要了解二者的区别和我们最终的取舍即可。 
 
 ## 1. Options API
 
-在Vue2.x中，编写组件的方式是 `Options API`，`Options API` 的一大特点就是在对应的属性中编写对应的模块，比如：
+在 `Vue2.x` 中，编写组件的方式是 `Options API`，`Options API` 的一大特点就是在对应的属性中编写对应的模块，比如：
 
 ```vue
 <script lang="ts">
