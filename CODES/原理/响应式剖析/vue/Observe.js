@@ -2,7 +2,7 @@
  * @Author: Lee
  * @Date: 2022-03-18 15:49:17
  * @LastEditors: Lee
- * @LastEditTime: 2022-03-18 16:33:59
+ * @LastEditTime: 2022-08-29 11:20:30
  */
 
 import Dep from './Dep.js';
@@ -13,7 +13,7 @@ export default class Observe {
       this.traverse(data);
     }
   }
-  // -- 遍历对象属性，依次对齐进行响应式处理
+  // -- 遍历对象属性，依次对其进行响应式处理
   traverse(obj) {
     const keys = Object.keys(obj);
     keys.map((key) => {
