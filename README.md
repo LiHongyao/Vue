@@ -26,7 +26,7 @@ Vue (发音为 /vjuː/，类似 **view**) 是一款用于构建用户界面的 J
 ```shell
 # npm 7+
 # 创建项目
-$ npm init vite@latest vue-tutorial -- --template vue-ts
+$ npm create vite@latest vue-tutorial -- --template vue-ts
 # 进入项目
 $ cd vue-tutorial
 # 安装依赖
