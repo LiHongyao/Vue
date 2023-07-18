@@ -1,0 +1,41 @@
+<!--
+ * @Author: Lee
+ * @Date: 2023-06-06 23:13:05
+ * @LastEditors: Lee
+ * @LastEditTime: 2023-06-14 21:02:17
+ * @Description: 
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>手撸Vue</title>
+</head>
+
+<body>
+  <div id="app" style="color:red; font-size: 12px;">Hello {{msg}}</div>
+  <script src="./dist/vue.js"></script>
+  <script>
+    // umd → window.Vue
+    const vm = new Vue({
+      el: "#app",
+      data: {
+        msg: "Hello",
+        a: { b: 20 },
+        list: [1, 2, 3],
+        arr: [{ a: 1 }, { b: 2 }]
+      }
+    })
+    // vm.$mount("#app");
+
+    // console.log(vm.$data.arr.push({ c: 3 }));
+    // console.log(vm.$data.arr.shift());
+    // console.log(vm.arr)
+
+  </script>
+</body>
+
+</html>

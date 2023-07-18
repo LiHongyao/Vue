@@ -1,22 +1,20 @@
 {
-  "name": "vue-tutorial",
+  "name": "vue-examples",
+  "private": true,
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "animate.css": "^4.1.1",
-    "gsap": "^3.9.1",
-    "lodash": "^4.17.21",
-    "vue": "^3.2.25"
+    "vue": "^3.2.47"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.178",
-    "@vitejs/plugin-vue": "^2.0.0",
-    "typescript": "^4.4.4",
-    "vite": "^2.7.2",
-    "vue-tsc": "^0.29.8"
+    "@vitejs/plugin-vue": "^4.1.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.9",
+    "vue-tsc": "^1.4.2"
   }
 }

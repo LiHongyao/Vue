@@ -1,101 +1,46 @@
 <!--
  * @Author: Lee
- * @Date: 2021-12-28 21:36:15
+ * @Date: 2023-06-06 15:44:33
  * @LastEditors: Lee
- * @LastEditTime: 2022-08-03 15:14:10
+ * @LastEditTime: 2023-06-13 18:09:51
+ * @Description: 
 -->
-
-<!-- 脚本 -->
-<script setup lang="ts">
-import { provide, ref } from 'vue';
-import {
-  onBeforeMount,
-  onBeforeUnmount,
-  onBeforeUpdate,
-  onMounted,
-  onUnmounted,
-  onUpdated,
-} from 'vue';
-import Basic from './components/Basic.vue';
-import Response from './components/Response.vue';
-import ModelBind from './components/ModelBind.vue';
-import EventHandler from './components/EventHandler.vue';
-import Conditional from './components/Conditional.vue';
-import ListRendering from './components/ListRendering.vue';
-import Computed from './components/Computed.vue';
-import Watch from './components/Watch.vue';
-import BindClassAndStyle from './components/BindClassAndStyle.vue';
-import InputBinding from './components/InputBinding.vue';
-import TransitionAndAnimation from './components/TransitionAndAnimation.vue';
-import SFC from './components/SFC.vue';
-import Parent from './components/Parent.vue';
-import Slot from './components/Slot.vue';
-import ComponentIs from './components/ComponentIs.vue';
-import Attrs from './components/Attrs.vue';
-import Mixin from './components/Mixin.vue';
-import Hooks from './components/Hooks.vue';
-import DialogScroll from './components/DialogScroll.vue';
-const removeParent = ref(false);
-
-console.log(this);
-
-
-/** -- 生命周期 */
-
-/*
-console.log('__setup__');
-onBeforeMount(() => {
-  console.log('__onBeforeMount__');
-});
-onMounted(() => {
-  console.log('__onMounted__');
-});
-onBeforeUpdate(() => {
-  console.log('__onBeforeUpdate__');
-});
-onUpdated(() => {
-  console.log('__onUpdated__');
-});
-onBeforeUnmount(() => {
-  console.log('__onBeforeUnmount__');
-});
-onUnmounted(() => {
-  console.log('__onUnmounted__');
-});*/
-
-provide('global', {
-  env: 'development',
-  appID: 'xxx',
-});
-
-/** 插值 */
+<script setup>
+import Responsive from './components/01.Responsive/index.vue';
+import LifeCircles from './components/02.LifeCircles/index.vue';
+import Templates from './components/03.Templates/index.vue';
+import Computed from './components/04.Computed/index.vue';
+import ClassAndStyles from './components/05.ClassAndStyles/index.vue';
+import ConditionalRendering from './components/06.ConditionalRendering/index.vue';
+import ListRendering from './components/07.ListRendering/index.vue';
+import Event from './components/08.Event/index.vue';
+import Form from './components/09.Form/index.vue';
+import Watch from './components/10.Watcher/Watch.vue';
+import TemplateRef from './components/11.TemplateRef/index.vue';
+import Components from './components/12.Components/index.vue';
+import Composables from './components/13.Composables/index.vue';
+import CustomDirectives from './components/14.CustomDirectives/index.vue';
+import Plugins from './components/15.Plugins/index.vue';
+import TransitionAndAni from './components/16.TransitionAndAni/index.vue';
 </script>
 
-<!-- 模板 -->
 <template>
-  <div class="app" v-highlight="'blue'">Hello, Vue3.x!</div>
-  <!-- <Response /> -->
-  <!-- <Basic /> -->
-  <!-- <ModelBind /> -->
-  <!-- <EventHandler /> -->
-  <!-- <Conditional /> -->
-  <!-- <ListRendering /> -->
-  <!-- <Computed /> -->
-  <!-- <Watch /> -->
-  <!-- <BindClassAndStyle /> -->
-  <!-- <InputBinding /> -->
-  <!-- <TransitionAndAnimation /> -->
-  <!-- <button-counter /> -->
-  <!-- <SFC /> -->
-  <!-- <Parent v-if="!removeParent" />
-  <button type="button" style="cursor: pointer;" @click="removeParent = true">销毁父组件</button> -->
-  <!-- <Slot /> -->
-  <!-- <ComponentIs /> -->
-  <!-- <Attrs name="Li-HONGYAO" job="Senior Front-End Developer" /> -->
-  <!-- <Mixin /> -->
-  <!-- <Hooks /> -->
-  <!-- <DialogScroll /> -->
+  <div class="App">
+    <!-- <Responsive /> -->
+    <!-- <LifeCircles /> -->
+    <!-- <Templates /> -->
+    <!-- <Computed /> -->
+    <!-- <ClassAndStyles /> -->
+    <!-- <ConditionalRendering /> -->
+    <!-- <ListRendering /> -->
+    <!-- <Event /> -->
+    <!-- <Form /> -->
+    <!-- <Watch /> -->
+    <!-- <TemplateRef /> -->
+    <!-- <Components /> -->
+    <!-- <Composables /> -->
+    <!-- <CustomDirectives /> -->
+    <!-- <Plugins /> -->
+    <TransitionAndAni />
+  </div>
 </template>
-
-<!-- 样式 -->
-<style scoped></style>

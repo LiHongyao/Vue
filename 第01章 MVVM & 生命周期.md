@@ -1,34 +1,40 @@
-# 一、MVVM
+# 一、设计模式
 
-Vue 的设计主要受到 `MVVM` 模型的启发，因此在官方文档中经常会使用 `vm` 这个变量名表示组件实例。
+Vue 的设计主要受到 MVVM（**M**odel-**V**iew-**V**iew**M**odel） 模型的启发，因此在官方文档中经常会使用 `vm` 这个变量名表示组件实例。
 
-MVVM和MVC设计模式极其相似，在MVC设计模式中：
+## 1. MVC
 
-- `M（Model，模型）`：用于 **封装** 与业务逻辑相关的 **数据以及对数据的处理方法**，“ Model ” 有对数据直接访问的权力，例如对数据库的访问，“Model” 不依赖 “View” 和 “Controller”，也就是说， “ Model ” 不关心它会被如何显示或是如何被操作。但是 “ Model ” 中数据的变化一般会通过一种刷新机制被公布。为了实现这种机制，那些用于监视此 “ Model ” 的 View 必须事先在此 “ Model ” 上注册，从而，View 可以了解在数据 “ Model ” 上发生的改变。（比如：[观察者模式](https://zh.wikipedia.org/wiki/观察者模式)）
+在MVC设计模式中：
 
-- `V（View，视图）`：负责 **数据展示**（理论上，这不是必需的）。在 View 中一般没有程序上的逻辑。为了实现 View 上的刷新功能，View 需要访问它监视的数据模型（Model），因此应该事先在被它监视的数据那里注册。
+- `M（Model，模型）`：模型代表应用程序的数据和业务逻辑。它负责处理数据的获取、存储、处理和验证等操作。模型通常包含数据结构、方法和与数据相关的逻辑。模型并不关心如何展示数据，它独立于用户界面。
 
-- `C（Controller，控制器）`：负责 **转发请求，对请求进行处理**。作为 “Model” 和 “View”交互的桥梁，它处理事件并作出响应，“事件”包括用户的行为和数据 Model 上的改变。
+- `V（View，视图）`：视图负责将数据显示给用户。它是用户界面的可视部分，通常是通过模板、页面或UI控件来展示数据。视图从模型中获取数据，并根据需要将其呈现给用户。视图不应包含业务逻辑，只关注如何显示数据。
 
-简单理解就是，当数据发生变化，发送通知给控制器刷新视图，同理控制器监听用户操作，当需要修改数据时控制器会通知数据模型刷新数据，这里可以看出，视图和模型不直接交互，而是通过控制器实现对接的，而MVVM和MVC类似。
+- `C（Controller，控制器）`：控制器充当模型和视图之间的协调者。它接收用户的输入并相应地更新模型和视图。控制器负责处理用户的操作，解析输入并决定采取什么行动。它可以更新模型的状态，执行业务逻辑，并将更新后的数据传递给视图进行更新。
 
-MVVM（ **Model-View-ViewModel** ） 为一种设计模式。
+MVC 的目标是实现模块化、可维护和可测试的应用程序。通过将应用程序的不同职责分离开来，MVC 提供了更好的代码组织和可重用性。它也使得应用程序的不同部分能够独立地进行开发和修改，而不会相互干扰。
+
+需要注意的是，虽然 MVC 设计模式在传统的 Web 开发中很常见，但在前端开发中，通常使用更轻量级的架构模式，如 MVVM（Model-View-ViewModel）或是更加组件化的方式，如在 Vue.js 中使用的组合式 API。这些模式根据具体框架和需求的不同，对 MVC 进行了一些调整和改进。
+
+## 2. MVVM
+
+那什么是MVVM呢？
+
+MVVM是一种用于构建用户界面的软件设计模式，它在传统的 MVC（Model-View-Controller）模式的基础上进行了改进，更加适用于现代的前端开发。
 
 ![](IMGS/mvvm.png)
 
-其中：
+MVVM 将应用程序分为三个核心组件：
 
-- `Model` 表示数据模型；
+1. 模型（Model）：模型代表应用程序的数据和业务逻辑。它负责处理数据的获取、存储、处理和验证等操作。模型不关心用户界面，是独立于视图和视图模型的。
+2. 视图（View）：视图是用户界面的可视部分，负责将数据呈现给用户。它通常是由 HTML、CSS 和 UI 组件构成的，用于展示数据和响应用户的交互操作。视图不包含业务逻辑，只关注数据的展示。
+3. 视图模型（ViewModel）：视图模型是模型和视图之间的连接层，负责将模型的数据适配和转换为视图可以使用的形式。它提供了视图所需的数据和操作，同时监听和响应视图的变化。视图模型与特定的视图紧密关联，为视图提供数据绑定、命令绑定、事件处理等功能。
 
-- `View` 表示视图；
+MVVM 的关键特性是 **数据绑定** 和命令绑定。数据绑定允许视图和视图模型之间的数据自动同步，当模型数据发生变化时，视图会自动更新；而当用户在视图上进行操作时，视图模型可以处理并响应相应的事件。
 
-- `ViewModel` 负责监听Model中的数据改变并且控制视图的更新，处理用户交互操作，类似于MVC设计模式中的控制器，其本质为一个Vue的实例。
+通过 MVVM，开发者可以更好地分离关注点，实现视图和业务逻辑的解耦。视图模型作为中间层，使得开发者可以专注于业务逻辑的实现，而视图负责展示和用户交互。这样的分离提高了代码的可维护性和可测试性，同时也支持更好的团队协作。
 
-> 提示：**Model** 和 **View** 并无直接关联，而是通过 **ViewModel** 来进行联系的，**Model** 和 **ViewModel** 之间有着双向数据绑定的联系。因此当 **Model** 中的数据改变时会触发 **View** 层的刷新，**View** 中由于用户交互操作而改变的数据也会在 **Model** 中同步。
-
-这种模式实现了 **Model** 和 **View** 的数据自动同步，因此开发者只需要专注对数据的维护操作即可，而不需要自己操作 **DOM**。
-
-# 二、Vue 响应式
+# 二、响应式
 
 在 vue 中，可以通过双花括号来将数据绑定在视图上，比如：
 
@@ -72,78 +78,94 @@ const increment = () => {
 
 ## 1. 响应式基础API
 
-### 1.1. `ref()`
+### 1.1. `reactive()`
 
-接受一个内部值并返回一个响应式且可变的 `ref` 对象，该对象只有一个 `value` 属性指向该内部值。
+我们可以使用 [`reactive()`](https://cn.vuejs.org/api/reactivity-core.html#reactive) 函数创建一个响应式对象或数组，响应式对象其实是 [JavaScript Proxy](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy)，其行为表现与一般对象相似。不同之处在于 Vue 能够跟踪对响应式对象属性的访问与更改操作。
+
+```vue
+<script setup lang="ts">
+// -- imports
+import { reactive } from 'vue';
+
+// -- Define State Props
+interface IState {
+  count: number;
+}
+// -- State
+const state = reactive<IState>({
+  count: 0,
+});
+
+// -- events
+const onIncrement = () => {
+  state.count++;
+};
+</script>
+
+<template>
+  <button @click="onIncrement">{{ state.count }}</button>
+</template>
+
+<style lang="less"></style>
+```
+
+[在演练场中尝试一下 >>](https://play.vuejs.org/#eNpNjkEKgzAURK8yZFNF0K5FS3uPbGyIEKo/If64Cbl7fxWky2HePCarVwjtnqzq1bCZ6AJjs5zCQ5Nbg4+MjGgnw263KJijX3ET/qZJk/G0Cc8TW4wXVmUYn4h73FHqHzcnksYTHJloV0tc1ciacG7bA28aTUXT0J035IAEtmtYBJEEDO/ELJanWZz5jFpdOq0OAMj5X4kiQtl151CYobuMqnwBBoFaVA==)
+
+**`reactive()`** 的局限性：
+
+1. 仅对对象类型有效，而对 `string`、`number` 和 `boolean` 这样的 [原始类型](https://developer.mozilla.org/zh-CN/docs/Glossary/Primitive) 无效。
+2. 解构响应式对象成员时，结构出来的成员将失去响应式连接。
+
+### 1.2. `ref()`
+
+`reactive()` 的局限归根结底是因为 JavaScript 没有可以作用于所有值类型的 “引用” 机制。为此，Vue 提供了一个 [`ref()`](https://cn.vuejs.org/api/reactivity-core.html#ref) 方法来允许我们创建可以使用任何值类型的响应式 **ref**。
+
+`ref()` 将传入参数的值包装为一个带 `.value` 属性的 ref 对象
 
 接下来我们改造一下示例，将 `count` 值通过 `ref` 包裹：
 
 ```vue
 <script setup lang="ts">
+// -- imports
 import { ref } from 'vue';
-// -- 定义变量
-let count = ref(0);
+// -- refs
+let count = ref<number>(0);
 
-// -- 事件处理函数
-const increment = () => {
-  count.value++; // count.value = count.value + 1
+// -- events
+const onIncrement = () => {
+  count.value++;
 };
 </script>
 
 <template>
-  <!-- 绑定数据 -->
-  <div>count：{{ count }}</div>
-  <button type="button" @click="increment">increment</button>
+  <button type="button" @click="onIncrement">{{ count }}</button>
 </template>
 ```
 
 点击按钮，可以发现，`count` 值成功更新。
 
-> 提示：`ref` 一般用于原始数据类型，如 字符串、数值、布尔类型等。如果你要将一个对象加入响应式，建议使用 `reactive`。
+[在演练场中尝试一下](https://play.vuejs.org/#eNo9jUEKgzAQRa8yZKMiaNclSnuP2dgwQqiZhDhxE3L3Riwu//DmvazeIQxHIvVUejfRBoGdJIUZ2brgo0CGSCsUWKN30FS0QUY2nncB4xMLTCfRPrrzviY2Yj2DZRPJEUvbQUaGix2OZUvU98gFWY9XsbbqEHJhW4TqAtCfJFItL7NZ851Q3TpUc87/cCl6vMD6pMfboMoPvd1Nzg==)
 
 `ref()` 也可以用于获取单个 DOM元素，如下：
 
 ```vue
 <script setup lang="ts">
+// -- imports
 import { onMounted, ref } from 'vue';
-const domRef = ref(null);
+
+// -- refs
+const dom = ref<HTMLDivElement>();
+// -- life circles
 onMounted(() => {
-  console.log(domRef.value); //  <div>Hello</div>
-})
-</script>
-
-<template>
-  <!-- ref -->
-  <div ref="domRef">Hello</div>
-</template>
-```
-
-### 1.2. `reactive()`
-
-返回对象的响应式副本。
-
-```vue
-<script setup lang="ts">
-import { reactive } from 'vue';
-// -- 定义变量
-let obj = reactive({
-  count: 0,
+ 
+  console.log(dom.value);  // <div>Hello, Vue.js!</div>
 });
-
-// -- 事件处理函数
-const increment = () => {
-  obj.count++;
-};
 </script>
 
 <template>
-  <!-- 绑定数据 -->
-  <div>obj.count：{{ obj.count }}</div>
-  <button type="button" @click="increment">increment</button>
+  <div ref="dom">Hello, Vue.js!</div>
 </template>
 ```
-
-> 提示：`reactive` 一般用于对象类型。
 
 ### 1.3. `toRefs()`
 
@@ -151,30 +173,36 @@ const increment = () => {
 
 ```vue
 <script setup lang="ts">
+// -- imports
 import { reactive, toRefs } from 'vue';
-    
-const state = reactive({
+
+// -- Define State Props
+interface IState {
+  name: string;
+  age: number;
+}
+// -- state
+const state = reactive<IState>({
   name: 'Li-HONGYAO',
   age: 18,
 });
-const stateAsRefs = toRefs(state);
 
 /**
-stateAsRefs 的类型:
-{
+stateAsRefs: {
   name: Ref<string>,
   age: Ref<number>
 }*/
-// ref 和原始 property 已经“链接”起来了
+const stateAsRefs = toRefs(state);
+
+// ref 和原始 property 已经连接起来了
 state.age++;
 console.log(stateAsRefs.age.value); // 19
 
 stateAsRefs.age.value++;
 console.log(state.age); // 20
-
 </script>
 
-
+<template></template>
 ```
 
 小妙招：在一个页面中，通常会有多个状态（`state`），比如用户信息、登录状态等等，你可能会定义多个 `ref` 或者 `reactive` 变量来保存这些信息，在 vue2.x，属性一般统一定义在 `data` 选项中集中管理，如果你也想将一个页面的状态统一定义在一个 `state` 变量中，可以这么做：
@@ -183,7 +211,7 @@ console.log(state.age); // 20
 const state = reactive({
   loginStatus: 0,
   user: {
-    name: 'Li-HONGYAO',
+    name: '张三',
     job: '前端工程师',
     address: '成都市高新区',
   },
@@ -209,280 +237,39 @@ const { loginStatus, user } = toRefs(state);
 
 ## 2. 响应式原理
 
-### 2.1. 定义
+### @2.x
 
-**响应式**：组件 data 的数据一旦变化，立刻触发视图的更新。它是实现数据驱动视图的第一步。
+Vue2 的响应式实现原理主要是通过 **数据劫持** 和 **观察者模式** 来实现的。
 
-### 2.2. 监听data变化的核心API
+首先，当创建 Vue 实例时，Vue 会遍历 data 对象的所有属性，使用 Object.defineProperty 方法将这些属性转换为 getter 和 setter。这样一来，当访问或修改这些属性时，Vue 就能够捕捉到这些操作。
 
-Vue 实现响应式的一个核心 API 是 `Object.defineProperty`。该方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性，并返回此对象。
+在 getter 中，Vue 会将当前的 Watcher 对象添加到依赖列表中，建立起属性和 Watcher 之间的关系。这样，当属性被访问时，Watcher 对象就能够收集到这个依赖。
 
-基本用法：
+而在 setter 中，当属性被修改时，Vue 会触发依赖列表中所有 Watcher 对象的更新方法，从而实现视图的自动更新。
 
-```javascript
-const data = {};
-const name = 'Li-HONGYAO';
-Object.defineProperty(data, 'name', {
-  get: function () {
-    console.log('__get__');
-    return name;
-  },
-  set: function (newVal) {
-    console.log('__set__');
-    console.log(newVal);
-  },
-});
+Watcher 对象是 Vue 中的观察者，它负责收集依赖和触发更新。每个响应式数据属性都有一个对应的 Watcher 对象，用于存储与该属性相关的依赖。当数据发生变化时，Watcher 对象会被通知，并执行相应的更新操作。
 
-console.log(data.name);
-data.name = '李鴻耀同學';
-```
+通过数据劫持和观察者模式的结合，Vue2 实现了响应式的数据绑定，使得当数据发生变化时，相关的视图会自动更新，提供了更好的开发体验和更高的可维护
 
-利用 `Object.defineProperty` 重写 `get` 和 `set`，将对象属性的赋值和获取变成函数，我们可以实现一个简单的双向绑定。
+### @3.x
 
-### 2.3. 如何监听 data 变化
-
-共定义了三个函数：
-
-- `updateView`：模拟 Vue 更新视图的入口函数。
-- `defineReactive`：对数据进行监听的具体实现。
-- `observer`：调用该函数后，可对目标对象进行监听，将目标对象变成响应式的。
-
-执行逻辑为：  
-
-定义一个对象 `data` → 调用 `observer(data)` 将对象变成响应式的 → 修改对象内的属性 → 更新视图
-
-```javascript
-// -- 触发更新视图
-function updateView() {
-  console.log('视图更新');
-}
-
-// -- 重新定义属性，监听起来
-function defineReactive(target, key, value) {
-  // 核心API
-  Object.defineProperty(target, key, {
-    get() {
-      return value;
-    },
-    set(newValue) {
-      if (newValue !== value) {
-        // 设置新值（注意：value 一直在闭包中，此处设置完之后，再 get 时也是会获取最新的值）
-        value = newValue;
-        // 触发更新视图
-        updateView();
-      }
-    },
-  });
-}
-
-// -- 监听对象属性
-function observer(target) {
-  if (typeof target !== 'object' || target === null) {
-    // 监听的不是对象或数组时，直接返回
-    return target;
-  }
-  // 重新定义各个属性（for in 也可以遍历数组）
-  for (let key in target) {
-    defineReactive(target, key, target[key]);
-  }
-}
-```
-
-测试一下，会打印出两个 “视图更新” 字符串！
-
-```javascript
-// -- 准备数据
-const data = {
-  name: 'Li-HONGYAO',
-  address: '成都市武侯区',
-};
-
-// -- 监听数据
-observer(data);
-
-// -- 修改数据
-data.name = '李鴻耀同學';
-data.address = '成都市高新区';
-```
-
-### 2.4. 如何深度监听 data 变化？
-
-对于有嵌套属性的数据，例如：
-
-```javascript
-const data = {
-  name: 'Li-HONGYAO',
-  address: '成都市武侯区',
-  info: {
-    age: 28,
-  },
-};
-```
-
-要想监听到 `info.age` 的变化，则需要深度监听，修改 `defineReactive` 方法即可：
-
-- 在刚进入 `defineReactive` 函数的时候，先调用 `observer` 对传进来的值进行判断，由于 `info` 是个对象，所以会对 `info` 遍历后再执行 `defineReactive`；而其它基本类型的值在 `observer` 中被直接返回。
-- 在设置新值时也要对新值进行深度监听，原因是新值也可能是个对象，需要监听到它里面的属性。
-
-```javascript
-function defineReactive(target, key, value) {
-  // 深度监听
-  observer(value);
-
-  // 核心API
-  Object.defineProperty(target, key, {
-    get() {
-      return value;
-    },
-    set(newValue) {
-      if (newValue !== value) {
-        // 深度监听
-        observer(newValue);
-        // 设置新值（注意：value 一直在闭包中，此处设置完之后，再 get 时也是会获取最新的值）
-        value = newValue;
-        // 触发更新视图
-        updateView();
-      }
-    },
-  });
-}
-```
-
-### 2.5. `Object.defineProperty()` 缺点
+ `Object.defineProperty()` 缺点
 
 - 深度监听时，需要 **递归** 到底，一次性计算量大；
 - 无法监听新增属性/删除属性（所以开发中需要使用 `Vue.set` 和 `Vue.delete` 这两个 API 来增删 data 的属性）；
 - 无法原生监听数组，需要特殊处理；
 
-### 2.6. 如何监听数组变化
+Vue 3.x 中的响应式原理使用了 Proxy 对象和依赖跟踪机制。
 
-[由于性能原因 >>](https://segmentfault.com/a/1190000015783546)，Vue 不是通过 `Object.defineProperty` 来监听数组的。
+Vue 3.x 的响应式原理可以概括为以下几个步骤：
 
-对于数组，是通过重写数组方法来实现，共修改了两处：
+1. 在组件初始化阶段，Vue 3.x 使用 `reactive` 函数将组件的数据对象转换为响应式对象。`reactive` 函数使用了 JavaScript 的 Proxy 对象来代理目标对象，并在访问和修改属性时拦截对应的操作。
+2. 当组件渲染时，访问响应式对象的属性会触发 Proxy 的 `get` 拦截器。在 `get` 拦截器中，Vue 3.x 会收集当前组件正在访问的响应式属性，并建立与该属性的依赖关系。
+3. 当组件重新渲染时，访问的响应式属性发生变化，Proxy 的 `get` 拦截器会被触发，Vue 3.x 会根据之前建立的依赖关系重新执行组件的渲染逻辑。
+4. 在组件渲染过程中，如果发生属性的修改操作，Proxy 的 `set` 拦截器会被触发。在 `set` 拦截器中，Vue 3.x 会通知相关的依赖项进行更新，以及触发组件的重新渲染。
+5. Vue 3.x 通过跟踪依赖项的方式，实现了更精确的依赖追踪和更新控制。这意味着在组件渲染时，只会重新执行与实际使用的响应式属性相关的逻辑，提高了性能和效率。
 
-- 对原生数组原型做一个备份（防止后续的操作污染原生数组原型），基于这个备份创建一个新的数组，并扩展（在执行原方法前触发一次视图更新）它的方法。
-- `observer` 方法中，增加对数组的处理。
-
-执行逻辑为：  
-
-定义一个对象 `data` → 调用 `observer(data)` ，在内部判断 `data` 是对象，则遍历该对象的每个属性并依次执行 `defineReactive`→ `defineReactive` 内部的 `observer(value)` 碰到数组 `nums`，则将该数组的隐式原型赋值成我们重写之后的原型；除 `nums` 外的其它类型属性，走之前的逻辑 → 更新视图
-
-```javascript
-// -- 触发更新视图
-function updateView() {
-  console.log('视图更新');
-}
-
-// ++++++++++++++++++++++
-// -- 重新定义数组原型
-var __proto__;
-(function () {
-  const oldArrayProperty = Array.prototype;
-  // 创建新对象，原型指向 oldArrayProperty ，再扩展新的方法不会影响原型
-  __proto__ = Object.create(oldArrayProperty);
-  ['push', 'pop', 'shift', 'unshift', 'splice'].forEach((methodName) => {
-    __proto__[methodName] = function () {
-      updateView(); // 触发视图更新
-      oldArrayProperty[methodName].call(this, ...arguments);
-    };
-  });
-})();
-// ++++++++++++++++++++++
-
-// -- 重新定义属性，监听起来
-function defineReactive(target, key, value) {
-  // 深度监听
-  observer(value);
-
-  // 核心API
-  Object.defineProperty(target, key, {
-    get() {
-      return value;
-    },
-    set(newValue) {
-      if (newValue !== value) {
-        // 深度监听
-        observer(newValue);
-        // 设置新值（注意：value 一直在闭包中，此处设置完之后，再 get 时也是会获取最新的值）
-        value = newValue;
-        // 触发更新视图
-        updateView();
-      }
-    },
-  });
-}
-
-// -- 监听对象属性
-function observer(target) {
-  if (typeof target !== 'object' || target === null) {
-    // 监听的不是对象或数组时，直接返回
-    return target;
-  }
-  // ++++++++++++++++++++++
-  if (Array.isArray(target)) {
-    target.__proto__ = __proto__;
-  }
-  // ++++++++++++++++++++++
-
-  // 重新定义各个属性（for in 也可以遍历数组）
-  for (let key in target) {
-    defineReactive(target, key, target[key]);
-  }
-}
-```
-
-测试一下，执行 `data.nums.push(4)` 时会打印出 `"视图更新"` 字符串并在数组末尾添加进元素。
-
-```javascript
-// -- 准备数据
-const data = {
-  name: 'Li-HONGYAO',
-  address: '成都市武侯区',
-  info: {
-    age: 28,
-  },
-  nums: [1, 2, 3],
-};
-
-// -- 监听数据
-observer(data);
-
-// -- 修改数据
-data.nums.push(4);
-```
-
-### 2.7. 原理概述
-
-> **@2.x**
-
-整体思路是：**数据劫持** + **观察者模式**
-
-对象内部通过 `defineReactive` 方法，使用 `Object.defineProperty` 将属性进行劫持（只会劫持已存在的属性），数组则是通过重写数组来实现。当页面使用对应属性时，每个属性都拥有自己的 `dep` 属性，存在它所依赖的 `watcher` （依赖收集）`get`，当属性变化后会通知自己对应的 `watcher` 去更新（派发更新）`set`。
-
-1）`Object.defineProperty` 数据劫持
-2）使用 `getter` 收集依赖 ，`setter` 通知 `watcher` 派发更新。
-3）`watcher` 发布订阅模式
-
-![](./IMGS/response-yuanli.jpg)
-
-深入理解：
-
-- **监听器 Observer**：对数据对象进行遍历，包括子属性对象的属性，利用 `Object.defineProperty()` 对属性都加上 setter 和 getter。这样的话，给这个对象的某个值赋值，就会触发 setter，那么就能监听到了数据变化。
-- **解析器 Compile**：解析 Vue 模板指令，将模板中的变量都替换成数据，然后初始化渲染页面视图，并将每个指令对应的节点绑定更新函数，添加监听数据的订阅者，一旦数据有变动，收到通知，调用更新函数进行数据更新。
-- **订阅者 Watcher**：Watcher 订阅者是 Observer 和 Compile 之间通信的桥梁 ，主要的任务是订阅 Observer 中的属性值变化的消息，当收到属性值变化的消息时，触发解析器 Compile 中对应的更新函数。每个组件实例都有相应的 watcher 实例对象，它会在组件渲染的过程中把属性记录为依赖，之后当依赖项的 setter 被调用时，会通知 watcher 重新计算，从而致使它关联的组件得以更新——这是一个典型的观察者模式
-- **订阅器 Dep**：订阅器采用 发布-订阅 设计模式，用来收集订阅者 Watcher，对监听器 Observer 和 订阅者 Watcher 进行统一管理。
-
-> **@3.x**
-
-Vue3.x 改用 `Proxy` 替代`Object.defineProperty`，因为Proxy可以直接监听对象和数组的变化，并且有多达13种拦截方法。
-
-**Proxy 只会代理对象的第一层，Vue3 是怎样处理这个问题的呢?**
-
-判断当前 `Reflect.ge`t 的返回值是否为Object，如果是则再通过 `reactive` 方法做代理， 这样就实现了深度观测。
-
-**监测数组的时候可能触发多次get/set，那么如何防止触发多次呢？**
-
-我们可以判断 `key` 是否为当前被代理对象 `target` 自身属性，也可以判断旧值与新值是否相等，只有满足以上两个条件之一时，才有可能执行 `trigger`。
+总结来说，Vue 3.x 的响应式原理使用了 Proxy 对象来拦截对响应式对象的访问和修改，实现了更高效和精确的依赖追踪和更新控制。这为开发者提供了更好的性能和开发体验。
 
 ## 3. 数据双向绑定
 
@@ -664,40 +451,35 @@ obj.foo = 'name'; // 当前值为 name
 
 ## @概述
 
-每个 Vue 实例在被创建之前都要经过一系列的初始化过程，在这个过程中也会运行一些叫做 **生命周期钩子** 的函数，给予用户机会在一些特定的场景下添加他们自己的代码。
+每个 Vue 实例在被创建之前都要经过一系列的初始化过程，在这个过程中也会运行一些叫做 [**生命周期钩子**](https://cn.vuejs.org/api/composition-api-lifecycle.html) 的函数，给予用户机会在一些特定的场景下添加他们自己的代码。
 
-下面是实例生命周期的图表。你不需要完全理解当前正在进行的所有事情，但随着你学习和构建更多内容，它将是一个有用的参考。
+下面是实例生命周期的图表。你现在并不需要完全理解图中的所有内容，但以后它将是一个有用的参考
 
 <img src="./IMGS/lifecycle.png" style="zoom:50%;" />
 
-- `beforeCreate`：在实例初始化完成、props 解析之后、`data()` 和 `computed` 等选项处理之前立即调用。
-- `creared`：在组件实例处理完所有与状态相关的选项后调用。在这一步，实例已经完成以下的配置：响应式数据、计算属性、方法和侦听器。然而，此时挂载阶段还未开始，因此 `$el` 属性仍不可用。如果要想与 DOM 进行交互，可以通过 `vm.$nextTick` 来访问 DOM。
-- `beforeMount`：当这个钩子被调用时，组件已经完成了其响应式状态的设置，但还没有创建 DOM 节点。它即将首次执行 DOM 渲染过程。
-- `mounted`：在组件被挂载之后调用。
-- `beforeUpdate`：数据更新时调用，发生在虚拟 DOM 重新渲染之前。可以在这个钩子中进一步地更改状态，这不会触发附加的重渲染过程。
-- `updated`：发生在更新完成之后，当前阶段组件 DOM 已经完成更新。要注意的是避免在此期间更新数据，因为这个可能导致无限循环的更新，该钩子在服务器渲染期间不被调用。
-- `activated`：被 `keep-alive` 缓存的组件激活时调用。
-- `deactivated`：被 `keep-alive` 缓存的组件失活时调用。
-- `beforeUnmount`：实例销毁之前调用。在这一步，实力仍然完全可用。我们可以在这时进行 善后收尾工作，比如清除定时器（3.x之前為：`beforeDestroy`）。
-- `unmounted`： Vue实例销毁后调用，调用此钩子时，组件实例的所有指令都被解除绑定，所有事件侦听器都被移除，所有子组件实例被卸载（3.x之前為：`destroyed`）
-
-## @`<script setup>`
-
-1. `beforeCreate` -> setup()
-2. `created` -> `setup()`
-
-生命周期函数调用：`on + 生命周期钩子函数名`，如 `mounted` 在 `setup` 中调用为：`onMounted`
+1. 组合式API：生命周期钩子，参考 [这里 >>](https://cn.vuejs.org/api/composition-api-lifecycle.html)
+2. 选项式API：生命周期钩子，参考 [这里 >>](https://cn.vuejs.org/api/options-lifecycle.html)
 
 ## @代码示例
 
 > `app.vue`
 
 ```vue
-<!-- 脚本 -->
 <script setup lang="ts">
+import {
+  onBeforeMount,
+  onBeforeUnmount,
+  onBeforeUpdate,
+  onMounted,
+  onUnmounted,
+  onUpdated,
+  ref,
+} from 'vue';
 
-import { onBeforeMount, onBeforeUnmount, onBeforeUpdate, onMounted, onUnmounted, onUpdated } from 'vue';
+// -- refs
+const count = ref(0);
 
+// -- life circles
 console.log('__setup__');
 
 onBeforeMount(() => {
@@ -718,15 +500,9 @@ onBeforeUnmount(() => {
 onUnmounted(() => {
   console.log('__onUnmounted__');
 });
-
-
 </script>
 
-<!-- 模板 -->
 <template>
-  <div class="app">Hello, Vue3.x!</div>
+  <button @click="++count">{{ count }}</button>
 </template>
-
-<!-- 样式 -->
-<style scoped></style>
 ```

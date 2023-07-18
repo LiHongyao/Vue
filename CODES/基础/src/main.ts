@@ -1,35 +1,31 @@
 /*
  * @Author: Lee
- * @Date: 2021-12-31 14:14:04
+ * @Date: 2023-06-06 14:54:43
  * @LastEditors: Lee
- * @LastEditTime: 2022-01-05 18:18:01
+ * @LastEditTime: 2023-06-13 18:05:17
+ * @Description:
  */
+
+// -- main.js
 // -- 导入创建实例方法
 import { createApp } from 'vue';
 // -- 导入根组件
 import App from './App.vue';
-import 'animate.css';
+import directives from './directives';
+import i18nPlugin from './plugins/i18n';
+
 // -- 创建应用程序实例
 const app = createApp(App);
+
+// -- 插件
+app.use(i18nPlugin, {
+  greetings: {
+    hello: 'Bonjour!',
+  },
+});
+
 // -- 自定义指令
-app.directive('highlight', {
-  mounted(el, binding, vnode) {
-    console.log(el, binding, vnode);
-    el.style.color = binding.value || 'orange';
-  },
+directives(app).then(() => {
+  // -- 挂载
+  app.mount('#app');
 });
-
-app.component('button-counter', {
-  data() {
-    return {
-      count: 0,
-    };
-  },
-  template: `
-    <button @click="count++">
-      You clicked me {{ count }} times.
-    </button>`,
-});
-
-// -- 挂载
-const vm = app.mount('#app');
